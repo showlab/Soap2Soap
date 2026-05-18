@@ -1,0 +1,46 @@
+{
+  "main_characters": {
+    "@character_01": {
+      "collage_file": "main_characters_1.png",
+      "position": 0,
+      "grid_position": [
+        0,
+        0
+      ]
+    },
+    "@character_02": {
+      "collage_file": "main_characters_1.png",
+      "position": 1,
+      "grid_position": [
+        1,
+        0
+      ]
+    }
+  },
+  "supporting_characters": {
+    "@character_03": {
+      "collage_file": "supporting_characters_1.png",
+      "position": 0,
+      "grid_position": [
+        0,
+        0
+      ]
+    },
+    "@character_04": {
+      "collage_file": "supporting_characters_1.png",
+      "position": 1,
+      "grid_position": [
+        1,
+        0
+      ]
+    },
+    "@character_05": {
+      "collage_file": "supporting_characters_1.png",
+      "position": 2,
+      "grid_position": [
+        2,
+        0
+      ]
+    }
+  }
+}

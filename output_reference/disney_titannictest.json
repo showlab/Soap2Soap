@@ -1,0 +1,1261 @@
+{
+  "video_file": "disney_titannictest.mp4",
+  "video_metadata": {
+    "aspect_ratio": {
+      "width": 1920,
+      "height": 1080,
+      "aspect_ratio": "16:9",
+      "ratio_decimal": 1.777778
+    }
+  },
+  "total_scenes": 20,
+  "character_roster": {
+    "characters": [
+      {
+        "character_id": "@character_01",
+        "names": {
+          "primary_name": "",
+          "primary_source": "id_fallback",
+          "aliases": [],
+          "aliases_sources": {},
+          "titles": [],
+          "titles_sources": {},
+          "roles": [],
+          "roles_sources": {},
+          "familial": [],
+          "familial_sources": {}
+        },
+        "physical_attributes": "Female, young adult (approx 20s), slim build, fair skin",
+        "hair": "Red, curly, long but styled in an updo",
+        "face": "Fair complexion, red lips, beauty mark above lip",
+        "clothing_variations": [
+          {
+            "scene": "Steerage Common Room",
+            "description": "White lace tea-length dress with a yellow sash/waistband and yellow skirt bottom, white gloves"
+          },
+          {
+            "scene": "Ship Deck (Night)",
+            "description": "Black beaded evening coat with red embroidery/lining over a dark red evening dress"
+          }
+        ],
+        "accessories": "Drop earrings, small purse (day scene), necklace (night scene)",
+        "distinctive_features": "Distinctive vibrant red curly hair, upper class demeanor in steerage setting",
+        "first_appearance": "00:00",
+        "scenes": [
+          "Steerage Common Room",
+          "Ship Deck (Night)"
+        ],
+        "name_evidence": "No names, titles, or forms of address are spoken for this character in the dialogue.",
+        "role_classification": "main"
+      },
+      {
+        "character_id": "@character_02",
+        "names": {
+          "primary_name": "Jack",
+          "primary_source": "dialogue",
+          "aliases": [
+            "Jack"
+          ],
+          "aliases_sources": {
+            "Jack": "dialogue"
+          },
+          "titles": [
+            "Mr. Dawson"
+          ],
+          "titles_sources": {
+            "Mr. Dawson": "dialogue"
+          },
+          "roles": [],
+          "roles_sources": {},
+          "familial": [],
+          "familial_sources": {}
+        },
+        "physical_attributes": "Male, young adult (approx 20s), slim/athletic build, fair skin",
+        "hair": "Light brown/dark blonde, straight, curtain bangs style (shorter in back)",
+        "face": "Clean-shaven, blue eyes, youthful",
+        "clothing_variations": [
+          {
+            "scene": "Steerage Common Room",
+            "description": "Brown corduroy-style shirt, beige suspenders with stripes, white undershirt, dark trousers"
+          },
+          {
+            "scene": "Ship Deck (Night)",
+            "description": "White button-up shirt, dark suspenders, dark trousers"
+          }
+        ],
+        "accessories": "None",
+        "distinctive_features": "Boyish good looks, center-parted hair",
+        "first_appearance": "00:11",
+        "scenes": [
+          "Steerage Common Room",
+          "Ship Deck (Night)"
+        ],
+        "name_evidence": "Addressed as 'Jack' by @character_03 at [24.9s] and as 'Mr. Dawson' by @character_01 at [30.0s]. Both names already exist in the character roster.",
+        "role_classification": "main"
+      },
+      {
+        "character_id": "@character_03",
+        "names": {
+          "primary_name": "@character_03",
+          "primary_source": "id_fallback",
+          "aliases": [],
+          "aliases_sources": {},
+          "titles": [],
+          "titles_sources": {},
+          "roles": [],
+          "roles_sources": {},
+          "familial": [],
+          "familial_sources": {}
+        },
+        "physical_attributes": "Male, young adult (20s), medium build, olive skin",
+        "hair": "Dark brown/black, short, partially covered by hat",
+        "face": "Clean-shaven, prominent eyebrows",
+        "clothing_variations": [
+          {
+            "scene": "Steerage Common Room",
+            "description": "Beige/tan vest over a white collarless shirt, dark pants"
+          }
+        ],
+        "accessories": "Dark newsboy/flat cap",
+        "distinctive_features": "Italian accent inferred from mannerisms (pointing excitedly)",
+        "first_appearance": "00:25",
+        "scenes": [
+          "Steerage Common Room"
+        ],
+        "role_classification": "supporting"
+      },
+      {
+        "character_id": "@character_04",
+        "names": {
+          "primary_name": "@character_04",
+          "primary_source": "id_fallback",
+          "aliases": [],
+          "aliases_sources": {},
+          "titles": [],
+          "titles_sources": {},
+          "roles": [],
+          "roles_sources": {},
+          "familial": [],
+          "familial_sources": {}
+        },
+        "physical_attributes": "Female, young adult, fair skin",
+        "hair": "Blonde, styled in braids wrapped around head",
+        "face": "Round face, rosy cheeks",
+        "clothing_variations": [
+          {
+            "scene": "Steerage Common Room",
+            "description": "White shawl with red patterned embroidery over a dark dress"
+          }
+        ],
+        "accessories": "None visible",
+        "distinctive_features": "Braided blonde hair halo",
+        "first_appearance": "00:25",
+        "scenes": [
+          "Steerage Common Room"
+        ],
+        "role_classification": "supporting"
+      },
+      {
+        "character_id": "@character_05",
+        "names": {
+          "primary_name": "@character_05",
+          "primary_source": "id_fallback",
+          "aliases": [],
+          "aliases_sources": {},
+          "titles": [],
+          "titles_sources": {},
+          "roles": [],
+          "roles_sources": {},
+          "familial": [],
+          "familial_sources": {}
+        },
+        "physical_attributes": "Male, young adult, stocky build, fair skin",
+        "hair": "Reddish-brown/strawberry blonde, curly/wavy, short",
+        "face": "Clean-shaven, rounder face",
+        "clothing_variations": [
+          {
+            "scene": "Steerage Common Room",
+            "description": "Dark jacket/coat over a lighter shirt"
+          }
+        ],
+        "accessories": "None",
+        "distinctive_features": "Curly reddish hair, sitting next to Jack",
+        "first_appearance": "00:35",
+        "scenes": [
+          "Steerage Common Room"
+        ],
+        "role_classification": "supporting"
+      }
+    ]
+  },
+  "major_scenes": {
+    "major_scenes": [
+      {
+        "scene_id": "major_scene_01",
+        "start_time": 0.0,
+        "end_time": 102.0,
+        "duration": 102.0,
+        "location_type": "Ship Steerage General Room",
+        "setting_description": "Crowded below-deck common area with white pillars and portholes",
+        "lighting_style": "Bright diffused daylight mixed with interior ambient light",
+        "color_palette": "White, warm wood tones, grey",
+        "environment_description": "A spacious, utilitarian ship interior located below deck. The room is characterized by rows of white-painted steel structural columns with visible rivets running from floor to ceiling. A wide staircase with white metal sides and a polished wooden handrail descends into the main area. The walls are painted white and feature a series of circular porthole windows that allow bright, cool daylight to flood the space. The flooring is a smooth, light-colored surface. The area is furnished with rows of simple, sturdy wooden benches with vertical slat backs and plain wooden tables. The ceiling is low with exposed beams, reinforcing the industrial maritime architecture. The lighting is bright and even, combining natural light from the portholes with ambient interior illumination."
+      },
+      {
+        "scene_id": "major_scene_02",
+        "start_time": 102.0,
+        "end_time": 121.0,
+        "duration": 19.0,
+        "location_type": "Ship Promenade Deck",
+        "setting_description": "Open air boat deck at night with stars",
+        "lighting_style": "Night time atmosphere with artificial warm deck lights",
+        "color_palette": "Midnight blue, white, dark wood brown",
+        "environment_description": "An exterior promenade deck of a large ocean liner at night. The flooring consists of dark, varnished wooden planks laid lengthwise, reflecting the ambient light. On the left side, the ship's white superstructure rises, featuring large cylindrical ventilators, steel walls with rivet details, and cabin windows. Rows of wooden deck chairs with slat construction are folded and stacked or lined up against the wall. On the right, a white metal railing guards the edge of the ship against the open sea. Overhead, a deep blue night sky is visible, scattered with bright stars. Warm, yellow artificial light emanates from fixtures on the ship's walls, illuminating the white steel and casting soft shadows across the wooden deck."
+      }
+    ]
+  },
+  "scene_wardrobe": {
+    "scene_wardrobes": {
+      "major_scene_01": {
+        "scene_id": "major_scene_01",
+        "character_wardrobe": {
+          "@character_01": {
+            "top": {
+              "item_name": "Edwardian Lace Tea Dress Bodice",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 11-0701 TCX",
+                  "hex": "#F0EAD6",
+                  "name": "Whisper White",
+                  "description": "Delicate semi-sheer lace overlay"
+                },
+                "secondary": {
+                  "pantone_tc": "Pantone 13-0932 TCX",
+                  "hex": "#EDD289",
+                  "name": "Cornsilk",
+                  "description": "Silk lining visible beneath lace"
+                }
+              },
+              "fabric": {
+                "material": "Lace over Silk",
+                "weave": "Intricate lace knit",
+                "weight": "Light (<150g)",
+                "opacity": "Semi-transparent overlay",
+                "finish": "Matte lace over slight sheen lining",
+                "stretch": "None",
+                "texture": "Delicate floral lace relief"
+              },
+              "cut": {
+                "fit": "Tailored/Fitted",
+                "length": "Waist (integrated)",
+                "shoulder": "Set-in",
+                "sleeve": "Long",
+                "collar": "High-neck collar",
+                "closure": "Buttons (front bodice)"
+              },
+              "details": {
+                "buttons": "Small fabric-covered buttons running down center front",
+                "stitching": "Tonal thread, fine construction",
+                "distinctive_features": "Lace overlay creates a textured, expensive look appropriate for first class"
+              },
+              "pattern": {
+                "type": "Floral",
+                "size": "Small",
+                "arrangement": "Dense",
+                "direction": "All-over",
+                "density": "Dense",
+                "colors": [
+                  "Pantone 11-0701 TCX (#F0EAD6)"
+                ]
+              }
+            },
+            "bottom": {
+              "item_name": "Lace Overlay Skirt with Sash",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 13-0932 TCX",
+                  "hex": "#EDD289",
+                  "name": "Cornsilk"
+                },
+                "secondary": {
+                  "pantone_tc": "Pantone 14-0955 TCX",
+                  "hex": "#DFB943",
+                  "name": "Citrus",
+                  "description": "Vibrant yellow sash"
+                }
+              },
+              "fabric": {
+                "material": "Silk lining with Lace overlay",
+                "weight": "Medium (150-250g)",
+                "drape": "Flowing but structured"
+              },
+              "cut": {
+                "fit": "A-line",
+                "length": "Ankle/Tea-length",
+                "waist": "High-rise",
+                "hem": "Straight with lace edge"
+              },
+              "details": {
+                "buttons": "None",
+                "pockets": "None visible",
+                "distinctive_features": "Wide satin sash belt with large oval buckle"
+              }
+            },
+            "shoes": {
+              "type": "Heeled Pumps",
+              "color": {
+                "pantone_tc": "Pantone 12-0704 TCX",
+                "hex": "#F3E0AC",
+                "name": "Vanilla"
+              },
+              "material": "Leather"
+            },
+            "accessories": {
+              "jewelry": "Gold drop earrings with pearl accents",
+              "bags": "Drawstring reticule purse, matching fabric, small",
+              "other": "White wrist-length gloves (Pantone 11-0601 TCX)"
+            },
+            "styling": {
+              "layering": "Single dress unit with accessories",
+              "overall": "Sophisticated Edwardian daywear, contrasting sharply with the steerage environment"
+            },
+            "full_description": "Rose is dressed in a refined Edwardian tea-length gown featuring a Whisper White lace overlay atop a Cornsilk yellow silk lining. The bodice is fitted with a high collar and long sleeves, fastened with delicate covered buttons down the front. A vibrant Citrus yellow satin sash cinches her high waist, secured by a prominent oval buckle. She accessorizes with pristine white gloves, pearl drop earrings, and carries a small matching drawstring reticule bag. Her shoes are pale Vanilla pumps."
+          },
+          "@character_02": {
+            "top": {
+              "item_name": "Corduroy Work Shirt",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 18-0617 TCX",
+                  "hex": "#776A5F",
+                  "name": "Kangaroo",
+                  "description": "Muted grey-brown earthy tone"
+                },
+                "secondary": {
+                  "pantone_tc": "Pantone 11-0601 TCX",
+                  "hex": "#F4F5F0",
+                  "name": "Bright White",
+                  "description": "Undershirt visible at collar"
+                }
+              },
+              "fabric": {
+                "material": "Cotton Corduroy",
+                "weave": "Corded/Twill",
+                "weight": "Medium (150-250g)",
+                "opacity": "Opaque",
+                "finish": "Matte/Velvety",
+                "stretch": "None",
+                "texture": "Ribbed vertical texture"
+              },
+              "cut": {
+                "fit": "Regular/Relaxed",
+                "length": "Hip (tucked)",
+                "shoulder": "Natural",
+                "sleeve": "Long",
+                "collar": "Point collar",
+                "closure": "Buttons"
+              },
+              "details": {
+                "buttons": "Standard 4-hole buttons, contrasting light color",
+                "pockets": "Two chest patch pockets with button flaps",
+                "stitching": "Matching thread"
+              },
+              "pattern": {
+                "type": "Solid",
+                "colors": []
+              }
+            },
+            "bottom": {
+              "item_name": "Work Trousers",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 19-0508 TCX",
+                  "hex": "#3B3A36",
+                  "name": "Peat",
+                  "description": "Dark charcoal brown"
+                }
+              },
+              "fabric": {
+                "material": "Wool Blend",
+                "weight": "Heavy (>250g)",
+                "drape": "Stiff/Structured"
+              },
+              "cut": {
+                "fit": "Straight/Relaxed",
+                "length": "Full",
+                "waist": "Mid-rise",
+                "hem": "Straight"
+              },
+              "details": {
+                "buttons": "Suspender buttons on waistband",
+                "pockets": "Slash side pockets"
+              }
+            },
+            "shoes": {
+              "type": "Work Boots (Inferred)",
+              "color": {
+                "pantone_tc": "Pantone 19-1116 TCX",
+                "hex": "#503E32",
+                "name": "Carob Brown"
+              },
+              "material": "Leather"
+            },
+            "accessories": {
+              "other": "Suspenders: Beige (Pantone 13-0905 TCX #DDD5C7) with thin dark stripes"
+            },
+            "styling": {
+              "layering": "Shirt over white henley undershirt, suspenders over shirt",
+              "tuck": "Shirt tucked into trousers",
+              "sleeve state": "Unrolled",
+              "overall": "Functional working-class attire, slightly disheveled but practical"
+            },
+            "full_description": "Jack wears a utilitarian outfit consisting of a Kangaroo grey-brown corduroy shirt with two chest pockets, worn over a white henley undershirt visible at the open neck. The shirt is tucked into heavy Peat dark charcoal trousers, held up by beige suspenders featuring thin vertical stripes. His look is casual and rugged."
+          },
+          "@character_03": {
+            "top": {
+              "item_name": "Wool Vest",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 16-1325 TCX",
+                  "hex": "#9B7B61",
+                  "name": "Copper Coin",
+                  "description": "Tan/Light brown wool"
+                },
+                "secondary": {
+                  "pantone_tc": "Pantone 11-0601 TCX",
+                  "hex": "#F4F5F0",
+                  "name": "Bright White",
+                  "description": "Shirt sleeves/collar"
+                }
+              },
+              "fabric": {
+                "material": "Wool",
+                "weave": "Felted",
+                "weight": "Medium",
+                "opacity": "Opaque",
+                "finish": "Matte",
+                "texture": "Fuzzy"
+              },
+              "cut": {
+                "fit": "Regular",
+                "length": "Waist",
+                "shoulder": "Sleeveless",
+                "closure": "Buttons"
+              },
+              "details": {
+                "buttons": "Dark contrasting buttons down front",
+                "pockets": "Welt pockets at waist"
+              },
+              "pattern": {
+                "type": "Solid",
+                "colors": []
+              }
+            },
+            "bottom": {
+              "item_name": "Trousers",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 19-4007 TCX",
+                  "hex": "#2F333E",
+                  "name": "Anthracite"
+                }
+              },
+              "fabric": {
+                "material": "Wool",
+                "weight": "Heavy"
+              },
+              "cut": {
+                "fit": "Straight",
+                "length": "Full"
+              }
+            },
+            "shoes": {
+              "type": "Boots",
+              "color": {
+                "pantone_tc": "Pantone 19-0000 TCX",
+                "hex": "#000000",
+                "name": "Raven"
+              },
+              "material": "Leather"
+            },
+            "accessories": {
+              "other": "Newsboy Cap: Navy/Black (Pantone 19-4024 TCX #343148), White Collarless Shirt"
+            },
+            "styling": {
+              "layering": "Vest over shirt",
+              "sleeve state": "Rolled to forearm",
+              "overall": "Immigrant working class"
+            },
+            "full_description": "Fabrizio sports a Copper Coin tan wool vest buttoned over a simple white collarless shirt with sleeves rolled up to the forearms. He wears dark Anthracite trousers and tops the look with a dark navy newsboy cap worn slightly back on his head."
+          },
+          "@character_04": {
+            "top": {
+              "item_name": "Embroidered Shawl",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 11-0601 TCX",
+                  "hex": "#F4F5F0",
+                  "name": "Bright White"
+                },
+                "pattern": {
+                  "pantone_tc": "Pantone 18-1662 TCX",
+                  "hex": "#CD212A",
+                  "name": "Flame Scarlet",
+                  "description": "Red floral embroidery"
+                }
+              },
+              "fabric": {
+                "material": "Cotton/Linen",
+                "weave": "Plain",
+                "weight": "Light",
+                "drape": "Flowing"
+              },
+              "cut": {
+                "fit": "Loose drape",
+                "length": "Shoulder wrap",
+                "closure": "None"
+              },
+              "details": {
+                "stitching": "Embroidery along edges"
+              },
+              "pattern": {
+                "type": "Floral",
+                "colors": [
+                  "Pantone 18-1662 TCX (#CD212A)"
+                ]
+              }
+            },
+            "bottom": {
+              "item_name": "Dress",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 19-4005 TCX",
+                  "hex": "#38383D",
+                  "name": "Stretch Limo"
+                }
+              },
+              "fabric": {
+                "material": "Wool/Cotton",
+                "weight": "Medium"
+              },
+              "cut": {
+                "fit": "Regular",
+                "length": "Full"
+              }
+            },
+            "shoes": {
+              "type": "Unknown",
+              "color": {
+                "pantone_tc": "Pantone 19-0000 TCX",
+                "hex": "#000000",
+                "name": "Raven"
+              },
+              "material": "Leather"
+            },
+            "accessories": {
+              "other": "Hair braided in crown/halo style"
+            },
+            "styling": {
+              "layering": "Shawl draped over dress",
+              "overall": "Traditional modest European style"
+            },
+            "full_description": "Helga wears a Bright White shawl featuring distinct Flame Scarlet red floral embroidery along the borders, draped over a modest dark dress. Her blonde hair is styled in a braided halo around her head."
+          },
+          "@character_05": {
+            "top": {
+              "item_name": "Suit Jacket",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 19-0608 TCX",
+                  "hex": "#433F39",
+                  "name": "Black Olive"
+                }
+              },
+              "fabric": {
+                "material": "Wool",
+                "weave": "Plain",
+                "weight": "Heavy",
+                "opacity": "Opaque",
+                "texture": "Rough"
+              },
+              "cut": {
+                "fit": "Regular",
+                "length": "Hip",
+                "collar": "Notch lapel",
+                "closure": "Single breasted"
+              },
+              "details": {
+                "buttons": "Dark buttons"
+              },
+              "pattern": {
+                "type": "Solid",
+                "colors": []
+              }
+            },
+            "bottom": {
+              "item_name": "Trousers",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 19-0608 TCX",
+                  "hex": "#433F39",
+                  "name": "Black Olive"
+                }
+              },
+              "fabric": {
+                "material": "Wool",
+                "weight": "Heavy"
+              },
+              "cut": {
+                "fit": "Straight",
+                "length": "Full"
+              }
+            },
+            "shoes": {
+              "type": "Boots",
+              "color": {
+                "pantone_tc": "Pantone 19-0000 TCX",
+                "hex": "#000000",
+                "name": "Raven"
+              },
+              "material": "Leather"
+            },
+            "accessories": {
+              "other": "Light shirt worn underneath"
+            },
+            "styling": {
+              "layering": "Jacket over shirt",
+              "overall": "Working class formal"
+            },
+            "full_description": "Tommy is dressed in a dark Black Olive wool jacket and matching trousers, worn over a lighter colored shirt."
+          }
+        }
+      },
+      "major_scene_02": {
+        "scene_id": "major_scene_02",
+        "character_wardrobe": {
+          "@character_01": {
+            "top": {
+              "item_name": "Beaded Evening Coat",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 19-4007 TCX",
+                  "hex": "#383839",
+                  "name": "Anthracite",
+                  "description": "Deep black base appearing dark grey due to lighting and texture"
+                },
+                "secondary": {
+                  "pantone_tc": "Pantone 19-3911 TCX",
+                  "hex": "#3B3B48",
+                  "name": "Black Beauty",
+                  "description": "Jet black beadwork reflecting light"
+                }
+              },
+              "fabric": {
+                "material": "Silk velvet or heavy sheer base",
+                "weave": "Dense weave heavily embellished",
+                "weight": "Heavy (>300g due to beads)",
+                "opacity": "Opaque",
+                "finish": "Metallic/Sparkling",
+                "stretch": "None",
+                "texture": "Heavily textured with sequins and beads"
+              },
+              "cut": {
+                "fit": "Loose/Oversized",
+                "length": "Calf/Ankle length",
+                "shoulder": "Drop shoulder",
+                "sleeve": "Long, wide kimono-style sleeves",
+                "collar": "Shawl collar",
+                "closure": "Open front"
+              },
+              "details": {
+                "buttons": "None visible",
+                "pockets": "None visible",
+                "stitching": "Invisible construction hidden by beadwork",
+                "features": "Intricate jet beading and sequin embroidery in scrolling floral motifs throughout"
+              },
+              "pattern": {
+                "type": "Floral/Baroque Scrollwork",
+                "size": "Medium to Large scale",
+                "arrangement": "Dense all-over embellishment",
+                "colors": [
+                  "Pantone 19-0303 TCX (#272727)"
+                ]
+              }
+            },
+            "bottom": {
+              "item_name": "Evening Gown Skirt",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 18-1662 TCX",
+                  "hex": "#BD2C37",
+                  "name": "Flame Scarlet",
+                  "description": "Vibrant red silk underskirt visible beneath coat"
+                },
+                "secondary": {
+                  "pantone_tc": "Pantone 19-4005 TCX",
+                  "hex": "#292A2D",
+                  "name": "Stretch Limo",
+                  "description": "Black sheer overlay on bodice and skirt hem"
+                }
+              },
+              "fabric": {
+                "material": "Silk Satin with Chiffon overlay",
+                "weight": "Medium (~180g)",
+                "drape": "Flowing"
+              },
+              "cut": {
+                "fit": "Straight with slight flare at hem",
+                "length": "Floor length",
+                "waist": "Empire waist (Edwardian silhouette)"
+              }
+            },
+            "shoes": {
+              "type": "Evening Pumps",
+              "color": {
+                "pantone_tc": "Pantone 18-1550 TCX",
+                "hex": "#BC3137",
+                "name": "Aurora Red"
+              },
+              "material": "Silk Satin",
+              "notes": "Mostly obscured by dress hem while walking"
+            },
+            "accessories": {
+              "jewelry": "Silver pendant necklace with red stone, matching drop earrings",
+              "other": "None visible in this specific segment"
+            },
+            "styling": {
+              "layering": "Double (Coat over Gown)",
+              "jacket_state": "Open",
+              "overall": "High-class Edwardian Evening Wear",
+              "description": "Heavy black beaded kimono coat worn open over a red empire-waist evening gown."
+            },
+            "full_description": "Rose wears a luxurious black evening coat, heavily embellished with jet black beads and sequins in intricate scroll patterns, giving it a shimmering, textured appearance under the moonlight. The coat is cut in a loose, kimono style with wide sleeves and falls to mid-calf. Beneath the coat, she wears a floor-length evening gown featuring a vibrant Flame Scarlet red silk skirt with a black beaded overlay on the bodice. She accessorizes with a delicate pendant necklace and drop earrings. Her hair is styled in an elegant updo, consistent with formal evening attire."
+          },
+          "@character_02": {
+            "top": {
+              "item_name": "Tuxedo Dress Shirt",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 11-0601 TCX",
+                  "hex": "#F4F9FF",
+                  "name": "Bright White",
+                  "description": "Crisp white formal shirt"
+                }
+              },
+              "fabric": {
+                "material": "Cotton Poplin",
+                "weave": "Plain weave with textured bib",
+                "weight": "Medium (~160g)",
+                "opacity": "Opaque",
+                "finish": "Matte with starched front",
+                "stretch": "None",
+                "texture": "Smooth body, piqué or pleated texture on bib"
+              },
+              "cut": {
+                "fit": "Regular/Tailored",
+                "length": "Waist (tucked)",
+                "shoulder": "Set-in",
+                "sleeve": "Long",
+                "collar": "Wing collar (standing)",
+                "closure": "Button front (studs)"
+              },
+              "details": {
+                "buttons": "Black studs on bib front, white buttons on cuffs",
+                "pockets": "None",
+                "features": "Stiff bib front typical of formal evening shirts"
+              },
+              "pattern": {
+                "type": "Solid",
+                "colors": []
+              }
+            },
+            "bottom": {
+              "item_name": "Formal Trousers",
+              "color": {
+                "primary": {
+                  "pantone_tc": "Pantone 19-4005 TCX",
+                  "hex": "#292A2D",
+                  "name": "Stretch Limo",
+                  "description": "Black formal trousers"
+                }
+              },
+              "fabric": {
+                "material": "Wool",
+                "weight": "Medium-Heavy",
+                "finish": "Matte"
+              },
+              "cut": {
+                "fit": "Straight leg",
+                "length": "Full break",
+                "waist": "High-rise (typical for period)"
+              }
+            },
+            "shoes": {
+              "type": "Oxford Dress Shoes",
+              "color": {
+                "pantone_tc": "Pantone 19-0303 TCX",
+                "hex": "#272727",
+                "name": "Jet Black"
+              },
+              "material": "Patent Leather"
+            },
+            "accessories": {
+              "jewelry": "None",
+              "other": "Black Suspenders (Braces): Pantone 19-4004 TCX (#2B2B2E), Y-back style, medium width"
+            },
+            "styling": {
+              "layering": "Single (Shirt and Suspenders)",
+              "tuck": "Tucked in",
+              "sleeve_state": "Unrolled, cuffed",
+              "overall": "Incomplete Formal Evening Wear",
+              "description": "White tuxedo shirt tucked into black formal trousers, held up by black suspenders."
+            },
+            "full_description": "Jack is dressed in formal evening attire, though he has removed his jacket. He wears a crisp Bright White cotton tuxedo shirt with a stiff wing collar and a textured bib front fastened with black studs. The shirt is tucked neatly into high-waisted black wool trousers. Black suspenders (braces) are visible over his shirt, securing the trousers. He wears black patent leather dress shoes. His look is polished but relaxed, appropriate for a moment away from the formal dinner."
+          }
+        }
+      }
+    }
+  },
+  "scenes": [
+    {
+      "lighting_setup": "High-key diffused daylight, directional soft source from the left creating rim light on hair, bright ambient fill reflecting off white walls",
+      "color_grading": "Cinematic Edwardian period look, warm creamy tones for skin and dress, desaturated industrial whites and greys in background, slight bloom in highlights",
+      "composition": "Rule of thirds with subject positioned center-left, diagonal leading lines from the staircase railings and shadows, depth created by the descending perspective",
+      "mood_atmosphere": "Curious, slightly fish-out-of-water, elegant but tentative, bright and airy yet industrial",
+      "shot_size": "Medium Shot transitioning to Medium Full Shot",
+      "camera_angle": "Eye-level relative to subject, slightly looking up at the staircase structure",
+      "camera_height": "Shoulder-Level",
+      "horizontal_angle": "Three-Quarter Frontal",
+      "focal_length": "50mm Anamorphic",
+      "depth_of_field": "f/2.8 Shallow focus keeping subject sharp while softening the industrial background details",
+      "tech_device": "Panavision Panaflex with Primo Anamorphic lens, 35mm film stock",
+      "camera_movement": "Smooth dolly back and tilt down, tracking the subject's descent down the stairs",
+      "subject_movement": "@character_01 walks down the stairs: looking around cautiously and holding her dress sash",
+      "I2V Prompt": "In a bright, high-key shot, @character_01 descends a white industrial staircase with riveted steel walls, embodying a stark contrast between her refined elegance and the utilitarian setting. She wears a delicate Edwardian Lace Tea Dress Bodice in Whisper White over a Cornsilk silk lining, cinched with a vibrant Citrus yellow sash. As she steps down, the camera tracks backward smoothly, capturing her curious and slightly apprehensive expression as she enters the steerage area. Sunlight streams from the left, catching the loose red curls of her updo and creating a halo effect. Background voices murmur, with a faint 'Come here' audible from the crowd below, drawing her attention as she navigates the unfamiliar environment.",
+      "Language_to_One_Shot_Prompt": "@character_01 stands midway down a white industrial staircase lined with wooden handrails and riveted steel walls. She is dressed in an elegant Whisper White Edwardian lace tea dress with a high collar and a prominent Citrus yellow sash around her waist. Her red curly hair is styled in a loose updo, backlit by soft, diffused daylight streaming from the left side of the frame. Her expression is one of tentative curiosity, her gaze directed slightly off-camera toward the bottom of the stairs. The lighting is bright and high-key, emphasizing the creamy tones of her skin and dress against the stark white background. The shot is a medium capture, framed with the diagonal lines of the staircase leading the eye.",
+      "scene_index": 1,
+      "time_range": "0.00s - 4.53s",
+      "start_time": 0.0,
+      "end_time": 4.533333333333333,
+      "duration": 4.533333333333333
+    },
+    {
+      "lighting_setup": "High-key backlighting from the upper deck stairwell creating a halo effect, diffusing into softer ambient light in the steerage hold, illuminating the subject's face with a gentle glow.",
+      "color_grading": "Warm and nostalgic, emphasizing the creamy tones of the dress and the golden sunlight against the industrial whites and greys of the ship interior.",
+      "composition": "Framed by the out-of-focus backs of two women in the foreground, creating a natural frame that directs focus to the subject descending the central staircase; strong vertical lines from the pillars and diagonal lines from the railings.",
+      "mood_atmosphere": "Ethereal yet grounded, highlighting the contrast of an upper-class figure entering a working-class space; a sense of curiosity and displacement.",
+      "shot_size": "Wide Shot transitioning to Full Shot as the subject approaches the camera.",
+      "camera_angle": "Eye-level relative to the room, slightly looking up towards the staircase initially.",
+      "camera_height": "Shoulder-level.",
+      "horizontal_angle": "Frontal view of the subject descending.",
+      "focal_length": "50mm standard lens, providing a natural perspective.",
+      "depth_of_field": "Deep depth of field for the subject and background, with a shallow foreground blur on the framing extras.",
+      "tech_device": "Cinematic film capture, 35mm.",
+      "camera_movement": "Static frame, allowing the subject to walk into the composition from the background to the mid-ground.",
+      "subject_movement": "@character_01 walks down the stairs briskly, holding her dress, and looks around the room with purpose.",
+      "I2V Prompt": "In a bright, hazy steerage common room, @character_01 makes a striking entrance descending the white metal staircase. She is dressed in a refined Edwardian tea-length gown featuring a Whisper White lace overlay atop a Cornsilk yellow silk lining, with a vibrant Citrus yellow satin sash cinching her waist. The sunlight from the deck above backlights her vibrant red curls, creating an ethereal glow as she navigates the steps. In the foreground, the backs of two other passengers frame the shot, emphasizing her isolation and difference in status. @character_01 reaches the bottom of the stairs and pauses, scanning the crowded room with an expression of determined curiosity, her white gloves gripping the small reticule bag. The atmosphere is filled with the ambient dust and light of the ship's lower levels, contrasting with her pristine appearance.",
+      "Language_to_One_Shot_Prompt": "@character_01 stands near the base of a white industrial staircase in a ship's steerage common room. She wears a Whisper White lace tea dress with a Cornsilk yellow lining and a prominent Citrus yellow sash around her waist. Her red hair is styled in curls, catching the backlight from the upper deck. She holds a small drawstring purse and wears white gloves. The lighting is high-key and diffused, streaming down from the stairwell behind her. In the blurred foreground, the silhouettes of other passengers frame the composition. The setting features white riveted steel pillars and wooden railings, with a warm, dusty atmosphere. The shot is a full shot captured at eye level.",
+      "scene_index": 2,
+      "time_range": "4.53s - 8.10s",
+      "start_time": 4.533333333333333,
+      "end_time": 8.1,
+      "duration": 3.5666666666666664
+    },
+    {
+      "lighting_setup": "Soft, diffused interior lighting with visible atmospheric haze/smoke; natural light mixing with warm practical tungsten sources, creating gentle modeling on faces with low contrast shadows.",
+      "color_grading": "Muted earth tones dominated by browns, beiges, and greys; desaturated cinematic look with a vintage sepia leaning, contrasting slightly with the cooler daylight tones from unseen portholes.",
+      "composition": "Medium ensemble shot framing a group of characters seated on a wooden bench; linear arrangement with depth provided by background extras; characters are positioned in the middle ground, looking off-camera towards the viewer's position.",
+      "mood_atmosphere": "Casual, communal, and lively steerage environment; a sense of curiosity and sudden attention as the group reacts to an arrival; atmospheric texture provided by smoke and crowd density.",
+      "shot_size": "Medium Shot (MS) capturing the characters from the waist up while seated.",
+      "camera_angle": "Eye-level relative to the seated subjects, placing the viewer directly in their social space.",
+      "camera_height": "Waist-level relative to a standing person, aligning with the seated characters' eye lines.",
+      "horizontal_angle": "Frontal view of the bench, slightly angled to capture the depth of the row.",
+      "focal_length": "50mm standard lens, providing a natural perspective with slight background separation.",
+      "depth_of_field": "Moderate depth of field (around f/4), keeping the main group on the bench in sharp focus while the background crowd falls into a soft blur.",
+      "tech_device": "35mm film camera (Panavision Panaflex), creating a rich, organic grain structure and cinematic texture.",
+      "camera_movement": "Static shot with a very subtle, almost imperceptible floating stability, focusing entirely on the characters' reactions.",
+      "subject_movement": "@character_02, @character_03, @character_04, and @character_05 sit on a bench and turn their heads/gazes to look towards the camera/off-screen direction; @character_04 smiles warmly, @character_03 leans on his arms, and @character_02 looks with focused interest.",
+      "I2V Prompt": "In a smoky, crowded steerage common room, a group of passengers sits together on a wooden bench, their attention collectively drawn to an unseen arrival off-camera. @character_03, wearing a newsboy cap and vest, leans casually on the bench backrest with a friendly expression. Beside him, @character_04, dressed in a white shawl with red embroidery, smiles broadly with a look of pleasant surprise. In the center, @character_02 sits wearing a brown corduroy shirt and suspenders, turning his head with a gaze of intense, quiet curiosity. To his right, @character_05 in a dark jacket looks back over his shoulder. The air is thick with a light haze, and the soft, diffused light highlights their faces against the backdrop of other mingling passengers.",
+      "Language_to_One_Shot_Prompt": "A group of four young steerage passengers is seated side-by-side on a wooden bench in a crowded, hazy common room. @character_03 leans forward on the left wearing a tan vest and newsboy cap. Next to him, @character_04 wears a white shawl with red embroidery and has her blonde hair in braids. In the center, @character_02 wears a brown corduroy shirt with beige suspenders, looking forward with interest. On the far right, @character_05 wears a dark wool jacket. All four have their gazes directed toward a single point off-camera, displaying expressions of curiosity and welcome. The lighting is soft and diffused through the smoky atmosphere, casting a warm, vintage tone over the scene. The background is filled with blurred figures of other passengers in muted period clothing.",
+      "scene_index": 3,
+      "time_range": "8.10s - 11.40s",
+      "start_time": 8.1,
+      "end_time": 11.4,
+      "duration": 3.3000000000000007
+    },
+    {
+      "lighting_setup": "Soft, diffused ambient light filtering through atmospheric haze, creating a gentle, dreamlike glow on the subject's face while the background remains slightly dimmer.",
+      "color_grading": "Warm and nostalgic, dominated by creamy whites and yellows of the subject's dress contrasting with the earthy, desaturated browns and greys of the background environment.",
+      "composition": "Center-framed medium close-up with a shallow depth of field that separates the sharp subject from the blurred, busy background, emphasizing her isolation and distinct appearance.",
+      "mood_atmosphere": "Curious and slightly displaced, evoking a sense of wonder mixed with the tension of being in an unfamiliar, lively environment.",
+      "shot_size": "Medium Close-up",
+      "camera_angle": "Eye-level",
+      "camera_height": "Shoulder-Level",
+      "horizontal_angle": "Three-Quarter View turning to Frontal",
+      "focal_length": "85mm Telephoto (compressed perspective)",
+      "depth_of_field": "Shallow focus (f/2.8), keeping the subject crisp while blurring the crowd behind her",
+      "tech_device": "Cinematic film camera with anamorphic lens, capturing a soft, organic texture",
+      "camera_movement": "Static with very subtle handheld stabilization, maintaining a steady focus on the subject's reaction",
+      "subject_movement": "@character_01 stands relatively still, turning her head slightly to scan the room with an observant gaze",
+      "I2V Prompt": "In a hazy, smoke-filled room filled with the blurred shapes of steerage passengers, @character_01 stands out as a vision of elegance. The camera holds a medium close-up on her, capturing the intricate details of her Edwardian Lace Tea Dress Bodice and the soft glow of her Whisper White lace against her fair skin. Her red curly hair, styled in a loose updo, catches the warm, diffused light. She turns her head slowly, her eyes wide with curiosity and a hint of hesitation as she scans the lively environment, her refined appearance contrasting sharply with the rustic, earth-toned setting around her. The atmosphere is thick with unspoken energy, centered entirely on her silent observation of this new world.",
+      "Language_to_One_Shot_Prompt": "@character_01 stands in the center of a crowded, hazy room, illuminated by soft, warm light. She wears a detailed Edwardian lace tea dress with a high collar and delicate button front, contrasting with the blurred, dark-clothed figures in the background. Her red curly hair is pinned up elegantly, and her expression is one of focused observation, with slightly parted lips and wide eyes. The shot is a medium close-up with shallow depth of field, rendering the background soft and indistinct while keeping her face and upper bodice in sharp focus. The color palette features creamy whites, yellows, and warm skin tones set against a backdrop of muted browns and greys.",
+      "scene_index": 4,
+      "time_range": "11.40s - 13.50s",
+      "start_time": 11.4,
+      "end_time": 13.5,
+      "duration": 2.0999999999999996
+    },
+    {
+      "lighting_setup": "Soft, diffused daylight entering from the right, creating a gentle key light on the face while maintaining soft shadows; rim lighting accentuates the hair texture.",
+      "color_grading": "Cinematic warm tones with a slight golden hue, contrasting the creamy whites and yellows of the subject's attire against the muted, earth-toned background.",
+      "composition": "Medium Close-Up framing with the subject centered, using a shallow depth of field to isolate her from the blurred background elements like pillars and passengers.",
+      "mood_atmosphere": "A feeling of displacement and curiosity; the atmosphere is observant and slightly tense as an outsider enters an unfamiliar environment.",
+      "shot_size": "Medium Close-Up",
+      "camera_angle": "Eye-level",
+      "camera_height": "Shoulder-Level",
+      "horizontal_angle": "Frontal",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow focus (f/2.8)",
+      "tech_device": "35mm Film Camera with Anamorphic Lens",
+      "camera_movement": "Static",
+      "subject_movement": "@character_01 stands still, breathing visibly, her eyes scanning the room with subtle head movements as she observes the surroundings.",
+      "I2V Prompt": "In a static medium close-up, @character_01 stands as a striking figure of elegance within the steerage common room. She is dressed in her Edwardian Lace Tea Dress Bodice featuring a Whisper White semi-sheer lace overlay and a high-neck collar, paired with a Cornsilk yellow silk lining that catches the soft ambient light. Her vibrant red hair is styled in refined curls, contrasting with the muted, blurred background of steel pillars and passengers. She looks forward with a gaze that mixes curiosity with a hint of apprehension, her red lips slightly parted as she breathes, taking in the unfamiliar sights and sounds of the lower deck. The lighting is soft and flattering, highlighting the delicate lace texture of her gown and the porcelain quality of her skin.",
+      "Language_to_One_Shot_Prompt": "@character_01 stands centered in a medium close-up shot, framed against a blurred background of a ship's steerage common room. She wears an elegant Edwardian Lace Tea Dress with a Whisper White lace overlay bodice, high collar, and a Cornsilk yellow silk lining. Her red curly hair is styled in an updo, and she wears gold drop earrings. Her expression is observant and slightly guarded, with a soft, neutral gaze. The lighting is diffused and natural, coming from the right side, illuminating her face and the intricate lace details of her clothing. The background features out-of-focus white vertical pillars and hints of other passengers in muted colors.",
+      "scene_index": 5,
+      "time_range": "13.50s - 17.60s",
+      "start_time": 13.5,
+      "end_time": 17.6,
+      "duration": 4.100000000000001
+    },
+    {
+      "lighting_setup": "Soft, high-key natural daylight diffusing through background portholes and windows, creating a radiant backlight and rim light on the subject's hair while illuminating her face with gentle fill light.",
+      "color_grading": "Warm, golden-hued cinematic look with reduced contrast in the highlights, emphasizing the creamy tones of the dress against the muted browns and greys of the steerage environment.",
+      "composition": "Central framing of the subject placed between vertical white structural columns, utilizing the rule of thirds vertically, with background figures providing depth and context.",
+      "mood_atmosphere": "Ethereal and contrasting; a sense of elegance and displacement as a high-class figure stands amidst a working-class setting, evoking curiosity and silent observation.",
+      "shot_size": "Medium Full Shot capturing the subject from the shins up to the top of the head.",
+      "camera_angle": "Eye-level relative to the subject, slightly elevating her presence against the background crowd.",
+      "camera_height": "Chest-level, providing a neutral but intimate perspective.",
+      "horizontal_angle": "Frontal view, with the subject's body slightly angled but face turned towards the camera axis.",
+      "focal_length": "50mm to 85mm standard lens, providing natural perspective with slight compression of the background.",
+      "depth_of_field": "f/4.0 Moderate depth of field, keeping the subject sharp while softly blurring the passengers in the background to separate layers.",
+      "tech_device": "Cinematic 35mm film aesthetic with fine grain and soft highlight rolloff.",
+      "camera_movement": "Static shot with no perceptible camera movement, focusing entirely on the subject's presence.",
+      "subject_movement": "@character_01 stands almost motionless in the center of the room, holding her purse with both hands at her waist, subtly shifting her gaze as she observes the room.",
+      "I2V Prompt": "In a luminous medium full shot, @character_01 stands gracefully in the center of the crowded steerage common room, appearing like a vision in her refined Edwardian Lace Tea Dress Bodice and skirt. The soft, hazy daylight streaming from behind creates a halo effect on her red hair, contrasting her pristine appearance with the rustic surroundings. She holds a small drawstring purse with both hands in front of her waist, her posture poised but hesitant. Her expression is one of quiet curiosity and slight vulnerability as she pauses, looking slightly to the side, while blurred steerage passengers in the background go about their day. The atmosphere is thick with the dust motes dancing in the shafts of light.",
+      "Language_to_One_Shot_Prompt": "@character_01 stands centrally in the steerage common room, framed by white vertical structural poles. She wears a cream Edwardian Lace Tea Dress with a high collar and a wide yellow sash belt, her hands clasping a small matching reticule bag at her waist. Her red curls are styled in an updo, catching the soft, diffused backlight from the windows behind her. Her expression is calm and observant, with red lips and fair skin illuminated by the warm, golden lighting. The background features blurred figures of steerage passengers in muted clothing, creating a visual contrast with her elegant, light-colored attire. The shot is a medium full shot at eye level, emphasizing her isolation and elegance in the space.",
+      "scene_index": 6,
+      "time_range": "17.60s - 19.43s",
+      "start_time": 17.6,
+      "end_time": 19.433333333333334,
+      "duration": 1.8333333333333321
+    },
+    {
+      "lighting_setup": "Soft, diffused high-key lighting with a strong backlight creating a hazy, ethereal glow around the subject; natural daylight style.",
+      "color_grading": "Desaturated background tones in greys and browns, contrasted with the warm cream and yellow of the subject's dress; soft, nostalgic aesthetic.",
+      "composition": "Center-framed medium shot using vertical white pillars to create depth and framing; the subject is the clear focal point against a busy, textured background.",
+      "mood_atmosphere": "Contrast, displacement, and curiosity; a sense of elegance out of place in a rougher, industrial environment.",
+      "shot_size": "Medium Shot",
+      "camera_angle": "Eye-level",
+      "camera_height": "Shoulder-Level",
+      "horizontal_angle": "Frontal",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow depth of field, keeping the subject sharp while softly blurring the background crowd.",
+      "tech_device": "Cinematic 35mm film camera",
+      "camera_movement": "Static",
+      "subject_movement": "@character_01 stands still in the center of the room, turning her head slightly to scan her surroundings.",
+      "I2V Prompt": "In a medium shot filled with the hazy, diffused atmosphere of the steerage common room, @character_01 stands as a striking figure of elegance amidst the working-class crowd. Wearing her refined Edwardian Lace Tea Dress Bodice with its delicate Whisper White overlay and a vibrant Citrus yellow sash, she looks visibly out of place against the industrial white pillars and the muted tones of the passengers behind her. She clutches her small reticule bag with white-gloved hands, her posture upright but her expression revealing a mix of curiosity and hesitation as she scans the room. The soft lighting catches the copper tones of her updo and the pearl accents of her earrings, creating a subtle glow around her. The camera remains static, emphasizing her stillness and isolation in the bustling, smoky environment where indistinct figures in rough wool coats and caps occupy the benches in the background.",
+      "Language_to_One_Shot_Prompt": "@character_01 stands in the center of a crowded steerage room, framed by vertical white support pillars. She wears a cream lace tea dress with a yellow sash and white gloves, holding a small matching purse. Her red hair is styled up, catching the soft, hazy backlighting. She has a tentative, observant expression. The background features blurred steerage passengers in dark, muted clothing sitting on benches. The lighting is bright and diffused, creating a dreamlike quality. The camera angle is eye-level, capturing a medium shot that highlights the contrast between her refined appearance and the rugged setting.",
+      "scene_index": 7,
+      "time_range": "19.43s - 24.67s",
+      "start_time": 19.433333333333334,
+      "end_time": 24.666666666666668,
+      "duration": 5.233333333333334
+    },
+    {
+      "lighting_setup": "Soft, diffused daylight streaming from upper deck windows, creating a hazy, high-key atmosphere with gentle backlighting on the standing figure and side lighting on the seated group.",
+      "color_grading": "Naturalistic period tones, contrasting the earthy browns and greys of the steerage environment (Pantone Kangaroo, Peat) with the luminous, pristine Whisper White and Cornsilk Yellow of the intruder's dress.",
+      "composition": "Eye-level medium shots utilizing a shot-reverse-shot structure; initially framing a group on a bench with depth layering, transitioning to a centered, framing-within-framing composition of the standing figure between white pillars.",
+      "mood_atmosphere": "A moment of suspended time and social contrast; surprise, curiosity, and a touch of romantic tension amidst the mundane setting.",
+      "shot_size": "Medium Shot transitioning to Medium Close-up.",
+      "camera_angle": "Eye-level.",
+      "camera_height": "Seated level to Standing level.",
+      "horizontal_angle": "Frontal and Three-Quarter views.",
+      "focal_length": "50mm to 85mm standard cinematic lenses.",
+      "depth_of_field": "Shallow depth of field (f/2.8) isolating faces against the blurred, busy background of the common room.",
+      "tech_device": "35mm Film Camera (Panavision Panaflex), Anamorphic Lenses.",
+      "camera_movement": "Static framing with minimal movement, relying on cuts between subjects to drive the narrative beat.",
+      "subject_movement": "@character_03 leans forward and points, speaking: [24.9s] 'Jack.' @character_02 turns his head to look. @character_01 stands still and speaks: [30.0s] 'Hello, Mr. Dawson.'",
+      "I2V Prompt": "In the crowded, hazy atmosphere of the steerage common room, @character_03 leans forward eagerly on a wooden bench, pointing off-screen to alert his friend, saying 'Jack.' Seated next to him, @character_02, dressed in his Kangaroo brown corduroy shirt and suspenders, turns his head with a look of genuine surprise. The perspective reveals @character_01 standing elegantly amidst the rougher surroundings, her Whisper White lace dress and vibrant Citrus yellow sash glowing in the soft diffused light. She maintains a poised, upper-class demeanor as she looks directly at him and speaks, 'Hello, Mr. Dawson.' @character_02 stares back, stunned by her appearance in this unexpected place.",
+      "Language_to_One_Shot_Prompt": "@character_02 and @character_03 sit on a wooden bench in the steerage common room, bathed in soft, hazy daylight. @character_02 wears a Kangaroo grey-brown corduroy shirt with beige suspenders and looks towards the camera with a curtain-parted hairstyle. Beside him, @character_03 wears a Copper Coin tan wool vest, a white collarless shirt with rolled sleeves, and a dark newsboy cap, pointing excitedly with his right hand. The background is filled with other passengers in muted earth-tone clothing, blurring into the bright, diffused light from the windows. The scene captures a detailed period texture with a naturalistic, slightly warm color palette.",
+      "scene_index": 8,
+      "time_range": "24.67s - 32.03s",
+      "start_time": 24.666666666666668,
+      "end_time": 32.03333333333333,
+      "duration": 7.366666666666664
+    },
+    {
+      "lighting_setup": "Soft, diffused natural daylight entering from off-screen windows, creating a gentle high-key illumination on the face with subtle rim lighting on the hair; backlighting from background portholes creates a hazy, dreamlike quality",
+      "color_grading": "Warm and nostalgic palette, emphasizing the creamy 'Whisper White' and 'Cornsilk' tones of the dress and the vibrant copper of the hair against the muted, desaturated background of the steerage quarters",
+      "composition": "Medium Close-Up centered on the subject, adhering to the rule of thirds with the subject slightly camera-left, using shallow depth of field to isolate her from the busy, blurred background environment",
+      "mood_atmosphere": "Intimate, romantic, and slightly tentative; a moment of refined elegance contrasting with the rougher steerage setting, conveying a sense of anticipation and vulnerability",
+      "shot_size": "Medium Close-Up (MCU)",
+      "camera_angle": "Eye-level",
+      "camera_height": "Shoulder-Level",
+      "horizontal_angle": "Frontal view, slightly angled towards camera-right",
+      "focal_length": "Telephoto (approx. 85mm) for facial compression and background separation",
+      "depth_of_field": "Shallow (f/2.8), rendering the background passengers and ship structure as soft bokeh",
+      "tech_device": "35mm film camera with anamorphic lens, providing cinematic texture and soft focus falloff",
+      "camera_movement": "Static with very subtle localized stabilization (handheld float or steadicam), maintaining a steady focus on the subject's reaction",
+      "subject_movement": "@character_01 stands still, breathing deeply with a look of anticipation, then softly speaks: [33.00s] Hello",
+      "I2V Prompt": "In a beautifully lit Medium Close-Up, @character_01 stands amidst the blurred activity of the steerage common room, radiating an aura of refined elegance. Her vibrant red curls, styled in an updo, catch the soft, diffused daylight, highlighting her fair complexion and pearl drop earrings. She wears a delicate 'Whisper White' lace tea dress with a high collar, the intricate floral patterns visible in the soft light. Her expression is a mix of nervousness and gentle resolve as she gazes slightly off-camera. Breaking the silence with a soft, breathy tone, @character_01 speaks, \"Hello,\" her lips moving delicately. The background is a wash of soft whites and muted colors, emphasizing her as the focal point of the moment.",
+      "Language_to_One_Shot_Prompt": "A Medium Close-Up captures @character_01 in a moment of quiet anticipation within the steerage common room. She stands poised and elegant, framed centrally against a softly blurred background of white structural pillars and indistinct passengers. Her attire is a detailed 'Whisper White' lace tea dress with a high collar and a 'Cornsilk' yellow silk lining, accessorized with pearl drop earrings that catch the light. Her red curly hair is styled in a sophisticated updo, glowing under the diffused natural light that bathes her face in a warm, creamy illumination. Her expression is soft, open, and slightly vulnerable, with a direct gaze directed just past the camera lens. The shallow depth of field softens the surroundings, creating a dreamlike, intimate atmosphere focused entirely on her refined presence.",
+      "scene_index": 9,
+      "time_range": "32.03s - 34.53s",
+      "start_time": 32.03333333333333,
+      "end_time": 34.53333333333333,
+      "duration": 2.5
+    },
+    {
+      "lighting_setup": "Natural diffused daylight",
+      "color_grading": "Soft warm tones with cinematic teal shadows, slight haze",
+      "composition": "Medium shot, group composition on a bench with central focus on the protagonist, slight rule of thirds",
+      "mood_atmosphere": "Casual anticipation, crowded but focused interaction",
+      "shot_size": "Medium Shot",
+      "camera_angle": "Eye-level",
+      "camera_height": "Waist-Level",
+      "horizontal_angle": "Frontal",
+      "focal_length": "50mm",
+      "depth_of_field": "f/4.0 Moderate depth of field",
+      "tech_device": "Cinematic film camera",
+      "camera_movement": "Static",
+      "subject_movement": "@character_02 stands up from the bench: [36.00s] 'Sure'",
+      "I2V Prompt": "In a crowded steerage common room filled with diffused daylight and a slight haze of smoke, @character_02 sits casually on a wooden bench, flanked by @character_03 on his right and @character_05 on his left. @character_02 wears a Kangaroo grey-brown corduroy shirt with beige suspenders, while @character_03 sports a newsboy cap and vest, and @character_05 wears a dark wool jacket. As an off-screen voice, identifiable as @character_01, asks \"Can I speak with you?\", @character_02 looks up with attentive recognition. He immediately and fluidly rises from the bench to a standing position, replying \"Sure\" to the unseen visitor, shifting his posture from relaxed camaraderie to polite engagement, while his companions look on with interest.",
+      "Language_to_One_Shot_Prompt": "@character_02 sits on a wooden slat bench in a sunlit steerage common room, flanked by @character_03 and @character_05. @character_02 wears a brown corduroy shirt with beige striped suspenders over a white undershirt and dark trousers. To his right, @character_03 wears a tan wool vest, white collarless shirt, and a dark newsboy cap. To his left, @character_05 is dressed in a dark wool jacket. The background is filled with other passengers in period clothing, softened by a shallow depth of field and atmospheric haze. The lighting is soft and natural, streaming in from the right, highlighting the textures of their clothing and faces. The composition is a balanced medium shot at eye level, capturing the group in a moment of relaxed social interaction.",
+      "scene_index": 10,
+      "time_range": "34.53s - 37.83s",
+      "start_time": 34.53333333333333,
+      "end_time": 37.833333333333336,
+      "duration": 3.3000000000000043
+    },
+    {
+      "lighting_setup": "Soft diffused natural daylight entering from unseen portholes on the right, creating a gentle rim light on the subjects and soft modeling on their faces, contrasting with the slightly dimmer ambient interior light.",
+      "color_grading": "Cinematic and naturalistic, featuring warm skin tones and earthy browns from the wooden interior and clothing, balanced by the cool, clean white of the dress and the daylight.",
+      "composition": "A balanced medium two-shot framing @character_01 on the left and @character_02 on the right, facing each other in profile/three-quarter view, with vertical white structural pillars and blurred steerage passengers in the background providing depth.",
+      "mood_atmosphere": "Intimate and romantic within a crowded public space, characterized by a sense of polite anticipation and cross-class connection.",
+      "shot_size": "Medium Shot",
+      "camera_angle": "Eye-level",
+      "camera_height": "Chest-level",
+      "horizontal_angle": "Profile view",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow depth of field, keeping the two main characters in sharp focus while the background passengers and details are softly blurred.",
+      "tech_device": "35mm Film Camera",
+      "camera_movement": "Static shot",
+      "subject_movement": "@character_01 stands still, facing @character_02 with a composed expression. @character_02 stands facing @character_01, maintaining eye contact.",
+      "I2V Prompt": "In the bustling steerage common room, @character_01 stands with elegant poise, wearing her delicate Whisper White lace tea dress which contrasts sharply with the utilitarian environment. She faces @character_02, who stands opposite her clad in a Kangaroo brown corduroy work shirt and suspenders, his expression attentive and slightly captivated. The soft natural daylight streaming from the side illuminates @character_01's red hair and fair skin, creating a gentle glow. The two characters share an intimate moment of connection, locked in a gaze that ignores the crowded, blurred background of steerage passengers moving behind them.",
+      "Language_to_One_Shot_Prompt": "A medium shot of @character_01 and @character_02 standing face-to-face in a steerage common room. @character_01, on the left, wears a sophisticated Edwardian Lace Tea Dress with a high collar and white gloves, her red hair styled in an updo. She looks towards the right. @character_02, on the right, wears a casual brown corduroy shirt with beige suspenders and dark trousers, facing left towards her. The lighting is soft and diffused, coming from the right side, highlighting their faces and separating them from the background. The background features blurred white steel pillars and other passengers in muted period clothing. The atmosphere is romantic and focused on the connection between the two subjects.",
+      "scene_index": 11,
+      "time_range": "37.83s - 40.87s",
+      "start_time": 37.833333333333336,
+      "end_time": 40.86666666666667,
+      "duration": 3.0333333333333314
+    },
+    {
+      "lighting_setup": "Soft, diffused natural daylight entering from off-screen windows, creating a high-key environment with gentle modeling on the face",
+      "color_grading": "Naturalistic with a slight warm cast on the subject contrasted against the cooler, muted tones of the steerage background; soft contrast",
+      "composition": "Medium Close-up framing of the subject, slightly off-center using the rule of thirds, with white structural pillars providing vertical background elements",
+      "mood_atmosphere": "Intimate, urgent, and slightly tense, contrasting the refined elegance of the subject with the chaotic public setting",
+      "shot_size": "Medium Close-up",
+      "camera_angle": "Eye-level",
+      "camera_height": "Shoulder-Level",
+      "horizontal_angle": "Three-Quarter Front",
+      "focal_length": "85mm (Portrait)",
+      "depth_of_field": "Shallow focus (f/2.8), keeping the subject sharp while blurring the passengers and industrial details in the background",
+      "tech_device": "35mm Film Camera",
+      "camera_movement": "Static",
+      "subject_movement": "@character_01 turns slightly and speaks: [0.1s] In private?",
+      "I2V Prompt": "In a brightly lit medium close-up, @character_01 stands amidst the crowded steerage common room, her refined appearance contrasting with the utilitarian surroundings. She wears a delicate Edwardian Lace Tea Dress Bodice with a high collar and a visible Cornsilk yellow silk lining, accessorized with gold drop earrings that catch the soft light. Facing slightly to her right towards an off-screen @character_02, her expression is one of serious entreaty mixed with cautious hope. With a focused gaze, @character_01 speaks: \"In private?\" seeking a moment of seclusion away from the onlookers. The background features blurred white support pillars and the movement of other passengers, emphasizing the lack of privacy in the public space.",
+      "Language_to_One_Shot_Prompt": "@character_01 stands in a static Medium Close-up, framed against the white industrial pillars of the steerage common room. She is dressed in an intricate Edwardian Lace Tea Dress Bodice featuring a Whisper White lace overlay and Cornsilk silk lining, with a high collar and small fabric-covered buttons. Her red curly hair is styled in a soft updo with loose strands framing her fair face, and she wears pearl drop earrings. Her expression is earnest and inquiring, directed slightly off-camera. The lighting is soft and diffused, highlighting the texture of the lace and the clarity of her complexion while the background remains in soft focus due to a shallow depth of field.",
+      "scene_index": 12,
+      "time_range": "40.87s - 43.27s",
+      "start_time": 40.86666666666667,
+      "end_time": 43.266666666666666,
+      "duration": 2.3999999999999986
+    },
+    {
+      "lighting_setup": "Soft, diffused natural daylight entering from off-screen portholes, providing gentle side lighting on the subject's face while casting subtle shadows; the background is dimmer with ambient fill.",
+      "color_grading": "Naturalistic period palette featuring warm skin tones and earthy browns (corduroy, wood) contrasted against the bright creamy whites of the foreground dress; filmic texture with rich blacks and reduced saturation in the background shadows.",
+      "composition": "Over-the-shoulder (OTS) medium close-up framing @character_02 slightly to the right of center, balanced by the out-of-focus left foreground shoulder/head of @character_01, creating a sense of intimacy and direct engagement.",
+      "mood_atmosphere": "Intimate, attentive, and polite; a quiet moment of connection amidst the bustling steerage environment.",
+      "shot_size": "Medium Close-Up (MCU)",
+      "camera_angle": "Eye-level",
+      "camera_height": "Waist-Level (sitting subject)",
+      "horizontal_angle": "Three-Quarter Frontal",
+      "focal_length": "85mm (Telephoto compression)",
+      "depth_of_field": "Shallow depth of field (f/2.8), keeping @character_02 sharp while blurring the foreground element (@character_01) and the busy background passengers.",
+      "tech_device": "35mm Film Camera (Panavision Panaflex), Kodak Vision3 500T stock",
+      "camera_movement": "Static with very subtle handheld micro-movements to maintain organic framing.",
+      "subject_movement": "@character_02 looks up and speaks: [43.00s] 'Of course.'",
+      "I2V Prompt": "In an intimate over-the-shoulder shot, @character_02 sits on a wooden bench in the steerage common room, framed by the blurred white lace shoulder of @character_01 in the foreground. Bathed in soft, diffused daylight that highlights his youthful features and curtain-style hair, he looks up with an attentive and compliant expression. Responding to a request, @character_02 maintains eye contact and gently nods while saying 'Of course.' The background is soft and out of focus, showing hints of other passengers and the ship's industrial structure, emphasizing the private nature of this specific interaction within the public space.",
+      "Language_to_One_Shot_Prompt": "@character_02 sits on a wooden bench in the steerage common room, framed in a medium close-up over the blurred shoulder of @character_01. He wears a Kangaroo grey-brown corduroy shirt with beige suspenders visible over a white undershirt. His light brown hair is parted in the middle, framing a clean-shaven face with an expression of polite attentiveness. The lighting is soft and directional, illuminating his face from the side while the background remains in shadow. The composition uses the out-of-focus white lace of @character_01's dress in the immediate foreground to create depth, focusing strictly on @character_02 against a backdrop of muted industrial colors and blurred figures.",
+      "scene_index": 13,
+      "time_range": "43.27s - 45.23s",
+      "start_time": 43.266666666666666,
+      "end_time": 45.233333333333334,
+      "duration": 1.9666666666666686
+    },
+    {
+      "lighting_setup": "Natural diffused daylight, high-key, soft shadows, emanating from unseen portholes or skylights",
+      "color_grading": "Warm and nostalgic, creamy whites and soft yellows (dress), earthy browns (clothing), slightly desaturated background tones",
+      "composition": "Medium two-shot, Rule of Thirds with @character_01 frame left and @character_02 frame right, crowded depth in background",
+      "mood_atmosphere": "Intimate, urgent, romantic tension amidst a bustling public setting",
+      "shot_size": "Medium Close-Up",
+      "camera_angle": "Eye-level",
+      "camera_height": "Shoulder-level",
+      "horizontal_angle": "Three-Quarter",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow, isolating subjects from the blurry background crowd",
+      "tech_device": "35mm Film Camera, Anamorphic lens",
+      "camera_movement": "Static or subtle handheld float",
+      "subject_movement": "@character_01 stands facing @character_02 and speaks: [46.00s] I came to find you; @character_02 listens attentively",
+      "I2V Prompt": "In the bright, bustling steerage common room, @character_01 stands intimately close to @character_02, the soft, diffused daylight illuminating the intricate lace of her Edwardian tea dress and her vibrant red curls. She looks directly at him with an expression of urgent purpose and vulnerability, contrasting with the casual, rugged appearance of @character_02 in his corduroy shirt and suspenders. Amidst the low hum of the surrounding crowd, @character_01 leans in slightly and speaks to him, saying \"I came to find you,\" seeking a connection. @character_02 returns her gaze with attentive curiosity, his body angled towards her, creating a private moment of intensity within the public space.",
+      "Language_to_One_Shot_Prompt": "@character_01 stands in the center foreground, facing @character_02 in a medium close-up shot within a bright, white-walled steerage common room. She wears a cream-colored Edwardian lace tea dress with a high collar and a yellow sash, her red hair styled in elegant curls. @character_02 stands opposite her, dressed in a grey-brown corduroy shirt with beige suspenders over a white undershirt. The lighting is high-key and natural, casting soft, flattering shadows on their faces. The focus is sharp on the two characters, while the background, filled with industrial pillars and indistinct figures, is rendered in a soft blur. @character_01 holds a serious, expectant expression, while @character_02 looks at her with focused interest.",
+      "scene_index": 14,
+      "time_range": "45.23s - 47.33s",
+      "start_time": 45.233333333333334,
+      "end_time": 47.333333333333336,
+      "duration": 2.1000000000000014
+    },
+    {
+      "lighting_setup": "Diffused interior daylight from portholes, creating soft, even illumination with gentle fall-off towards the background",
+      "color_grading": "Naturalistic period palette dominated by earth tones (browns, tans, greys) contrasted with the bright white and red of a shawl, slightly desaturated filmic look",
+      "composition": "Medium three-shot with characters arranged horizontally across the frame, using the pointing arm as a vector line leading the eye off-screen left",
+      "mood_atmosphere": "Lively and communal, filled with anticipation and friendly urgency within the crowded steerage environment",
+      "shot_size": "Medium Close-up (MCU)",
+      "camera_angle": "Eye-level",
+      "camera_height": "Waist-Level",
+      "horizontal_angle": "Frontal",
+      "focal_length": "85mm (Telephoto compression)",
+      "depth_of_field": "Shallow focus (f/2.8), separating the three main subjects from the busy, blurred background crowd",
+      "tech_device": "35mm Film Camera, Anamorphic lens",
+      "camera_movement": "Static",
+      "subject_movement": "@character_03 leans forward and points emphatically off-screen while mouthing words; @character_04 and @character_05 turn their heads to look in the indicated direction",
+      "I2V Prompt": "In a bustling steerage common room, @character_03 leans eagerly over the back of a wooden bench, wearing his newsboy cap and tan vest. He emphatically extends his right arm, pointing a finger off-screen to the left to alert his friend, his face animated with excitement as he mouths unseen words. Beside him, @character_04 smiles broadly, her blonde braided hair framing her face as she looks in the same direction, wrapped in a white shawl with red floral embroidery. To her right, @character_05 turns his head sharply to follow the gesture, his expression one of sudden curiosity. The background is a soft blur of other passengers and white steel pillars, illuminated by diffused daylight.",
+      "Language_to_One_Shot_Prompt": "A medium close-up captures a trio of steerage passengers huddled together on a wooden bench. On the left, a young man in a tan wool vest and dark newsboy cap leans forward, his arm frozen in a pointing gesture directed off-screen. In the center, a woman with blonde braided hair wears a white shawl featuring red floral embroidery, a warm smile on her face. On the right, a man with curly reddish hair and a dark wool jacket looks towards the point of interest. The lighting is soft and natural, casting gentle shadows and highlighting the textures of their corduroy and wool clothing against a background of blurred figures and white ship infrastructure.",
+      "scene_index": 15,
+      "time_range": "47.33s - 49.17s",
+      "start_time": 47.333333333333336,
+      "end_time": 49.166666666666664,
+      "duration": 1.8333333333333286
+    },
+    {
+      "lighting_setup": "Soft natural daylight, side-lit, diffused, creating gentle modeling on the face with a slight rim light effect.",
+      "color_grading": "Naturalistic with warm earth tones (browns, creams) balanced by cool daylight; slight desaturation typical of the period film aesthetic.",
+      "composition": "Medium Close-up (MCU), centered subject with shallow depth of field blurring the busy background elements.",
+      "mood_atmosphere": "Intimate, attentive, and slightly expectant amidst a crowded and noisy environment.",
+      "shot_size": "Medium Close-up",
+      "camera_angle": "Eye-level",
+      "camera_height": "Shoulder-Level",
+      "horizontal_angle": "Frontal",
+      "focal_length": "85mm (Telephoto compression)",
+      "depth_of_field": "Shallow focus (f/2.8), keeping the subject sharp while blurring the background passengers and architecture.",
+      "tech_device": "35mm Film Camera, Anamorphic lens texture",
+      "camera_movement": "Static",
+      "subject_movement": "@character_02 stands relatively still, maintaining eye contact and reacting with a subtle facial expression.",
+      "I2V Prompt": "A continuous cinematic medium close-up shot capturing @character_02 in the steerage common room. The soft, diffused natural daylight illuminates his face from the side, highlighting his youthful features and the texture of his Kangaroo grey-brown corduroy shirt and white henley undershirt. He wears beige suspenders with thin vertical stripes. He stands still, looking directly forward with an attentive and gentle expression, reacting silently to an off-screen interaction with @character_01. The background is a soft blur of white structural poles and other passengers in the crowded space, creating a sense of intimacy despite the surrounding bustle. The atmosphere is calm and focused on his reaction.",
+      "Language_to_One_Shot_Prompt": "A medium close-up keyframe captures @character_02 standing in the steerage common room. He is dressed in a Kangaroo grey-brown corduroy shirt over a visible white henley undershirt, with beige striped suspenders. His light brown hair falls in a curtain style framing his clean-shaven face. He looks directly forward with a gentle, attentive expression. Soft natural daylight streams in from the side, creating gentle shadows on his face. The background is out of focus, showing the white painted steel beams of the ship and vague shapes of other passengers in muted earth tones. The shot is framed at eye-level with a shallow depth of field.",
+      "scene_index": 16,
+      "time_range": "49.17s - 51.17s",
+      "start_time": 49.166666666666664,
+      "end_time": 51.166666666666664,
+      "duration": 2.0
+    },
+    {
+      "lighting_setup": "Soft, diffused interior daylight source from stage right creating a gentle key light on the face, with subtle fill on the left; naturalistic and warm",
+      "color_grading": "Natural and earthy palette dominated by the Kangaroo brown of the shirt and warm skin tones, contrasted with the clean Bright White of the undershirt and the muted creamy background",
+      "composition": "Medium Close-up framing with the subject slightly off-center to the left, adhering to the rule of thirds, with a shallow depth of field isolating him from the busy background",
+      "mood_atmosphere": "Charming, intimate, and lighthearted amidst the crowded steerage environment; a moment of youthful connection",
+      "shot_size": "Medium Close-up",
+      "camera_angle": "Eye-level",
+      "camera_height": "Shoulder-Level",
+      "horizontal_angle": "Frontal",
+      "focal_length": "85mm (Portrait telephoto)",
+      "depth_of_field": "Shallow focus (f/2.8) blurring the passengers and structural beams in the background",
+      "tech_device": "Cinematic 35mm film camera with anamorphic lens characteristics",
+      "camera_movement": "Static shot with imperceptible handheld micro-movements adding life",
+      "subject_movement": "@character_02 tilts his head slightly, offering a warm, boyish smile and a nod of agreement, his expression open and engaging as he maintains eye contact with the off-screen subject",
+      "I2V Prompt": "In a shallow-focus Medium Close-up, @character_02 stands in the crowded steerage common room, bathed in soft, warm interior light that highlights his youthful features. Wearing his Kangaroo grey-brown corduroy shirt and striped beige suspenders over a white undershirt, he looks directly at the off-screen character with a charming, slightly amused expression. He tilts his head and nods gently, his lips curving into a warm smile of agreement, conveying a sense of relaxed confidence. The background is a soft blur of white structural beams and other passengers, keeping the visual focus entirely on his engaging reaction.",
+      "Language_to_One_Shot_Prompt": "@character_02 stands in the steerage common room, framed in a Medium Close-up at eye-level. He wears a Kangaroo grey-brown corduroy shirt over a Bright White henley undershirt, with beige striped suspenders visible at his shoulders. His light brown hair is styled in a center part with curtain bangs framing his face. He has a warm, charming smile and maintains direct eye contact, his head tilted slightly to the side in a posture of engagement. The lighting is soft and diffused, casting gentle shadows that define his facial structure. The background is out of focus, showing vague shapes of steerage passengers and white painted structural columns, creating a shallow depth of field that isolates the subject.",
+      "scene_index": 17,
+      "time_range": "51.17s - 53.10s",
+      "start_time": 51.166666666666664,
+      "end_time": 53.1,
+      "duration": 1.9333333333333371
+    },
+    {
+      "lighting_setup": "Soft diffused daylight source from screen-right windows, creating a high-key naturalistic ambiance with gentle modeling on faces.",
+      "color_grading": "Warm, nostalgic Kodak tone with a golden cast (Cornsilk/Vanilla hues) contrasted against muted earth tones (Kangaroo/Peat) of the steerage environment.",
+      "composition": "Medium shot evolving into a deep focus long shot using central perspective; white structural pillars create vertical rhythm and leading lines into the background.",
+      "mood_atmosphere": "Polite, transitional, slightly tense but courteous, contrasting the refined elegance of the visitor with the rougher working-class setting.",
+      "shot_size": "Medium Shot transitioning to Long Shot as subjects move away",
+      "camera_angle": "Eye-level",
+      "camera_height": "Chest-level",
+      "horizontal_angle": "Three-Quarter View turning to Rear View",
+      "focal_length": "50mm Standard Lens",
+      "depth_of_field": "f/5.6 Deep Focus (keeping background passengers and architecture relatively sharp)",
+      "tech_device": "35mm Film Camera (Panavision Panaflex), Anamorphic Lens",
+      "camera_movement": "Static frame with focus pulling deeper as subjects walk away from the camera.",
+      "subject_movement": "@character_02 gestures with his hand for @character_01 to proceed. @character_01 turns and walks away from the camera. @character_02 follows her, glancing briefly at @character_03 and @character_05 on the bench as he passes.",
+      "I2V Prompt": "In the brightly lit steerage common room, @character_02, dressed in a brown corduroy shirt and suspenders, extends his hand in a polite gesture, inviting @character_01 to lead the way. @character_01, standing out in her exquisite white lace bodice and yellow sash, turns gracefully and begins to walk away from the camera, navigating through the crowd of passengers. @character_02 follows closely behind her, pausing for a split second to exchange a silent, knowing look with his friends @character_03 and @character_05 who are seated on a wooden bench nearby; @character_03 smiles broadly in response. The pair continues walking deep into the room, framed by rows of white steel pillars and the bustling activity of the third-class passengers.",
+      "Language_to_One_Shot_Prompt": "A medium shot captures @character_02 and @character_01 standing amidst the bustling activity of the ship's steerage common room. @character_02, wearing a worn brown corduroy shirt over a white henley with striped suspenders, stands with a polite, open posture, gesturing with one hand. Opposite him, @character_01 is dressed in a refined Edwardian tea gown featuring a white lace bodice and a corn-silk yellow sash, her red hair styled in elegant curls. The background is filled with the soft, warm glow of daylight streaming through unseen windows, illuminating white structural pillars and wooden benches occupied by diverse passengers in working-class attire. The atmosphere is candid and naturalistic, highlighting the stark contrast between @character_01's upper-class elegance and the humble surroundings.",
+      "scene_index": 18,
+      "time_range": "53.10s - 58.67s",
+      "start_time": 53.1,
+      "end_time": 58.666666666666664,
+      "duration": 5.566666666666663
+    },
+    {
+      "lighting_setup": "Cinematic moonlight (Cool blue rim and top light) contrasted with warm tungsten practical deck lamps; brief initial interior diffuse lighting",
+      "color_grading": "Teal and Orange contrast; deep blue night tones against warm skin and fabric accents",
+      "composition": "Deep depth linear perspective provided by the ship's deck planks and railing; subjects framed centrally moving forward",
+      "mood_atmosphere": "Romantic, whimsical, free-spirited, intimate connection amidst the vastness of the sea",
+      "shot_size": "Full Shot transitioning to Medium Shot as subjects approach",
+      "camera_angle": "Eye-level",
+      "camera_height": "Waist-Level",
+      "horizontal_angle": "Frontal",
+      "focal_length": "35mm",
+      "depth_of_field": "f/2.8 Moderate depth (subjects sharp, background ship details slightly soft)",
+      "tech_device": "Panavision Panaflex Gold II, Anamorphic lens",
+      "camera_movement": "Tracking shot (Dolly Back) maintaining pace with walking subjects",
+      "subject_movement": "@character_05 speaks: [60.00s] Where are you going?. @character_02 and @character_01 walk along the deck, @character_02 gestures and sings: [62.00s] I come from my flying machine [64.00s] She goes up.",
+      "I2V Prompt": "The scene bridges a transition from the crowded steerage quarters where @character_05 asks a parting question, to the open air of the ship's promenade deck at night. Under a starry sky and cool blue moonlight, @character_02 and @character_01 walk arm-in-arm towards the camera, their mood light and joyous. @character_02, dressed in a white tuxedo shirt with a textured bib front and black suspenders, gestures playfully while singing 'I come from my flying machine.' Beside him, @character_01 wears a shimmering black beaded evening coat over a red silk gown, her hair in an elegant updo. They share a laugh as they stride along the wooden deck planks, singing 'She goes up' together, the warm glow of the ship's lamps contrasting with the deep blue of the ocean night.",
+      "Language_to_One_Shot_Prompt": "@character_02 and @character_01 stand side-by-side on the wooden promenade deck of the ship at night. @character_02 wears a crisp white tuxedo dress shirt with a stiff bib front, black trousers, and black suspenders visible against the white cotton. @character_01 is dressed in a loose-fitting black evening coat heavily embellished with jet beads that catch the light, worn over a visible flame scarlet red evening gown. The lighting is dramatic, with cool blue moonlight creating rim light on their figures and a deep blue ambient background, contrasted by the warm yellow glow of deck lamps. The composition features strong leading lines from the deck railing and floorboards stretching into the darkness behind them. They look forward with expressions of joy and carefree romance. The shot is a medium-full view captured at eye level with cinematic depth of field.",
+      "scene_index": 19,
+      "time_range": "58.67s - 79.70s",
+      "start_time": 58.666666666666664,
+      "end_time": 79.7,
+      "duration": 21.03333333333334
+    },
+    {
+      "lighting_setup": "Cinematic moonlight simulation with cool blue ambient fill, accented by warm practical tungsten light from ship windows and deck lamps; high contrast with rim lighting separating subjects from the dark background.",
+      "color_grading": "Teal and Orange aesthetic; deep cool blues in shadows and highlights (moonlight) contrasting with warm skin tones and the creamy white of the shirt; rich blacks and saturated reds.",
+      "composition": "Two-shot, medium-wide framing with central symmetry; the wooden deck planks provide leading lines towards the subjects; balanced arrangement with the ship's white superstructure on the left and the dark railing/ocean on the right.",
+      "mood_atmosphere": "Romantic, whimsical, and carefree; a sense of freedom and intimacy amidst the vastness of the sea at night.",
+      "shot_size": "Medium Full Shot (Knees up)",
+      "camera_angle": "Eye-level",
+      "camera_height": "Waist-Level",
+      "horizontal_angle": "Frontal",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep focus (f/5.6), keeping both the couple and the ship's deck structure reasonably sharp.",
+      "tech_device": "Cinematic film camera, likely 35mm format, capturing rich texture and grain.",
+      "camera_movement": "Tracking shot (Dolly back); the camera moves backwards at the same speed as the walking subjects, maintaining a constant distance.",
+      "subject_movement": "@character_01 and @character_02 walk forward towards the camera. @character_02 raises his hand in a gesture while singing: [80.00s] 'She goes up'.",
+      "I2V Prompt": "In a medium full tracking shot moving backward along the ship's wooden deck at night, @character_02 and @character_01 stroll forward side-by-side, bathed in cool moonlight. @character_02, dressed in a white tuxedo shirt with suspenders, walks with a bounce in his step and raises his hand enthusiastically to gesture towards the sky, singing \"She goes up\" to @character_01. @character_01, wearing a heavy black beaded evening coat that shimmers in the dim light, walks closely beside him, gazing at him with an affectionate and amused smile. The background reveals the white steel walls of the ship and the dark, star-speckled sky, creating a romantic and intimate atmosphere.",
+      "Language_to_One_Shot_Prompt": "@character_01 and @character_02 stand side-by-side on the wooden deck of a ship at night, captured in a medium full shot. @character_01 wears a shimmering black beaded evening coat over a red dress, her hair styled in an elegant updo, looking affectionately at her companion. @character_02 stands to her left in a white tuxedo shirt with suspenders and dark trousers, his right arm raised in a dynamic upward gesture. The lighting features a dramatic contrast between cool blue moonlight casting long shadows on the deck planks and warm artificial light spilling from the ship's cabin windows. The composition centers the couple against the linear perspective of the deck and the ship's white superstructure.",
+      "scene_index": 20,
+      "time_range": "79.70s - 81.10s",
+      "start_time": 79.7,
+      "end_time": 81.1,
+      "duration": 1.3999999999999915
+    }
+  ]
+}

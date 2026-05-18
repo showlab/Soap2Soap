@@ -1,0 +1,79 @@
+{
+  "mappings": [
+    {
+      "video_character": "@character_01",
+      "video_character_name": "",
+      "video_aliases": [],
+      "video_titles": [],
+      "target_face": "generated_faces/character_01_character_character_01.png",
+      "target_name": "character_character_01",
+      "notes": "",
+      "physical_attributes": "Female, young adult (approx 20s), slim build, fair skin",
+      "hair": "Red, curly, long but styled in an updo",
+      "face_source": "ai_generated"
+    },
+    {
+      "video_character": "@character_02",
+      "video_character_name": "Jack",
+      "video_aliases": [
+        "Jack"
+      ],
+      "video_titles": [
+        "Mr. Dawson"
+      ],
+      "target_face": "generated_faces/character_02_Jack.png",
+      "target_name": "Jack",
+      "notes": "",
+      "physical_attributes": "Male, young adult (approx 20s), slim/athletic build, fair skin",
+      "hair": "Light brown/dark blonde, straight, curtain bangs style (shorter in back)",
+      "face_source": "ai_generated"
+    },
+    {
+      "video_character": "@character_03",
+      "video_character_name": "@character_03",
+      "video_aliases": [],
+      "video_titles": [],
+      "target_face": "generated_faces/character_03_@character_03.png",
+      "target_name": "@character_03",
+      "notes": "",
+      "physical_attributes": "Male, young adult (20s), medium build, olive skin",
+      "hair": "Dark brown/black, short, partially covered by hat",
+      "face_source": "ai_generated"
+    },
+    {
+      "video_character": "@character_04",
+      "video_character_name": "@character_04",
+      "video_aliases": [],
+      "video_titles": [],
+      "target_face": "generated_faces/character_04_@character_04.png",
+      "target_name": "@character_04",
+      "notes": "",
+      "physical_attributes": "Female, young adult, fair skin",
+      "hair": "Blonde, styled in braids wrapped around head",
+      "face_source": "ai_generated"
+    },
+    {
+      "video_character": "@character_05",
+      "video_character_name": "@character_05",
+      "video_aliases": [],
+      "video_titles": [],
+      "target_face": "generated_faces/character_05_@character_05.png",
+      "target_name": "@character_05",
+      "notes": "",
+      "physical_attributes": "Male, young adult, stocky build, fair skin",
+      "hair": "Reddish-brown/strawberry blonde, curly/wavy, short",
+      "face_source": "ai_generated"
+    }
+  ],
+  "main_character_ids": [
+    "@character_01",
+    "@character_02"
+  ],
+  "supporting_character_ids": [
+    "@character_03",
+    "@character_04",
+    "@character_05"
+  ],
+  "created_at": "2026-03-10T22:32:29.647145",
+  "total_characters": 5
+}
