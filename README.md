@@ -59,17 +59,56 @@ Interactive commands during regeneration:
 
 ## Setup
 
-1. Install dependencies:
-   ```bash
-   pip install google-genai Pillow
-   ```
+### 1. Prerequisites
 
-2. Set your Gemini API key as an environment variable:
-   ```bash
-   export GENAI_API_KEY="your_api_key_here"
-   ```
+- **Python 3.8+**
+- **ffmpeg** (required for video understanding and video concatenation)
+  - macOS: `brew install ffmpeg`
+  - Ubuntu: `sudo apt install ffmpeg`
+  - Windows: Download from https://ffmpeg.org/download.html and add to PATH
 
-3. Make sure `ffmpeg` is installed (for video concatenation).
+### 2. Install Python Dependencies
+
+```bash
+pip install google-genai Pillow opencv-python scenedetect[opencv]
+```
+
+| Package | Purpose |
+|---------|---------|
+| `google-genai` | Gemini API client (image/video generation, video understanding) |
+| `Pillow` | Image processing |
+| `opencv-python` | Video reading and frame extraction |
+| `scenedetect[opencv]` | Video scene detection and splitting |
+
+### 3. Configure Gemini API Key
+
+Get your API key from [Google AI Studio](https://aistudio.google.com/apikey), then set it as an environment variable:
+
+**macOS / Linux (add to `~/.bashrc` or `~/.zshrc`):**
+```bash
+export GENAI_API_KEY="your_api_key_here"
+```
+
+**Windows PowerShell:**
+```powershell
+$env:GENAI_API_KEY = "your_api_key_here"
+```
+
+**Windows CMD (persistent):**
+```cmd
+setx GENAI_API_KEY "your_api_key_here"
+```
+
+> Note: After `setx`, you need to restart the terminal for it to take effect.
+
+### 4. Verify Setup
+
+```bash
+python -c "import google.genai; print('google-genai OK')"
+python -c "from PIL import Image; print('Pillow OK')"
+python -c "import cv2; print('opencv OK')"
+ffmpeg -version
+```
 
 ## Output
 
