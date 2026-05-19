@@ -64,6 +64,11 @@ def run_pipeline(
     if skip_to_step > 1 and os.path.exists(cache_path):
         print(f"\n  ↩️  Loading cached analysis from {cache_path}")
         state = _load_state(state, cache_path)
+        # Re-apply timestamp correction on cached data too
+        video_duration = step1_analyze._get_video_duration(video_path)
+        state.shots = step1_analyze._fix_timestamps(state.shots, video_duration)
+        for s in state.shots:
+            print(f"    Shot {s.shot_id}: {s.time_range} ({s.duration:.1f}s)")
     else:
         # Step 1 — Video Analysis
         state = step1_analyze.run(state)

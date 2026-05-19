@@ -1,21 +1,25 @@
 """
-Imagen client — text-to-image (character references) and
-image-to-image (shot keyframes with consistency references).
+Image generation client.
 
-For text-to-image:   uses Imagen 3 (imagen-3.0-generate-002)
-For image-to-image:  uses Gemini 3 Pro Image (gemini-2.0-flash-preview-image-generation)
-                     because Imagen 3 does not support multi-image reference input.
+Character reference sheets: Imagen 3 (text-to-image), falls back to Gemini image model.
+Shot keyframes:             Gemini image model with multi-image reference support.
 """
 from __future__ import annotations
-import os
 import io
-from typing import List, Optional, Tuple
+import os
+import time
+from typing import List, Optional
+
 from PIL import Image
 from google import genai
 from google.genai import types
 
+# Imagen 3 — best quality text-to-image, no multi-image-reference support
 IMAGEN_MODEL = "imagen-3.0-generate-002"
-GEMINI_IMAGE_MODEL = "gemini-2.0-flash-preview-image-generation"
+
+# Gemini image generation — supports multi-image input (reference consistency)
+# Use the model confirmed working with a standard GENAI_API_KEY
+GEMINI_IMAGE_MODEL = "gemini-3-pro-image-preview"
 
 
 def _client() -> genai.Client:
@@ -31,10 +35,12 @@ def generate_character_image(
     save_path: Optional[str] = None,
 ) -> Optional[Image.Image]:
     """
-    Text-to-image via Imagen 3 for generating character reference sheets.
-    Returns a PIL Image, and optionally saves it to disk.
+    Generate a character reference sheet.
+    Tries Imagen 3 first; falls back to Gemini image model if Imagen is unavailable.
     """
     client = _client()
+
+    # ── Imagen 3 attempt ──────────────────────────────────────────────────────
     try:
         response = client.models.generate_images(
             model=IMAGEN_MODEL,
@@ -45,18 +51,21 @@ def generate_character_image(
                 safety_filter_level="BLOCK_MEDIUM_AND_ABOVE",
             ),
         )
-        if not response.generated_images:
-            print(f"  ⚠️  Imagen returned no image for prompt (len={len(prompt)})")
-            return None
-        img_bytes = response.generated_images[0].image.image_bytes
-        img = Image.open(io.BytesIO(img_bytes))
-        if save_path:
-            img.save(save_path)
-            print(f"  ✅ Character image saved: {save_path}")
-        return img
+        if response.generated_images:
+            img = Image.open(io.BytesIO(response.generated_images[0].image.image_bytes))
+            if save_path:
+                img.save(save_path)
+                print(f"  ✅ Character image saved (Imagen 3): {save_path}")
+            return img
     except Exception as e:
-        print(f"  ❌ Imagen generation failed: {e}")
-        return None
+        msg = str(e)
+        if "NOT_FOUND" in msg or "not supported" in msg:
+            print("  ⚠️  Imagen 3 unavailable — falling back to Gemini image model")
+        else:
+            print(f"  ⚠️  Imagen 3 error ({msg}) — falling back to Gemini image model")
+
+    # ── Gemini image fallback (no reference images for character sheet) ────────
+    return generate_keyframe(prompt=prompt, reference_images=[], save_path=save_path)
 
 
 def generate_keyframe(
@@ -67,54 +76,49 @@ def generate_keyframe(
     max_retries: int = 3,
 ) -> Optional[Image.Image]:
     """
-    Image-to-image via Gemini for shot keyframes.
-    Sends (prompt + reference images) to Gemini image generation model.
-    Automatically safety-rewrites and retries on EMPTY_PARTS / PROHIBITED_CONTENT.
+    Generate a shot keyframe via Gemini image generation.
+    Accepts an ordered list of reference PIL images (character refs + previous frame).
+    Automatically safety-rewrites and retries on PROHIBITED_CONTENT / EMPTY_PARTS.
     """
     from v2.clients.gemini_client import safety_rewrite
 
     client = _client()
     current_prompt = prompt
 
-    # Cap prompt length
     MAX_CHARS = 4000
     if len(current_prompt) > MAX_CHARS:
-        print(f"  ⚠️  Prompt {len(current_prompt)} chars → truncating to {MAX_CHARS}")
+        print(f"  ⚠️  Prompt {len(current_prompt)}c → truncating to {MAX_CHARS}c")
         current_prompt = current_prompt[:MAX_CHARS]
 
     for attempt in range(1, max_retries + 1):
         try:
             contents: list = [current_prompt] + reference_images
-
             response = client.models.generate_content(
                 model=GEMINI_IMAGE_MODEL,
                 contents=contents,
-                config=types.GenerateContentConfig(
-                    response_modalities=["IMAGE"],
-                ),
+                config=types.GenerateContentConfig(response_modalities=["IMAGE"]),
             )
 
-            # Parse response
             candidates = getattr(response, "candidates", [])
             if not candidates:
                 print(f"  ❌ Attempt {attempt}: no candidates")
-                _log_empty_response(response)
+                _log_response(response)
                 if attempt < max_retries:
                     current_prompt = safety_rewrite(current_prompt)
                 continue
 
             candidate = candidates[0]
             finish = str(getattr(candidate, "finish_reason", ""))
-            if finish in ("SAFETY", "PROHIBITED_CONTENT", "IMAGE_SAFETY"):
-                print(f"  ❌ Attempt {attempt}: {finish} — safety rewriting prompt")
+            if finish in ("SAFETY", "PROHIBITED_CONTENT", "IMAGE_SAFETY", "RECITATION"):
+                print(f"  ❌ Attempt {attempt}: {finish} → safety rewriting")
                 if attempt < max_retries:
                     current_prompt = safety_rewrite(current_prompt)
                 continue
 
             parts = getattr(getattr(candidate, "content", None), "parts", None)
             if not parts:
-                print(f"  ❌ Attempt {attempt}: EMPTY_PARTS — safety rewriting prompt")
-                _log_empty_response(response)
+                print(f"  ❌ Attempt {attempt}: EMPTY_PARTS → safety rewriting")
+                _log_response(response)
                 if attempt < max_retries:
                     current_prompt = safety_rewrite(current_prompt)
                 continue
@@ -127,18 +131,18 @@ def generate_keyframe(
                         print(f"  ✅ Keyframe saved: {save_path}")
                     return img
 
-            print(f"  ⚠️  Attempt {attempt}: no image part found")
+            print(f"  ⚠️  Attempt {attempt}: no inline image in parts")
 
-        except Exception as e:
-            print(f"  ❌ Attempt {attempt}: exception — {e}")
+        except Exception as exc:
+            print(f"  ❌ Attempt {attempt}: {exc}")
             if attempt < max_retries:
-                import time; time.sleep(5)
+                time.sleep(5)
 
     return None
 
 
-def _log_empty_response(response) -> None:
-    """Log raw response info when generation fails — disambiguates quota vs filter."""
+def _log_response(response) -> None:
+    """Print raw response metadata to distinguish quota exhaustion from content filters."""
     candidates = getattr(response, "candidates", [])
     if candidates:
         c = candidates[0]

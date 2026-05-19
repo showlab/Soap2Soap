@@ -31,6 +31,7 @@ def run(state: "PipelineState") -> "PipelineState":
         if os.path.exists(save_path):
             print(f"  ⏭️  Shot {shot.shot_id} — keyframe exists, skipping")
             shot.keyframe_path = save_path
+            shot.status = "keyframe_done"
             previous_keyframe = save_path
             continue
 

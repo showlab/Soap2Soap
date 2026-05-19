@@ -30,6 +30,7 @@ def run(state: "PipelineState") -> "PipelineState":
         if os.path.exists(video_path):
             print(f"  ⏭️  Shot {shot.shot_id} — video exists, skipping")
             shot.video_path = video_path
+            shot.status = "done"
             continue
 
         print(f"  [{shot.shot_id}/{len(state.shots)}] {mode_label}: Shot {shot.shot_id}")
