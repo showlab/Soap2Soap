@@ -27,6 +27,7 @@ from v2.pipeline import (
     step2_characters,
     step3_compile,
     step4_keyframes,
+    step4b_inspect,
     step5_video,
     step6_merge,
 )
@@ -93,6 +94,9 @@ def run_pipeline(
 
     # Step 4 — Keyframes
     state = step4_keyframes.run(state)
+
+    # Step 4b — Inspection & auto-fix
+    state = step4b_inspect.run(state)
 
     # Step 5 — Video clips
     state = step5_video.run(state)
