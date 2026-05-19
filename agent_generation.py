@@ -1062,6 +1062,11 @@ The scene wardrobe contains EXACT clothing DNA specifications. You MUST follow A
 
             if not operation.response or not operation.response.generated_videos:
                 print(f"⚠️  Shot {shot_id} did not generate valid video")
+                # Log raw operation info to distinguish quota vs content-filter failures
+                print(f"   Operation name   : {getattr(operation, 'name', 'N/A')}")
+                print(f"   Operation metadata: {getattr(operation, 'metadata', 'N/A')}")
+                print(f"   Operation error  : {getattr(operation, 'error', 'N/A')}")
+                print(f"   Response         : {operation.response}")
                 return False
 
             # Save result - use official recommended method to download video
