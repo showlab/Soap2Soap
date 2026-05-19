@@ -107,13 +107,59 @@ Instructions:
 
 NO_TRANSCRIPT_SECTION = "(No audio transcript — infer dialogue from lip movement if possible)"
 
+CUTS_SECTION_TEMPLATE = """CAMERA CUTS (detected by SceneDetect — these are HARD boundaries):
+{cut_lines}
 
-def get_analysis_prompt(max_shots: int = 10, transcript: str = "") -> str:
+CRITICAL RULES when SceneDetect cuts are provided:
+• Each cut above MUST become exactly ONE shot in your output.
+• Do NOT merge two cuts into one shot, even if the scene looks similar.
+• Do NOT split one cut into multiple shots.
+• Use the provided start_time and end_time EXACTLY as given — do not adjust them.
+• Total shots in your output must equal {n_cuts}.
+"""
+
+NO_CUTS_SECTION = "(No cut detection data — determine shot boundaries from visual analysis)"
+
+
+def get_analysis_prompt(
+    max_shots: int = 10,
+    transcript: str = "",
+    cuts: list = None,
+) -> str:
+    # Transcript section
     if transcript and transcript != "(no speech detected)":
         transcript_section = TRANSCRIPT_SECTION_TEMPLATE.format(transcript=transcript)
     else:
         transcript_section = NO_TRANSCRIPT_SECTION
-    return VIDEO_ANALYSIS_PROMPT.format(
+
+    # Cuts section
+    if cuts:
+        cut_lines = "\n".join(
+            f"  Shot {i+1}: start={s:.3f}s  end={e:.3f}s  duration={e-s:.2f}s"
+            for i, (s, e) in enumerate(cuts)
+        )
+        cuts_section = CUTS_SECTION_TEMPLATE.format(
+            cut_lines=cut_lines,
+            n_cuts=len(cuts),
+        )
+    else:
+        cuts_section = NO_CUTS_SECTION
+
+    # Replace max_shots instruction when cuts are provided
+    if cuts:
+        max_shots_note = (
+            f"You must output EXACTLY {len(cuts)} shots — one per SceneDetect cut above. "
+            f"Do not output more or fewer."
+        )
+    else:
+        max_shots_note = f"Up to {max_shots} shots (scene segments), in chronological order"
+
+    prompt = VIDEO_ANALYSIS_PROMPT.replace(
+        "2. Up to {max_shots} shots (scene segments), in chronological order",
+        f"2. {max_shots_note}"
+    )
+
+    return prompt.format(
         max_shots=max_shots,
         transcript_section=transcript_section,
-    )
+    ) + f"\n\n{cuts_section}"
