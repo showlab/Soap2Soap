@@ -187,11 +187,43 @@ def _zoom_and_select(
     return variations[0]
 
 
+def _partition_by_scene(shots: list, max_grid: int = 4) -> list:
+    """
+    Group shots by scene_id first, then split each scene into grids of max_grid.
+
+    Shots from different scenes are NEVER placed in the same grid — doing so
+    would cause Gemini to cross-contaminate environments and styles.
+
+    Example (max_grid=4):
+      Scene A: shots 0,1,2,3,4  →  [0,1,2,3], [4]
+      Scene B: shots 5,6        →  [5,6]
+      Scene A: shots 7,8        →  [7,8]   ← new group even though same scene_id
+    """
+    grids = []
+    current_scene: str = None
+    current_group: list = []
+
+    for shot in shots:
+        scene = getattr(shot, 'scene_id', None) or "unknown"
+        if scene != current_scene or len(current_group) >= max_grid:
+            if current_group:
+                grids.append(current_group)
+            current_group = [shot]
+            current_scene = scene
+        else:
+            current_group.append(shot)
+
+    if current_group:
+        grids.append(current_group)
+
+    return grids
+
+
 def _run_consistency(state: "PipelineState") -> "PipelineState":
     from v2.prompts.narrative_grid import compile_narrative_grid_prompt
     from v2.prompts.zoom_in import GRID_POSITIONS
 
-    print("  Mode: CONSISTENCY (2×2 grid → crop → zoom)")
+    print("  Mode: CONSISTENCY (scene-aware 2×2 grid → crop → zoom)")
 
     GRID_SIZE = 4
     shots = state.shots
@@ -203,27 +235,35 @@ def _run_consistency(state: "PipelineState") -> "PipelineState":
         for c in state.characters
     ]
 
-    # Partition shots into groups of 4 (pad last group if needed)
-    groups = []
-    for i in range(0, len(shots), GRID_SIZE):
-        group = shots[i:i + GRID_SIZE]
-        groups.append(group)
+    # Partition by scene first, then by grid size — never mix scenes in one grid
+    groups = _partition_by_scene(shots, max_grid=GRID_SIZE)
+    print(f"  {len(shots)} shots → {len(groups)} grid group(s) across scenes:")
+    for g in groups:
+        scene = getattr(g[0], 'scene_id', '?')
+        print(f"    Scene '{scene}': shots {[s.shot_id for s in g]}")
+
+    # Track previous grids per scene (cross-scene grids don't bleed over)
+    scene_grids: dict = {}   # scene_id → List[Image.Image]
 
     for g_idx, group in enumerate(groups):
-        # Check if all 4 shots in this group already have keyframes
+        scene_id = getattr(group[0], 'scene_id', 'unknown') or 'unknown'
+        prev_same_scene: List[Image.Image] = scene_grids.get(scene_id, [])
+
+        # Check if all shots in this group already have keyframes
         save_paths = [os.path.join(state.output_dir, f"shot_{s.shot_id}.png") for s in group]
         if all(os.path.exists(p) for p in save_paths):
-            print(f"  ⏭️  Grid {g_idx+1}: all shots exist, skipping")
+            print(f"  ⏭️  Grid {g_idx+1} (scene={scene_id}): all shots exist, skipping")
             for s, p in zip(group, save_paths):
                 s.keyframe_path = p
                 s.status = "keyframe_done"
             try:
-                previous_grids.append(Image.open(save_paths[0]))  # use first as prev ref
+                grid_img_cached = Image.open(save_paths[0])
+                scene_grids.setdefault(scene_id, []).append(grid_img_cached)
             except Exception:
                 pass
             continue
 
-        # Pad group to 4 shots if needed
+        # Pad group to GRID_SIZE if needed
         padded_group = list(group)
         while len(padded_group) < GRID_SIZE:
             padded_group.append(type('PaddedShot', (), {
@@ -237,24 +277,25 @@ def _run_consistency(state: "PipelineState") -> "PipelineState":
             for s in padded_group
         ]
 
-        # Reference images: design sheet + previous grids
+        # Reference images: design sheet + previous grids FROM SAME SCENE ONLY
         ref_imgs: List[Image.Image] = []
         if state.design_sheet_path and os.path.exists(state.design_sheet_path):
             try:
                 ref_imgs.append(Image.open(state.design_sheet_path))
             except Exception:
                 pass
-        ref_imgs.extend(previous_grids)
+        ref_imgs.extend(prev_same_scene)
 
         grid_prompt = compile_narrative_grid_prompt(
             shots=shot_dicts,
             style=state.style,
             characters=char_list,
-            previous_grids=len(previous_grids),
+            environment=group[0].environment_description[:200] if group[0].environment_description else None,
+            previous_grids=len(prev_same_scene),
         )
 
-        print(f"\n  Grid {g_idx+1}/{len(groups)}: generating 2×2 for shots "
-              f"{[s.shot_id for s in group]}...")
+        print(f"\n  Grid {g_idx+1}/{len(groups)} (scene='{scene_id}', "
+              f"shots {[s.shot_id for s in group]})...")
 
         grid_img = generate_keyframe(
             prompt=grid_prompt,
@@ -263,17 +304,17 @@ def _run_consistency(state: "PipelineState") -> "PipelineState":
         )
 
         if not grid_img:
-            print(f"  ❌ Grid {g_idx+1} generation failed — falling back to default for these shots")
+            print(f"  ❌ Grid {g_idx+1} failed — falling back to default for these shots")
             for shot in group:
                 _generate_one(shot, state,
-                               extra_refs=previous_grids[-1:] if previous_grids else None,
-                               extra_ref_label="Previous Grid")
+                               extra_refs=prev_same_scene[-1:] if prev_same_scene else None,
+                               extra_ref_label="Previous Grid (same scene)")
             continue
 
-        previous_grids.append(grid_img)
+        scene_grids.setdefault(scene_id, []).append(grid_img)
 
         # Save grid for reference
-        grid_save = os.path.join(state.output_dir, f"grid_{g_idx+1}.png")
+        grid_save = os.path.join(state.output_dir, f"grid_{g_idx+1}_scene_{scene_id}.png")
         grid_img.save(grid_save)
 
         # Crop + zoom each cell

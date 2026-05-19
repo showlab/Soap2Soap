@@ -1,18 +1,43 @@
 """
-Gemini prompt for video analysis — extracts structured shot data from a video.
-Accepts an optional Whisper transcript to improve dialogue accuracy and
-enrich shot descriptions / i2v prompts with speech context.
+Gemini prompt for video analysis.
+
+Key design: scene_id is a SHARED identifier for shots that take place in
+the same physical location/environment. Multiple shots can share the same
+scene_id. This is used later to group shots into the same consistency grid.
+
+Accepts an optional Whisper transcript to improve dialogue accuracy.
 """
 
 VIDEO_ANALYSIS_PROMPT = """You are a professional cinematographer and script analyst.
 
-Analyze this video carefully. Extract a structured JSON description with:
-1. Characters (visual appearance, NOT identity assumptions)
-2. Up to {max_shots} shots (scene segments), in chronological order
+Analyze this video carefully and extract a structured JSON with:
+1. Characters (visual appearance only, NO identity assumptions)
+2. Scenes (distinct physical locations / environments)
+3. Up to {max_shots} shots, in chronological order
 
 {transcript_section}
 
+══════════════════════════════════════════════════════════
+CRITICAL: scene_id RULES
+══════════════════════════════════════════════════════════
+scene_id represents the PHYSICAL LOCATION / ENVIRONMENT — NOT the shot number.
+
+Rules:
+• Assign the SAME scene_id to ALL shots filmed in the same place.
+  Example: if shots 1, 3, 5 are all on the ship's lower deck → all get scene_id "scene_ship_lower_deck"
+• Assign a DIFFERENT scene_id when the location clearly changes.
+  Example: shots 2, 4 cut to the ship's bridge → scene_id "scene_ship_bridge"
+• scene_id must be a short snake_case label describing the location:
+  "scene_ship_deck", "scene_interior_cabin", "scene_dining_room", etc.
+• If uncertain whether a cut is a new location or just a new camera angle of
+  the same place, use the SAME scene_id (same environment = same scene).
+
+This is essential: shots with the same scene_id will be generated together
+in the same consistency grid to ensure visual coherence.
+
+══════════════════════════════════════════════════════════
 OUTPUT FORMAT — return ONLY valid JSON, no markdown, no explanation:
+══════════════════════════════════════════════════════════
 
 {{
   "aspect_ratio": "16:9",
@@ -20,20 +45,20 @@ OUTPUT FORMAT — return ONLY valid JSON, no markdown, no explanation:
     {{
       "id": "@character_01",
       "name": "Character 1",
-      "description": "Name: Character 1. [Age range]. [Gender]. [Ethnicity/skin tone]. [Hair: color, length, style]. [Face: shape, notable features]. [Body: build, height impression]. [Clothing in this video: item, color, fabric, cut]. [Accessories]. [Distinctive features].",
-      "scenes": ["shot_01", "shot_02"]
+      "description": "Name: Character 1. [Age range]. [Gender]. [Skin tone]. [Hair: color, length, style]. [Face features]. [Build]. [Clothing: each item with color, fabric, cut in detail]. [Accessories]. [Distinctive features].",
+      "scenes": ["scene_ship_lower_deck", "scene_ship_bridge"]
     }}
   ],
   "shots": [
     {{
       "index": 0,
-      "scene_id": "shot_01",
+      "scene_id": "scene_ship_lower_deck",
       "time_range": "0.00s - 4.50s",
       "start_time": 0.0,
       "end_time": 4.5,
       "duration": 4.5,
-      "setting_description": "Interior lower deck of a large ship, wooden stairs, benches",
-      "environment_description": "Detailed scene environment: materials, colors, lighting sources, spatial layout",
+      "setting_description": "Interior lower deck of a large ship, wooden stairs, benches, passengers seated",
+      "environment_description": "Detailed environment: materials, colors, lighting sources, spatial layout, atmosphere",
       "lighting_setup": "Strong backlight from stairway, soft fill from portholes",
       "color_grading": "Slightly desaturated, warm highlights, cool shadows",
       "shot_size": "Medium shot",
@@ -42,42 +67,45 @@ OUTPUT FORMAT — return ONLY valid JSON, no markdown, no explanation:
       "focal_length": "35mm",
       "depth_of_field": "Deep focus",
       "mood_atmosphere": "Curious, slightly tense, class contrast",
-      "composition": "Rule of thirds, subject on left entering from right",
+      "composition": "Rule of thirds, subject left entering from right",
       "subject_movement": "@character_01 descends stairs and walks into room",
       "characters": ["@character_01"],
       "dialogue": [
         {{"speaker_id": "@character_01", "text": "Where am I?", "start_time": 2.1, "end_time": 3.0}}
       ],
-      "t2i_prompt": "Concise visual description of the FIRST FRAME of this shot, 2-3 sentences. Include @character_01 token.",
-      "i2v_prompt": "Full cinematic description of the shot action/movement for video generation. Include character actions, camera movement, atmosphere, and any spoken dialogue naturally woven in. Include @character_01 token."
+      "t2i_prompt": "Concise visual description of the STATIC first frame, 2-3 sentences. Include @character_01 token.",
+      "i2v_prompt": "Full cinematic description of the complete shot action/motion. Include character actions, camera movement, atmosphere. If dialogue: weave it in naturally (e.g. '@character_01 turns and says ...'). Include @character_01 token."
     }}
   ]
 }}
 
-RULES:
-- Use @character_01, @character_02 etc. consistently across shots
-- Shots must cover the ENTIRE video chronologically, no gaps
-- Maximum {max_shots} shots total — merge short segments if needed
-- t2i_prompt: describe the STATIC first frame (no motion words)
-- i2v_prompt: describe the FULL action/motion of the shot — if speech occurs in this shot, incorporate the spoken lines naturally into the motion description (e.g. "@character_01 turns to @character_02 and says 'Hello again'")
-- dialogue: use ONLY lines from the transcript that fall within this shot's time range; copy the text EXACTLY as transcribed; empty list if none
-- dialogue entries must include start_time and end_time from the transcript
-- Be precise about clothing details (colors, patterns, materials) for consistency
-- Do NOT invent names — use "Character 1", "Character 2" if unknown
+══════════════════════════════════════════════════════════
+RULES
+══════════════════════════════════════════════════════════
+- scene_id: SHARED by shots in the same physical location (see rules above)
+- shots: cover the ENTIRE video chronologically with no time gaps
+- Maximum {max_shots} shots total — merge very short cuts if needed
+- characters: @character_01, @character_02 etc. used consistently across all shots
+- t2i_prompt: STATIC first frame description (no motion words)
+- i2v_prompt: FULL action/motion description for video generation
+- dialogue: ONLY lines from the transcript within this shot's time range; copy EXACTLY; empty list if none
+- Dialogue entries MUST include start_time and end_time from the transcript
+- Clothing: be precise (colors, patterns, materials) — critical for visual consistency
+- Names: do NOT invent — use "Character 1", "Character 2" if unknown
 """
 
-TRANSCRIPT_SECTION_TEMPLATE = """AUDIO TRANSCRIPT (from Whisper speech recognition, use this for accurate dialogue):
+TRANSCRIPT_SECTION_TEMPLATE = """AUDIO TRANSCRIPT (Whisper speech recognition — use for accurate dialogue):
 --- TRANSCRIPT START ---
 {transcript}
 --- TRANSCRIPT END ---
 
-Use the transcript to:
-1. Fill in the dialogue field for each shot (match by timestamp to the shot's time range)
-2. Enrich the i2v_prompt with what characters are saying in that shot
-3. Identify who is speaking based on what you see on screen
+Instructions:
+1. Fill the dialogue field for each shot using ONLY transcript lines within that shot's time range
+2. Enrich i2v_prompt with what characters are saying in that shot
+3. Identify speaker from what you see (lip movement, on-screen presence)
 """
 
-NO_TRANSCRIPT_SECTION = """(No audio transcript available — infer dialogue from lip movement if possible)"""
+NO_TRANSCRIPT_SECTION = "(No audio transcript — infer dialogue from lip movement if possible)"
 
 
 def get_analysis_prompt(max_shots: int = 10, transcript: str = "") -> str:
