@@ -8,8 +8,10 @@ from typing import List, Optional, Dict, Any
 
 @dataclass
 class Dialogue:
-    speaker_id: str   # "@character_01"
+    speaker_id: str        # "@character_01"
     text: str
+    start_time: float = 0.0  # from Whisper transcript
+    end_time: float = 0.0
 
 
 @dataclass

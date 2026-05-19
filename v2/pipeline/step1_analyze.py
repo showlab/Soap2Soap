@@ -73,7 +73,7 @@ def _fix_timestamps(shots: list, video_duration: float) -> list:
     return shots
 
 
-def run(state: PipelineState) -> PipelineState:
+def run(state: PipelineState, transcript: str = "") -> PipelineState:
     print("\n" + "=" * 60)
     print("STEP 1 — Video Analysis")
     print("=" * 60)
@@ -82,12 +82,17 @@ def run(state: PipelineState) -> PipelineState:
     video_duration = _get_video_duration(state.video_path)
     print(f"  Video duration: {video_duration:.1f}s")
 
+    if transcript and transcript != "(no speech detected)":
+        print(f"  Using Whisper transcript ({len(transcript.splitlines())} lines)")
+    else:
+        print("  No transcript — Gemini will infer dialogue from visuals")
+
     # 1. Upload video
     video_uri = upload_video(state.video_path)
 
-    # 2. Send to Gemini for analysis
+    # 2. Send to Gemini for analysis (with transcript injected)
     print("  Analyzing video with Gemini...")
-    prompt = get_analysis_prompt(max_shots=state.max_shots)
+    prompt = get_analysis_prompt(max_shots=state.max_shots, transcript=transcript)
     raw = analyze_video(video_uri, prompt)
 
     # 3. Parse JSON
@@ -143,7 +148,12 @@ def run(state: PipelineState) -> PipelineState:
             subject_movement=s.get("subject_movement", ""),
             characters=s.get("characters", []),
             dialogue=[
-                Dialogue(speaker_id=d["speaker_id"], text=d["text"])
+                Dialogue(
+                    speaker_id=d["speaker_id"],
+                    text=d["text"],
+                    start_time=float(d.get("start_time", 0)),
+                    end_time=float(d.get("end_time", 0)),
+                )
                 for d in s.get("dialogue", [])
             ],
             t2i_prompt=s.get("t2i_prompt", ""),

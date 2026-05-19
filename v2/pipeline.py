@@ -2,11 +2,13 @@
 Soap2Soap V2 — Main Pipeline Orchestrator.
 
 Video-to-Video generation:
-  Video → Gemini analysis → Characters (Imagen) → Shot prompts
+  Video → Whisper transcript → Gemini analysis (with transcript)
+        → Characters (Imagen) → Shot prompts
         → Keyframes (Gemini/Imagen, consistency mode) → Video (Veo3 or static) → Merge
 
 Usage:
     python v2/pipeline.py <video_path> --style disney [--shots 10] [--real-video]
+    python v2/pipeline.py <video_path> --style disney --no-whisper  # skip transcription
 """
 from __future__ import annotations
 import argparse
@@ -20,6 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from v2.core.schema import PipelineState
 from v2.pipeline import (
+    step0_transcribe,
     step1_analyze,
     step2_characters,
     step3_compile,
@@ -36,6 +39,7 @@ def run_pipeline(
     dev_mode: bool = True,
     output_dir: str = ".",
     skip_to_step: int = 1,
+    use_whisper: bool = True,
 ) -> str:
     """
     Run the full V2V pipeline. Returns path to final video.
@@ -48,6 +52,7 @@ def run_pipeline(
     print(f"  Style    : {style}")
     print(f"  Max shots: {max_shots}")
     print(f"  Video    : {'Veo 3 (real)' if not dev_mode else 'static 3s fallback (dev mode)'}")
+    print(f"  Whisper  : {'enabled' if use_whisper else 'disabled'}")
     print(f"  Output   : {output_dir}")
     print("=" * 70)
 
@@ -70,8 +75,14 @@ def run_pipeline(
         for s in state.shots:
             print(f"    Shot {s.shot_id}: {s.time_range} ({s.duration:.1f}s)")
     else:
-        # Step 1 — Video Analysis
-        state = step1_analyze.run(state)
+        # Step 0 — Whisper transcription (runs before Gemini analysis)
+        transcript = ""
+        if use_whisper:
+            dialogue_lines = step0_transcribe.run(state)
+            transcript = step0_transcribe.format_transcript_for_prompt(dialogue_lines)
+
+        # Step 1 — Video Analysis (Gemini, with transcript injected)
+        state = step1_analyze.run(state, transcript=transcript)
         _save_state(state, cache_path)
 
     # Step 2 — Character images
@@ -213,7 +224,9 @@ def main():
     parser.add_argument("--output-dir", default=".",
                         help="Output directory (default: current dir)")
     parser.add_argument("--resume", action="store_true",
-                        help="Skip Step 1 if v2_analysis.json already exists")
+                        help="Skip Step 0+1 if v2_analysis.json already exists")
+    parser.add_argument("--no-whisper", action="store_true",
+                        help="Skip Whisper transcription (faster, less accurate dialogue)")
     args = parser.parse_args()
 
     final = run_pipeline(
@@ -223,6 +236,7 @@ def main():
         dev_mode=not args.real_video,
         output_dir=args.output_dir,
         skip_to_step=2 if args.resume else 1,
+        use_whisper=not args.no_whisper,
     )
 
     if final:
