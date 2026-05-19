@@ -185,9 +185,9 @@ print_info "Running: create_character_sheet.py $SCRIPT_JSON --style $STYLE"
 if [ -f "create_character_sheet.py" ]; then
     print_info "Generating character puzzle (style: $STYLE)..."
     if [ -n "$AUTO_GENERATE_FACE" ]; then
-        python create_character_sheet.py "$SCRIPT_JSON" --style "$STYLE" --auto-generate-face
+        python3 create_character_sheet.py "$SCRIPT_JSON" --style "$STYLE" --auto-generate-face
     else
-        python create_character_sheet.py "$SCRIPT_JSON" --style "$STYLE"
+        python3 create_character_sheet.py "$SCRIPT_JSON" --style "$STYLE"
     fi
 
     if [ ! -f "main_characters_1.png" ] && [ ! -f "supporting_characters_1.png" ]; then
@@ -209,7 +209,7 @@ print_info "Running: agent_reference.py $SCRIPT_JSON --style $STYLE"
 
 if [ -f "agent_reference.py" ]; then
     print_info "Generating reference images (style: $STYLE)..."
-    python agent_reference.py "$SCRIPT_JSON" --style "$STYLE"
+    python3 agent_reference.py "$SCRIPT_JSON" --style "$STYLE"
 
     # Check reference_images directory
     if [ -d "reference_images" ]; then
@@ -243,13 +243,13 @@ if [ -f "agent_master.py" ]; then
     print_info ""
 
     if [ -n "$AUTO_GENERATE_FACE" ]; then
-        python -B agent_master.py "$SCRIPT_JSON" --max-retries 3 --style "$STYLE" --auto-generate-face
+        python3 -B agent_master.py "$SCRIPT_JSON" --max-retries 3 --style "$STYLE" --auto-generate-face --yes
     else
-        python -B agent_master.py "$SCRIPT_JSON" --max-retries 3 --style "$STYLE"
+        python3 -B agent_master.py "$SCRIPT_JSON" --max-retries 3 --style "$STYLE" --yes
     fi
 
     print_success "Video generation workflow completed!"
-    print_info "Intermediate file directory: shots/ (video clips)"
+    print_info "Video clips: shot_*_video.mp4 in working directory"
 else
     print_error "agent_master.py not found"
     exit 1

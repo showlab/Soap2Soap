@@ -70,8 +70,15 @@ Interactive commands during regeneration:
 ### 2. Install Python Dependencies
 
 ```bash
-pip install google-genai Pillow opencv-python scenedetect[opencv]
+pip install google-genai Pillow opencv-python scenedetect[opencv] openai-whisper
 ```
+
+> **macOS (Homebrew Python):** If you get a `externally-managed-environment` error, add `--break-system-packages`:
+> ```bash
+> pip install --break-system-packages google-genai Pillow opencv-python scenedetect[opencv] openai-whisper
+> ```
+
+> **First run note:** Whisper will automatically download the `medium` model (~1.4 GB) on first use. Make sure you have enough disk space and a stable network connection.
 
 | Package | Purpose |
 |---------|---------|
@@ -79,6 +86,7 @@ pip install google-genai Pillow opencv-python scenedetect[opencv]
 | `Pillow` | Image processing |
 | `opencv-python` | Video reading and frame extraction |
 | `scenedetect[opencv]` | Video scene detection and splitting |
+| `openai-whisper` | Speech-to-text transcription |
 
 ### 3. Configure Gemini API Key
 
