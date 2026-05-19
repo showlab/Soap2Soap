@@ -110,6 +110,9 @@ def _enforce_cut_timestamps(shots: list, cuts: List[Tuple[float, float]]) -> lis
     if not cuts or not shots:
         return shots
 
+    # Only enforce as many cuts as we have Gemini shots — respect max_shots cap
+    cuts = cuts[:len(shots)]
+
     # Build a map: for each SceneDetect cut, find the Gemini shot that
     # overlaps with its midpoint most
     from v2.core.schema import Dialogue as Dlg
