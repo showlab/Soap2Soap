@@ -26,6 +26,7 @@ from v2.pipeline import (
     step1_analyze,
     step2_characters,
     step3_compile,
+    step3b_camera_groups,
     step4_keyframes,
     step4b_inspect,
     step5_video,
@@ -41,6 +42,7 @@ def run_pipeline(
     output_dir: str = ".",
     skip_to_step: int = 1,
     use_whisper: bool = True,
+    generation_mode: str = "consistency",
 ) -> str:
     """
     Run the full V2V pipeline. Returns path to final video.
@@ -52,6 +54,7 @@ def run_pipeline(
     print(f"  Input    : {video_path}")
     print(f"  Style    : {style}")
     print(f"  Max shots: {max_shots}")
+    print(f"  Mode     : {generation_mode}")
     print(f"  Video    : {'Veo 3 (real)' if not dev_mode else 'static 3s fallback (dev mode)'}")
     print(f"  Whisper  : {'enabled' if use_whisper else 'disabled'}")
     print(f"  Output   : {output_dir}")
@@ -63,6 +66,7 @@ def run_pipeline(
         max_shots=max_shots,
         dev_mode=dev_mode,
         output_dir=output_dir,
+        generation_mode=generation_mode,
     )
 
     # Check for cached analysis
@@ -91,6 +95,9 @@ def run_pipeline(
 
     # Step 3 — Compile prompts
     state = step3_compile.run(state)
+
+    # Step 3b — Camera group analysis (camera_tree mode only)
+    state = step3b_camera_groups.run(state)
 
     # Step 4 — Keyframes
     state = step4_keyframes.run(state)
@@ -231,6 +238,9 @@ def main():
                         help="Skip Step 0+1 if v2_analysis.json already exists")
     parser.add_argument("--no-whisper", action="store_true",
                         help="Skip Whisper transcription (faster, less accurate dialogue)")
+    parser.add_argument("--mode", default="consistency",
+                        choices=["default", "consistency", "camera_tree"],
+                        help="Keyframe generation mode (default: consistency)")
     args = parser.parse_args()
 
     final = run_pipeline(
@@ -241,6 +251,7 @@ def main():
         output_dir=args.output_dir,
         skip_to_step=2 if args.resume else 1,
         use_whisper=not args.no_whisper,
+        generation_mode=args.mode,
     )
 
     if final:

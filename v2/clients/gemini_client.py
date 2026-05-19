@@ -12,6 +12,9 @@ from google import genai
 from google.genai import types
 
 
+_GEMINI_VISION_MODEL_FLASH = "gemini-2.0-flash"
+
+
 def _client() -> genai.Client:
     api_key = os.environ.get("GENAI_API_KEY")
     if not api_key:

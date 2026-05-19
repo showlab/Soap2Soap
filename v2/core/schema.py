@@ -3,7 +3,7 @@ Core data models for Soap2Soap V2 pipeline.
 """
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import List, Optional, Dict, Any
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -72,8 +72,17 @@ class PipelineState:
     max_shots: int = 10
     dev_mode: bool = True               # If True: static-image fallback instead of Veo3
 
+    # Generation mode for keyframes
+    generation_mode: str = "consistency"  # "default" | "consistency" | "camera_tree"
+
     characters: List[Character] = field(default_factory=list)
     shots: List[Shot] = field(default_factory=list)
+
+    # Design sheet (unified character reference for all shots)
+    design_sheet_path: Optional[str] = None
+
+    # Camera tree groups (set by step3b)
+    camera_groups: List[Dict[str, Any]] = field(default_factory=list)
 
     # Output dir (working directory)
     output_dir: str = "."
