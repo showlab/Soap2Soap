@@ -130,13 +130,14 @@ def _ensure_720p(video_path: str) -> str:
 
 
 def _extract_clip(video_path: str, start: float, end: float, out_path: str) -> bool:
-    """Extract a video segment [start, end] using ffmpeg stream copy (fast)."""
+    """Extract a video segment [start, end], re-encoding to ensure keyframe alignment."""
     cmd = [
         "ffmpeg", "-y",
         "-ss", str(start),
         "-to", str(end),
         "-i", video_path,
-        "-c", "copy",
+        "-c:v", "libx264", "-preset", "fast", "-crf", "23",
+        "-c:a", "aac",
         "-avoid_negative_ts", "make_zero",
         out_path,
     ]
@@ -352,7 +353,7 @@ def run(
 
     # ── Phase B2: Per-shot clip extraction + analysis (parallel) ────────────
     if cuts:
-        MAX_WORKERS = 5  # concurrent uploads + API calls
+        MAX_WORKERS = 2  # keep low to avoid Gemini rate limiting on many clips
         print(f"\n  Analyzing {len(cuts)} shots in parallel (max {MAX_WORKERS} workers)...")
 
         # Clips stored next to the input video for reuse across pipeline runs
