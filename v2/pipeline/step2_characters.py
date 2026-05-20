@@ -20,15 +20,26 @@ if TYPE_CHECKING:
 
 CHARACTER_T2I_TEMPLATE = """{style_prefix}
 
-Character reference sheet. Full-body portrait on neutral light background.
-Designed for visual consistency across animated shots.
+Single-character reference sheet showing TWO views side by side on a clean white background:
 
+LEFT SIDE — Face close-up portrait:
+- Head and shoulders only
+- Front-facing, neutral expression
+- High detail on: facial features, skin tone, hair color/style, eyes, any distinctive markings
+
+RIGHT SIDE — Full-body standing pose:
+- Full body from head to toe
+- Front-facing, arms relaxed at sides
+- High detail on: complete outfit (every clothing item with color/material/cut), shoes, accessories
+
+Character to depict:
 {description}
 
-Pose: Standing, facing camera, neutral expression, arms relaxed.
-Background: Clean white or very light grey, no props.
-Lighting: Soft even lighting, no harsh shadows.
-Detail level: High — capture all clothing details, accessories, hair style precisely.
+Layout: two panels side by side, clearly separated, same character in both panels.
+Background: clean white or very light grey for both panels.
+Lighting: soft even studio lighting, no harsh shadows.
+Label each panel: "Face" on the left, "Full Body" on the right.
+This reference sheet will be used for cross-shot visual consistency — accuracy is critical.
 """
 
 

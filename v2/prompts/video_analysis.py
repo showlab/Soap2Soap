@@ -240,6 +240,8 @@ SELECTION RULES:
 2. Shots with dialogue are MANDATORY — include all of them
 3. Merge visually similar, same-scene, silent shots into one
 4. Identify scene changes, character introductions, emotional beats
+5. MAX GAP RULE (CRITICAL): The time gap between the end of one shot and the start of the next must NEVER exceed 10 seconds. If a gap would be larger, insert an additional shot to cover that period — even if the content is visually similar to adjacent shots
+6. FULL COVERAGE: Your selected shots must collectively cover the entire segment from {start_time:.1f}s to {end_time:.1f}s with no gap larger than 10s
 
 CRITICAL: scene_id RULES
 - scene_id = the PHYSICAL LOCATION, shared across shots in the same place
