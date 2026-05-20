@@ -1,0 +1,616 @@
+{
+  "video_path": "example/bilibili_input.mp4",
+  "style": "clay",
+  "aspect_ratio": "16:9",
+  "characters": [
+    {
+      "id": "@character_01",
+      "name": "Character 1",
+      "description": "Age: 30s-40s. Male. Light skin. Hair: very short, black, buzz cut. Face: thin, clean-shaven. Build: average. Clothing: black zip-up light jacket with a silver emblem on the left chest, black t-shirt underneath. Accessories: watch on left wrist. Notable features: rode a dark blue motorized scooter, speaks aggressively."
+    },
+    {
+      "id": "@character_02",
+      "name": "Character 2",
+      "description": "Age: 40s. Male. Light skin. Hair: short, dark, receding hairline. Face: round, distinct pockmarks on the skin, expressive. Build: medium-heavy. Clothing: dark green windbreaker jacket over an olive green t-shirt with a graphic print featuring a red and yellow design. Accessories: gold wrist watch."
+    },
+    {
+      "id": "@character_03",
+      "name": "Character 3",
+      "description": "Age: 30s-40s. Male. Light skin. Hair: dark, short, side-parted. Face: sharp features, clean-shaven. Build: slender. Clothing: black zip-up jacket worn over a black shirt."
+    },
+    {
+      "id": "@character_04",
+      "name": "Character 4",
+      "description": "Age: 30s-40s. Male. Light skin. Hair: short, dark. Face: oval. Build: average. Clothing: light grey blazer with lapels, white collared shirt underneath, dark grey dress slacks. Accessories: gold-toned rectangular watch, a small pin on his blazer."
+    },
+    {
+      "id": "@character_05",
+      "name": "Character 5",
+      "description": "Age: 30s-40s. Female. Light skin. Hair: medium length, dark brown, straight. Face: soft, natural makeup. Build: slim. Clothing: black tailored blazer with wide lapels over a white collared shirt. Accessories: small stud earrings."
+    },
+    {
+      "id": "@character_06",
+      "name": "Character 6",
+      "description": "Age: 5-7. Female. Light skin. Hair: black, tied back. Face: round, young. Build: small. Clothing: light blue sweater over a white shirt, pink skirt."
+    }
+  ],
+  "shots": [
+    {
+      "index": 0,
+      "scene_id": "scene_market_stall",
+      "time_range": "0.00s - 13.00s",
+      "start_time": 0.0,
+      "end_time": 13.0,
+      "duration": 13.0,
+      "setting_description": "Outdoor market street, view of a fruit stall.",
+      "environment_description": "Public street, cars and pedestrians moving in background.",
+      "lighting_setup": "Daylight, overcast conditions.",
+      "color_grading": "Natural, slightly muted",
+      "shot_size": "Wide",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Panning follow",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Casual, mundane",
+      "composition": "Centered movement of the scooter",
+      "subject_movement": "@character_01 rides his scooter towards the camera and pulls over.",
+      "characters": [
+        "@character_01"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "有一个人前来买瓜"
+        }
+      ],
+      "t2i_prompt": "@character_01 with short buzz cut hair, wearing a black zip-up light jacket and black t-shirt, rides a dark blue motorized scooter on a public street. Behind him are other people riding scooters and a black car. Eye-level shot, 35mm lens, overcast daylight.",
+      "i2v_prompt": "@character_01 rides his scooter down the street, turns, and parks it. He says, '有一个人前来买瓜'."
+    },
+    {
+      "index": 1,
+      "scene_id": "scene_market_stall",
+      "time_range": "13.00s - 17.50s",
+      "start_time": 13.0,
+      "end_time": 17.5,
+      "duration": 4.5,
+      "setting_description": "Market stall stand area",
+      "environment_description": "Street market with parked vehicles visible",
+      "lighting_setup": "Overcast natural light",
+      "color_grading": "Neutral",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Medium",
+      "mood_atmosphere": "Conversational, confrontational start",
+      "composition": "@character_01 entering frame to speak to sellers",
+      "subject_movement": "@character_01 approaches the sellers.",
+      "characters": [
+        "@character_01"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "生意行吗 你们这几个俩"
+        },
+        {
+          "speaker_id": "@character_01",
+          "text": "这家"
+        }
+      ],
+      "t2i_prompt": "@character_01 with thin face and buzz cut stands next to his scooter. He is looking off-camera at the sellers. Medium shot, focus on upper body. Natural lighting, urban street background.",
+      "i2v_prompt": "@character_01 stops his bike, stands up, and addresses the two men sitting behind the counter. He says, '生意行吗 你们这几个俩' and then '这家'."
+    },
+    {
+      "index": 2,
+      "scene_id": "scene_market_stall",
+      "time_range": "17.50s - 22.00s",
+      "start_time": 17.5,
+      "end_time": 22.0,
+      "duration": 4.5,
+      "setting_description": "Market stall with watermelons and bananas",
+      "environment_description": "Outdoor stall counter",
+      "lighting_setup": "Daylight",
+      "color_grading": "Natural",
+      "shot_size": "Medium close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Medium",
+      "mood_atmosphere": "Negotiation",
+      "composition": "@character_01 and @character_02 framing the conversation",
+      "subject_movement": "@character_01 addresses @character_02.",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "哥们儿 你这瓜多少钱一斤呢"
+        },
+        {
+          "speaker_id": "@character_02",
+          "text": "两块钱一斤"
+        }
+      ],
+      "t2i_prompt": "@character_01 in a black jacket talks to @character_02 who wears a dark green windbreaker and olive green t-shirt. The counter is covered with watermelons and bananas. Medium close-up, sharp focus, natural daylight.",
+      "i2v_prompt": "@character_01 leans over to ask '@character_02' about prices. @character_01 says '哥们儿 你这瓜多少钱一斤呢' and @character_02 replies '两块钱一斤'."
+    },
+    {
+      "index": 3,
+      "scene_id": "scene_market_stall",
+      "time_range": "22.00s - 27.50s",
+      "start_time": 22.0,
+      "end_time": 27.5,
+      "duration": 5.5,
+      "setting_description": "Fruit stand counter",
+      "environment_description": "Market backdrop",
+      "lighting_setup": "Natural",
+      "color_grading": "Natural",
+      "shot_size": "Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Aggressive, skeptical",
+      "composition": "Close-up on @character_01",
+      "subject_movement": "@character_01 speaks skeptically.",
+      "characters": [
+        "@character_01"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "这瓜皮子是精硕 还瓜栗子精硕"
+        }
+      ],
+      "t2i_prompt": "Close-up of @character_01, clean-shaven face, thin features. He looks skeptical. Background is blurred market. Sharp focus, daylight.",
+      "i2v_prompt": "@character_01 looks at the melons, making a face of disbelief, and asks, '这瓜皮子是精硕 还瓜栗子精硕'."
+    },
+    {
+      "index": 4,
+      "scene_id": "scene_market_stall",
+      "time_range": "27.50s - 32.50s",
+      "start_time": 27.5,
+      "end_time": 32.5,
+      "duration": 5.0,
+      "setting_description": "Market stall",
+      "environment_description": "Stall counter",
+      "lighting_setup": "Natural",
+      "color_grading": "Natural",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Medium",
+      "mood_atmosphere": "Irritated",
+      "composition": "Frame focused on @character_02",
+      "subject_movement": "@character_02 speaks defensively.",
+      "characters": [
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_02",
+          "text": "你看这现在哪有瓜呀 这都是大鹏的瓜"
+        }
+      ],
+      "t2i_prompt": "@character_02 with a pockmarked face and short dark hair wears a green windbreaker. He sits at his fruit stall, gesturing as he talks. Medium shot, clear focus.",
+      "i2v_prompt": "@character_02 gestures dismissively at the watermelons and says, '你看这现在哪有瓜呀 这都是大鹏的瓜'."
+    },
+    {
+      "index": 5,
+      "scene_id": "scene_market_stall",
+      "time_range": "32.50s - 35.50s",
+      "start_time": 32.5,
+      "end_time": 35.5,
+      "duration": 3.0,
+      "setting_description": "Fruit stall",
+      "environment_description": "Close quarters between customer and seller",
+      "lighting_setup": "Natural",
+      "color_grading": "Natural",
+      "shot_size": "Medium close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Tense",
+      "composition": "Focus on the interaction between @character_01 and @character_02",
+      "subject_movement": "Characters exchanging words.",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_02",
+          "text": "你嫌贵 我还嫌贵呢"
+        },
+        {
+          "speaker_id": "@character_01",
+          "text": "给我挑一个"
+        }
+      ],
+      "t2i_prompt": "Split screen or tight composition featuring @character_01 and @character_02. High tension atmosphere, natural lighting, sharp focus on their facial expressions.",
+      "i2v_prompt": "@character_02 replies '你嫌贵 我还嫌贵呢' while @character_01 interrupts with '给我挑一个'."
+    },
+    {
+      "index": 6,
+      "scene_id": "scene_market_stall",
+      "time_range": "35.50s - 43.50s",
+      "start_time": 35.5,
+      "end_time": 43.5,
+      "duration": 8.0,
+      "setting_description": "Market stall area",
+      "environment_description": "Stall counter",
+      "lighting_setup": "Natural",
+      "color_grading": "Natural",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Handheld, light pan",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Critical",
+      "composition": "@character_01 inspecting a fruit",
+      "subject_movement": "@character_01 moves toward the stall.",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "这个怎么样"
+        }
+      ],
+      "t2i_prompt": "@character_01 picks up a watermelon from the counter to inspect it. @character_02 watches closely. Natural daylight, bustling market atmosphere in the background.",
+      "i2v_prompt": "@character_01 walks to the counter, taps a watermelon, and asks '这个怎么样'."
+    },
+    {
+      "index": 7,
+      "scene_id": "scene_market_stall",
+      "time_range": "43.50s - 50.00s",
+      "start_time": 43.5,
+      "end_time": 50.0,
+      "duration": 6.5,
+      "setting_description": "Market stall",
+      "environment_description": "Stall stand",
+      "lighting_setup": "Natural",
+      "color_grading": "Neutral",
+      "shot_size": "Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "85mm",
+      "depth_of_field": "Very shallow",
+      "mood_atmosphere": "Aggressive, questioning",
+      "composition": "Close-up on @character_01 then @character_02",
+      "subject_movement": "Intense eye contact.",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "这瓜保熟吗"
+        },
+        {
+          "speaker_id": "@character_02",
+          "text": "我开水果摊的 能卖给你生瓜蛋的"
+        }
+      ],
+      "t2i_prompt": "Close-up of @character_01 with a serious face asking a question. Then cut to close-up of @character_02 looking offended. Sharp focus, high contrast, natural lighting.",
+      "i2v_prompt": "@character_01 looks at the melon and asks, '这瓜保熟吗'. @character_02 shakes his head and retorts, '我开水果摊的 能卖给你生瓜蛋的'."
+    },
+    {
+      "index": 8,
+      "scene_id": "scene_market_stall",
+      "time_range": "50.00s - 56.50s",
+      "start_time": 50.0,
+      "end_time": 56.5,
+      "duration": 6.5,
+      "setting_description": "Market stall area",
+      "environment_description": "Close-up of stall",
+      "lighting_setup": "Natural",
+      "color_grading": "Natural",
+      "shot_size": "Medium shot",
+      "camera_angle": "Low angle",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Medium",
+      "mood_atmosphere": "Hostile",
+      "composition": "@character_01 asserting himself over @character_02",
+      "subject_movement": "@character_01 aggressively questions @character_02.",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "我问你 这瓜保熟吗 你是故意找茬 是不是 你要不要吧"
+        }
+      ],
+      "t2i_prompt": "@character_01 is leaning into @character_02, looking very aggressive. @character_02 looks back with an angry, hardened expression. Low angle shot, sharp details on their faces.",
+      "i2v_prompt": "@character_01 stares down @character_02 and says, '我问你 这瓜保熟吗 你是故意找茬 是不是 你要不要吧'."
+    },
+    {
+      "index": 9,
+      "scene_id": "scene_market_stall",
+      "time_range": "56.50s - 60.00s",
+      "start_time": 56.5,
+      "end_time": 60.0,
+      "duration": 3.5,
+      "setting_description": "Market stall",
+      "environment_description": "Street market",
+      "lighting_setup": "Natural",
+      "color_grading": "Natural",
+      "shot_size": "Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Finalized, tense",
+      "composition": "@character_01 looking intently",
+      "subject_movement": "@character_01 finishes his sentence.",
+      "characters": [
+        "@character_01"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "你这瓜熟我肯定要啊"
+        }
+      ],
+      "t2i_prompt": "Close-up shot of @character_01 looking slightly down while talking. Clean-shaven face visible. Natural daylight, shallow depth of field, neutral colors.",
+      "i2v_prompt": "@character_01 maintains a calm but firm expression and says, '你这瓜熟我肯定要啊'."
+    },
+    {
+      "index": 10,
+      "scene_id": "scene_market_stall",
+      "time_range": "61.90s - 66.60s",
+      "start_time": 61.9,
+      "end_time": 66.6,
+      "duration": 4.7,
+      "setting_description": "Outdoor market stall",
+      "environment_description": "Watermelons piled on a wooden table, street background",
+      "lighting_setup": "Daylight, overcast",
+      "color_grading": "Natural, slightly desaturated",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Tense",
+      "composition": "@character_01 in profile talking to @character_02",
+      "subject_movement": "@character_01 gesticulates with arms wide",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "那它要是不熟怎么办"
+        },
+        {
+          "speaker_id": "@character_02",
+          "text": "要是不熟 我自己吃了它 满意了吧"
+        }
+      ],
+      "t2i_prompt": "@character_01 wearing a black zip-up jacket stands at a market stall talking to @character_02 who wears a dark green windbreaker. Piles of green watermelons are visible on a wooden rack between them. Medium shot, eye-level, natural outdoor daylight.",
+      "i2v_prompt": "@character_01 asks a question aggressively, then @character_02 replies while gesturing to the watermelon. @character_01 says: '那它要是不熟怎么办', @character_02 says: '要是不熟 我自己吃了它 满意了吧'."
+    },
+    {
+      "index": 11,
+      "scene_id": "scene_market_stall",
+      "time_range": "71.60s - 76.80s",
+      "start_time": 71.6,
+      "end_time": 76.8,
+      "duration": 5.2,
+      "setting_description": "Market stall close-up",
+      "environment_description": "Watermelon on a scale",
+      "lighting_setup": "Daylight",
+      "color_grading": "Natural",
+      "shot_size": "Close-up",
+      "camera_angle": "High-angle",
+      "camera_movement": "Static",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Confrontational",
+      "composition": "Focus on the watermelon and scale",
+      "subject_movement": "@character_02 adjusting the scale weight",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "十五斤 三十块"
+        },
+        {
+          "speaker_id": "@character_01",
+          "text": "你这哪够十五斤的 你这秤有问题啊"
+        }
+      ],
+      "t2i_prompt": "A close-up of a large green watermelon on a vintage metal scale. @character_02's hands with a gold watch are visible adjusting the balance. Natural sunlight, blurred market background. Cinematic macro photography.",
+      "i2v_prompt": "The camera focuses on the scale reading as @character_02 adjusts the weights. @character_01 questions the weight. @character_01 says: '十五斤 三十块', then '你这哪够十五斤的 你这秤有问题啊'."
+    },
+    {
+      "index": 12,
+      "scene_id": "scene_market_stall",
+      "time_range": "78.30s - 81.70s",
+      "start_time": 78.3,
+      "end_time": 81.7,
+      "duration": 3.4,
+      "setting_description": "Market stall",
+      "environment_description": "Watermelon stall",
+      "lighting_setup": "Daylight",
+      "color_grading": "Natural",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Hostile",
+      "composition": "@character_01 in foreground, @character_02 behind the table",
+      "subject_movement": "@character_01 gestures at the watermelon",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "你这怎么能吃啊 你这哪够十五斤的 你这秤有问题啊"
+        }
+      ],
+      "t2i_prompt": "@character_01 stands in front of a market stall, pointing at a watermelon. @character_02 watches with a pockmarked face. Natural daylight, medium shot, eye-level framing.",
+      "i2v_prompt": "@character_01 leans in and points at the scale while speaking. @character_01 says: '你这怎么能吃啊 你这哪够十五斤的 你这秤有问题啊'."
+    },
+    {
+      "index": 13,
+      "scene_id": "scene_market_stall",
+      "time_range": "84.20s - 88.60s",
+      "start_time": 84.2,
+      "end_time": 88.6,
+      "duration": 4.4,
+      "setting_description": "Market stall",
+      "environment_description": "Street side stalls",
+      "lighting_setup": "Daylight",
+      "color_grading": "Natural",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Combative",
+      "composition": "Characters facing each other",
+      "subject_movement": "@character_02 stepping forward aggressively",
+      "characters": [
+        "@character_01",
+        "@character_02",
+        "@character_03"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_02",
+          "text": "你故意找茬 是不是 你要不要吧"
+        },
+        {
+          "speaker_id": "@character_02",
+          "text": "你要不要"
+        }
+      ],
+      "t2i_prompt": "@character_02, wearing a dark green jacket, leans forward aggressively toward @character_01. @character_03 stands behind them watching. Medium shot, sharp focus on faces.",
+      "i2v_prompt": "@character_02 leans in menacingly. @character_02 says: '你故意找茬 是不是 你要不要吧', then '你要不要'."
+    },
+    {
+      "index": 14,
+      "scene_id": "scene_market_stall",
+      "time_range": "93.00s - 98.30s",
+      "start_time": 93.0,
+      "end_time": 98.3,
+      "duration": 5.3,
+      "setting_description": "Market stall",
+      "environment_description": "Market background",
+      "lighting_setup": "Daylight",
+      "color_grading": "Natural",
+      "shot_size": "Medium Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Ominous",
+      "composition": "Portrait frame of @character_01",
+      "subject_movement": "@character_01 looking directly at @character_02",
+      "characters": [
+        "@character_01"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "细节时"
+        },
+        {
+          "speaker_id": "@character_01",
+          "text": "另外你说的 这瓜上生的你自己吞进去"
+        }
+      ],
+      "t2i_prompt": "Portrait of @character_01 looking stern. He wears a black zip-up jacket. Natural daylight. Medium close-up, shallow depth of field, blurred market background.",
+      "i2v_prompt": "@character_01 speaks with an intense, threatening expression. @character_01 says: '细节时', then '另外你说的 这瓜上生的你自己吞进去'."
+    },
+    {
+      "index": 15,
+      "scene_id": "scene_market_stall",
+      "time_range": "101.20s - 105.40s",
+      "start_time": 101.2,
+      "end_time": 105.4,
+      "duration": 4.2,
+      "setting_description": "Market stall area",
+      "environment_description": "Watermelons being cut",
+      "lighting_setup": "Daylight",
+      "color_grading": "Natural",
+      "shot_size": "Full shot",
+      "camera_angle": "Low-angle",
+      "camera_movement": "Handheld",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Violent",
+      "composition": "Wide angle showing the cutting action",
+      "subject_movement": "@character_01 slicing the watermelon",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "你屁我瓜是吧"
+        },
+        {
+          "speaker_id": "@character_01",
+          "text": "好啊 哥们儿 快被杀进来"
+        }
+      ],
+      "t2i_prompt": "A sharp knife cuts into a large watermelon on a wooden board. The market stall is in the background with blurry figures. High action, low-angle, natural light.",
+      "i2v_prompt": "The knife strikes the watermelon forcefully. @character_01 shouts as he strikes. @character_01 says: '你屁我瓜是吧', then '好啊 哥们儿 快被杀进来'."
+    },
+    {
+      "index": 16,
+      "scene_id": "scene_market_stall",
+      "time_range": "110.40s - 116.30s",
+      "start_time": 110.4,
+      "end_time": 116.3,
+      "duration": 5.9,
+      "setting_description": "Market street exit",
+      "environment_description": "Busy urban market street",
+      "lighting_setup": "Daylight",
+      "color_grading": "Natural",
+      "shot_size": "Wide",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Tracking",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Chaotic",
+      "composition": "Wide shot showing @character_01 riding away on a scooter",
+      "subject_movement": "@character_01 riding the dark blue scooter away",
+      "characters": [
+        "@character_01",
+        "@character_04",
+        "@character_05",
+        "@character_06"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_04",
+          "text": "花枪 花枪"
+        }
+      ],
+      "t2i_prompt": "A wide shot of a city street with @character_01 riding a dark blue scooter away from the camera. In the foreground, @character_04, @character_05, and @character_06 look on. Natural daylight, street setting.",
+      "i2v_prompt": "@character_01 drives the scooter quickly away through the market. Bystanders look on. @character_04 says: '花枪 花枪'."
+    }
+  ]
+}

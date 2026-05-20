@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 STYLE_PREFIXES = {
     "realistic":      "Photorealistic cinematic style. Shot on 35mm film.",
     "disney":         "Disney 3D animated movie style. Vibrant colors, expressive characters, polished CG render.",
+    "pixar":          "Pixar 3D animated movie style. Warm soft lighting, subsurface skin glow, richly detailed environments, emotionally expressive characters with realistic proportions.",
     "anime":          "Japanese anime style. Clean linework, vivid colors, cinematic composition.",
     "japanese_anime": "Japanese manga/anime style. Clean lines, dynamic composition, expressive faces.",
     "clay":           "Claymation stop-motion style. Visible clay texture, warm handcrafted look.",
@@ -25,6 +26,12 @@ STYLE_REWRITE_GUIDES = {
         "Characters become expressive 3D-animated Disney figures with rounded features, big eyes, and smooth polished CG surfaces. "
         "Environments become vibrant, colorful, and painterly. "
         "Use words like: vibrant, expressive, animated, polished CG, Disney style, lush, storybook."
+    ),
+    "pixar": (
+        "Rewrite using Pixar 3D animated movie language. "
+        "Characters become Pixar-style 3D figures: realistic body proportions, soft subsurface skin glow, richly detailed clothing with fabric texture, highly expressive faces with nuanced emotions. "
+        "Environments are warmly lit, physically detailed, and cinematic — like a Pixar feature film frame. "
+        "Use words like: Pixar 3D animation, subsurface scattering, warm soft lighting, cinematic depth of field, photorealistic textures, expressive, emotionally rich, detailed environment."
     ),
     "anime": (
         "Rewrite using Japanese anime visual language. "
