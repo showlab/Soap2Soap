@@ -1,0 +1,430 @@
+{
+  "video_path": "example/test_input_2.mp4",
+  "style": "lego",
+  "aspect_ratio": "16:9",
+  "characters": [
+    {
+      "id": "@character_01",
+      "name": "Character 1",
+      "description": "Age: 30s-40s. Male. Medium skin tone. Hair: dark, short, styled back. Face: thin, mustache, goatee, expressive eyebrows. Clothing: long-sleeved, high-collared, form-fitting navy blue tunic with textured grid patterns. Long, flowing, deep red cape pinned at the shoulders with ornate gold brooches. Belt: dark leather. Accessories: gold-colored circular, metal-plated necklace hanging over the chest. Distinctive: glowing orange mystical circular patterns forming at his hands, multi-armed silhouette technique."
+    },
+    {
+      "id": "@character_02",
+      "name": "Character 2",
+      "description": "Age: Unknown. Male. Light-purple skin. Face: prominent chin ridges, thin lips, serious expression. Build: large, tall, physically imposing. Clothing: gold-colored sleeveless armor chest plate with vertical metallic ridges, dark blue shirt worn underneath. Accessories: a gauntlet on the left hand covering the entire arm, gold in color with metallic segments and circular ports containing glowing colored gems. Distinctive: large, muscular frame."
+    },
+    {
+      "id": "@character_03",
+      "name": "Character 3",
+      "description": "Age: 30s. Male. Medium skin. Hair: dark, short. Face: stubble, intense expression. Clothing: full-body mechanical armored suit, predominantly dark red with metallic finish and gold trim highlights. Features a glowing white circular emblem centered on the chest plate. Accessories: mechanical elements protruding from the back of the suit, helmet that fully encases the head with a glowing white-eyed visor. Distinctive: suit retracts to expose face."
+    }
+  ],
+  "shots": [
+    {
+      "index": 0,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "0.00s - 1.20s",
+      "start_time": 0.0,
+      "end_time": 1.2,
+      "duration": 1.2,
+      "setting_description": "Desolate planet surface with floating debris",
+      "environment_description": "Dusty, apocalyptic landscape, atmospheric haze",
+      "lighting_setup": "High contrast, warm orange light from fire, silhouettes",
+      "color_grading": "Desaturated, orange and teal palette",
+      "shot_size": "Medium wide",
+      "camera_angle": "Low angle",
+      "camera_movement": "Tracking shot",
+      "focal_length": "24mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Intense, chaotic",
+      "composition": "Dynamic movement from right to left",
+      "subject_movement": "@character_03 flying through debris",
+      "characters": [
+        "@character_03"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_03",
+          "text": "I"
+        }
+      ],
+      "t2i_prompt": "Action shot of @character_03 wearing a full-body red and gold mechanical suit. @character_03 is flying through floating planetary debris. The atmosphere is filled with smoke and fire particles. Cinematic lighting, wide angle lens, high detail.",
+      "i2v_prompt": "@character_03 is flying dynamically through a chaotic debris-filled environment. @character_03 is seen dodging obstacles. @character_03 says 'I'."
+    },
+    {
+      "index": 1,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "9.10s - 11.20s",
+      "start_time": 9.1,
+      "end_time": 11.2,
+      "duration": 2.1,
+      "setting_description": "Floating rocks and structural wreckage",
+      "environment_description": "Darkened, hazy atmosphere",
+      "lighting_setup": "Rim lighting from distant explosions",
+      "color_grading": "Darkened with warm highlights",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Panning",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Tense",
+      "composition": "Centered, high action",
+      "subject_movement": "@character_03 swings through the air towards @character_02",
+      "characters": [
+        "@character_02",
+        "@character_03"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_03",
+          "text": "Got you"
+        }
+      ],
+      "t2i_prompt": "Mid-air shot of @character_03 in a red mechanical suit swinging past the looming @character_02. @character_02 is a large purple alien in gold armor. Floating debris surrounds them. Dramatic cinematic lighting.",
+      "i2v_prompt": "@character_03 swings past @character_02 while debris floats around them. @character_03 says 'Got you' during the action."
+    },
+    {
+      "index": 2,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "16.80s - 22.00s",
+      "start_time": 16.8,
+      "end_time": 22.0,
+      "duration": 5.2,
+      "setting_description": "Rocky terrain facing @character_02",
+      "environment_description": "Dusty ruins, floating rocks",
+      "lighting_setup": "Glow from magical effects",
+      "color_grading": "High contrast, gold glow",
+      "shot_size": "Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Zoom in",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Serious",
+      "composition": "Character centered",
+      "subject_movement": "@character_01 prepares magical energy",
+      "characters": [
+        "@character_01"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "Close-up of @character_01 with expressive eyes, wearing a navy blue tunic and red cape. Glowing orange mystical circular patterns forming at his hands. Ornate gold necklace visible. Cinematic lighting, shallow focus.",
+      "i2v_prompt": "@character_01 makes mystical hand gestures, causing bright orange circular patterns of magic to materialize from his hands."
+    },
+    {
+      "index": 3,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "30.00s - 34.00s",
+      "start_time": 30.0,
+      "end_time": 34.0,
+      "duration": 4.0,
+      "setting_description": "Wide battlefield",
+      "environment_description": "Dusty ruins, chaotic",
+      "lighting_setup": "Cool blue light from the gauntlet",
+      "color_grading": "Dramatic contrast",
+      "shot_size": "Medium shot",
+      "camera_angle": "Low angle",
+      "camera_movement": "Tracking with subject",
+      "focal_length": "35mm",
+      "depth_of_field": "Medium",
+      "mood_atmosphere": "Oppressive",
+      "composition": "Rule of thirds",
+      "subject_movement": "@character_02 clenching his gauntlet",
+      "characters": [
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_02",
+          "text": "Oh Oh"
+        }
+      ],
+      "t2i_prompt": "@character_02, a large purple-skinned alien wearing gold armor, clenches his left hand. The gauntlet has glowing colored gems. The environment is a dusty ruined battlefield. Cinematic lighting, dramatic tone.",
+      "i2v_prompt": "@character_02 clenches his fist, the gauntlet glows, and a portal opens. @character_02 says 'Oh Oh'."
+    },
+    {
+      "index": 4,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "40.00s - 43.00s",
+      "start_time": 40.0,
+      "end_time": 43.0,
+      "duration": 3.0,
+      "setting_description": "Floating in mid-air",
+      "environment_description": "Ethereal, chaotic",
+      "lighting_setup": "Backlit, glowing",
+      "color_grading": "High saturation",
+      "shot_size": "Wide",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Magical",
+      "composition": "Centered",
+      "subject_movement": "@character_01 floating with multiple arms",
+      "characters": [
+        "@character_01"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "@character_01 floating in the air. He is using a mystical multi-armed silhouette technique, creating many copies of himself. Dark blue tunic and deep red cape visible. Cinematic epic lighting.",
+      "i2v_prompt": "@character_01 levitates while multiple illusory arms appear from his body, surrounding him in a protective formation."
+    },
+    {
+      "index": 5,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "44.00s - 48.00s",
+      "start_time": 44.0,
+      "end_time": 48.0,
+      "duration": 4.0,
+      "setting_description": "Ruined battlefield",
+      "environment_description": "Smoke and fire-filled sky",
+      "lighting_setup": "High contrast",
+      "color_grading": "Warm",
+      "shot_size": "Wide",
+      "camera_angle": "Low angle",
+      "camera_movement": "Static",
+      "focal_length": "24mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Epic",
+      "composition": "Low angle showing the scale of the battle",
+      "subject_movement": "@character_01 replicas swarming @character_02",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "Multiple silhouettes of @character_01 flying towards @character_02. @character_02 stands on the ground looking up. The sky is filled with wreckage. Epic cinematic composition.",
+      "i2v_prompt": "Dozens of @character_01 duplicates converge on @character_02 in the ruined landscape."
+    },
+    {
+      "index": 6,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "49.00s - 53.00s",
+      "start_time": 49.0,
+      "end_time": 53.0,
+      "duration": 4.0,
+      "setting_description": "Close to ground",
+      "environment_description": "Dust and debris flying",
+      "lighting_setup": "Bright glowing orange energy beams",
+      "color_grading": "High contrast, saturated",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Intense",
+      "composition": "Centered",
+      "subject_movement": "@character_02 engulfed in energy blasts",
+      "characters": [
+        "@character_02"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "@character_02 standing still while dozens of orange energy beams strike him. Intense glowing light around @character_02. Cinematic lighting, focus on the power display.",
+      "i2v_prompt": "Bright orange energy beams converge on @character_02 from all sides, lighting up the scene."
+    },
+    {
+      "index": 7,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "54.00s - 56.00s",
+      "start_time": 54.0,
+      "end_time": 56.0,
+      "duration": 2.0,
+      "setting_description": "Ruined ground",
+      "environment_description": "Smoky, dark",
+      "lighting_setup": "Silhouette and rim lighting",
+      "color_grading": "Cool tones",
+      "shot_size": "Wide shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Pan left",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Suspenseful",
+      "composition": "Two characters on opposite sides",
+      "subject_movement": "@character_01 and @character_02 facing each other",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "Wide shot of @character_01 and @character_02 facing each other in the ruins. @character_01 has a red cape. @character_02 is holding his gauntlet. Cinematic framing.",
+      "i2v_prompt": "@character_01 and @character_02 move towards each other, preparing for the final move."
+    },
+    {
+      "index": 8,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "57.00s - 58.50s",
+      "start_time": 57.0,
+      "end_time": 58.5,
+      "duration": 1.5,
+      "setting_description": "Close combat",
+      "environment_description": "Hazy, dark",
+      "lighting_setup": "Rim lighting",
+      "color_grading": "Moody",
+      "shot_size": "Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Push in",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Threatening",
+      "composition": "Centered",
+      "subject_movement": "@character_02 grabs @character_01",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "Close-up of @character_02 grabbing @character_01 by the throat. @character_02's gauntlet is prominent. @character_01 looks distressed. Cinematic close-up lighting.",
+      "i2v_prompt": "@character_02 reaches out and grabs @character_01 by the throat, pulling him in close."
+    },
+    {
+      "index": 9,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "58.70s - 60.00s",
+      "start_time": 58.7,
+      "end_time": 60.0,
+      "duration": 1.3,
+      "setting_description": "Close combat",
+      "environment_description": "Hazy, dramatic lighting",
+      "lighting_setup": "Rim light on faces",
+      "color_grading": "Cool",
+      "shot_size": "Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Intense",
+      "composition": "Centered",
+      "subject_movement": "@character_02 staring down @character_01",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_02",
+          "text": "You're full of tricks wizard"
+        }
+      ],
+      "t2i_prompt": "Close-up of @character_02 looking at @character_01. @character_02 says 'You're full of tricks wizard'. Dramatic lighting, shallow focus.",
+      "i2v_prompt": "@character_02 speaks directly to @character_01, with a menacing expression."
+    },
+    {
+      "index": 10,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "60.00s - 65.50s",
+      "start_time": 60.0,
+      "end_time": 65.5,
+      "duration": 5.5,
+      "setting_description": "A desolate, war-torn landscape on an alien planet.",
+      "environment_description": "Smoky, dusty battlefield with debris under a hazy, sunset-lit sky.",
+      "lighting_setup": "Harsh, dramatic golden-hour sunlight creating high contrast.",
+      "color_grading": "Desaturated, heavy on ochre and orange tones.",
+      "shot_size": "Medium Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Slight handheld shake for realism.",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow, focusing on @character_02",
+      "mood_atmosphere": "Intense, confrontational.",
+      "composition": "Character 2 centered, holding Character 1.",
+      "subject_movement": "@character_02 tightens his grip around @character_01's neck.",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_02",
+          "text": "You're full of tricks wizard"
+        },
+        {
+          "speaker_id": "@character_02",
+          "text": "You never once used your greatest weapon"
+        }
+      ],
+      "t2i_prompt": "Portrait of @character_02 with his hand choking @character_01. @character_02 wears gold armor and a tech-gauntlet. @character_01 wears a navy blue tunic and red cape. Background is a dusty alien battlefield at sunset. Professional cinematography, dramatic lighting.",
+      "i2v_prompt": "@character_02 talks to @character_01, moving his head slightly. @character_02's hand is visible on @character_01's throat. @character_02 says: 'You're full of tricks wizard' then 'You never once used your greatest weapon'."
+    },
+    {
+      "index": 11,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "65.50s - 72.00s",
+      "start_time": 65.5,
+      "end_time": 72.0,
+      "duration": 6.5,
+      "setting_description": "The desolate battlefield.",
+      "environment_description": "Dusty ruins with dramatic lighting effects.",
+      "lighting_setup": "Backlit by debris fire, high contrast.",
+      "color_grading": "Dark and cinematic.",
+      "shot_size": "Wide",
+      "camera_angle": "Low angle",
+      "camera_movement": "Tracking shot following the struggle.",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Violent, chaotic.",
+      "composition": "The two characters engage in a physical fight against the backdrop of wreckage.",
+      "subject_movement": "@character_02 throws @character_01 to the ground.",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "Wide cinematic shot of @character_02 throwing @character_01 to the ground on a ruined planet. @character_02 is a large purple alien in golden armor. @character_01 is a man in a navy tunic and red cape. Debris is floating in the air.",
+      "i2v_prompt": "The camera follows the motion as @character_02 strikes @character_01 and throws him against the rocky debris. The scene is violent and fast-paced."
+    },
+    {
+      "index": 12,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "72.00s - 77.60s",
+      "start_time": 72.0,
+      "end_time": 77.6,
+      "duration": 5.6,
+      "setting_description": "The battlefield.",
+      "environment_description": "Dusty, light-filled, post-fight.",
+      "lighting_setup": "Strong rim lighting.",
+      "color_grading": "Warm, gold, and red accents.",
+      "shot_size": "Full shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Slow pull-back.",
+      "focal_length": "50mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Tense, heroic.",
+      "composition": "Character 3 standing in the center.",
+      "subject_movement": "@character_03 stands up, his armor active.",
+      "characters": [
+        "@character_03"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "@character_03 stands on a desolate alien planet. He wears full-body dark red and gold mechanical armor with a glowing white emblem on his chest. His visor is glowing white. Dramatic sunset lighting.",
+      "i2v_prompt": "@character_03 stands up in his mechanical suit, his metallic armor reflecting the ambient light. The camera pans up slowly as he stands to face his enemy."
+    },
+    {
+      "index": 13,
+      "scene_id": "scene_ruined_planet",
+      "time_range": "77.60s - 83.80s",
+      "start_time": 77.6,
+      "end_time": 83.8,
+      "duration": 6.2,
+      "setting_description": "The battlefield.",
+      "environment_description": "Dusty ruins, hazy light.",
+      "lighting_setup": "Close-up focused lighting on the face.",
+      "color_grading": "Cool tones on the face, warm background.",
+      "shot_size": "Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Slow zoom in.",
+      "focal_length": "85mm",
+      "depth_of_field": "Very shallow",
+      "mood_atmosphere": "Intense, intimate, finality.",
+      "composition": "Subject center, intense stare.",
+      "subject_movement": "@character_03 looks directly at the camera, then alternates to @character_02.",
+      "characters": [
+        "@character_02",
+        "@character_03"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_03",
+          "text": "You throw another moon at me and I'm gonna lose it stock, you know me"
+        }
+      ],
+      "t2i_prompt": "Close-up of @character_03 with his mask retracted, looking intense. He has stubble and dark hair. The background is a blurry, warm-toned battlefield. Cinematic lighting, high detail.",
+      "i2v_prompt": "@character_03 looks into the camera with an intense expression. He says: 'You throw another moon at me and I'm gonna lose it stock, you know me' while the scene fades."
+    }
+  ]
+}
