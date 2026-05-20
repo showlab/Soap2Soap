@@ -85,6 +85,50 @@ def _detect_cuts(video_path: str) -> List[Tuple[float, float]]:
         return []
 
 
+def _ensure_720p(video_path: str) -> str:
+    """
+    Return a 720p version of the video for analysis.
+    If the video is already ≤720p, returns the original path.
+    Otherwise encodes a 720p copy next to the original and returns its path.
+    """
+    # Check current height
+    try:
+        result = subprocess.run(
+            ["ffprobe", "-v", "quiet", "-show_entries", "stream=height",
+             "-of", "csv=p=0", video_path],
+            capture_output=True, text=True,
+        )
+        height = int(result.stdout.strip().splitlines()[0])
+    except Exception:
+        return video_path
+
+    if height <= 720:
+        return video_path
+
+    base, ext = os.path.splitext(video_path)
+    out_path = f"{base}_720p{ext}"
+    if os.path.exists(out_path):
+        print(f"  720p version exists: {out_path}")
+        return out_path
+
+    print(f"  Resizing {height}p → 720p for analysis: {out_path}")
+    cmd = [
+        "ffmpeg", "-y", "-i", video_path,
+        "-vf", "scale=-2:720",
+        "-c:v", "libx264", "-crf", "23", "-preset", "fast",
+        "-c:a", "copy",
+        out_path,
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode == 0 and os.path.exists(out_path):
+        size_mb = os.path.getsize(out_path) / 1024 / 1024
+        print(f"  720p saved: {out_path} ({size_mb:.1f} MB)")
+        return out_path
+
+    print(f"  ⚠️  Resize failed, using original")
+    return video_path
+
+
 def _extract_clip(video_path: str, start: float, end: float, out_path: str) -> bool:
     """Extract a video segment [start, end] using ffmpeg stream copy (fast)."""
     cmd = [
@@ -273,9 +317,12 @@ def run(
     else:
         print("  SceneDetect unavailable — will use single full-video analysis")
 
+    # ── Prepare 720p version for analysis (faster upload, sufficient quality) ─
+    analysis_video_path = _ensure_720p(state.video_path)
+
     # ── Phase B1: Character extraction from full video ───────────────────────
     print("\n  Uploading full video for character extraction...")
-    full_video_uri = upload_video(state.video_path)
+    full_video_uri = upload_video(analysis_video_path)
 
     characters = _extract_characters(full_video_uri)
 
@@ -308,7 +355,7 @@ def run(
         os.makedirs(clip_dir, exist_ok=True)
         print(f"  Clip cache: {clip_dir}")
 
-        # Submit all shots concurrently
+        # Submit all shots concurrently (extract from 720p source)
         futures = {}
         with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
             for i, (start, end) in enumerate(cuts):
@@ -316,7 +363,7 @@ def run(
                 f = pool.submit(
                     _process_clip,
                     shot_idx, len(cuts), start, end,
-                    state.video_path, clip_dir, characters, transcript_lines,
+                    analysis_video_path, clip_dir, characters, transcript_lines,
                 )
                 futures[f] = i
 
