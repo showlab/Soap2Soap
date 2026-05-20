@@ -25,7 +25,6 @@ from v2.core.schema import PipelineState
 from v2.pipeline import (
     step0_transcribe,
     step1_analyze,
-    step1b_shot_planning,
     step2_characters,
     step3_compile,
     step3b_camera_groups,
@@ -120,11 +119,6 @@ def run_pipeline(
         )
         _save_state(state, cache_path)
         _step_done()
-
-    # Step 1b — Intelligent shot planning (consolidate raw cuts into narrative shots)
-    _step_start("1b/7", "Intelligent Shot Planning")
-    state = step1b_shot_planning.run(state)
-    _step_done()
 
     # Step 2 — Character images
     _step_start("2/7", "Character Reference Images")

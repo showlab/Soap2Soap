@@ -220,6 +220,113 @@ def get_shot_analysis_prompt(
     )
 
 
+CHUNK_ANALYSIS_PROMPT = """You are a professional cinematographer and film editor analyzing a video segment.
+
+SEGMENT INFO:
+- This clip covers {start_time:.1f}s – {end_time:.1f}s of the original video (duration: {duration:.1f}s)
+- Time offset: add {start_time:.1f}s to all timestamps you report
+
+KNOWN CHARACTERS (use these IDs consistently):
+{characters_json}
+
+{transcript_section}
+
+YOUR TASK:
+Analyze this segment and select approximately {target_shots} KEY SHOTS that best represent the story.
+Do NOT output one shot per camera cut — select narrative-significant moments only.
+
+SELECTION RULES:
+1. Every line of dialogue must appear in at least one shot — never drop dialogue
+2. Shots with dialogue are MANDATORY — include all of them
+3. Merge visually similar, same-scene, silent shots into one
+4. Identify scene changes, character introductions, emotional beats
+
+CRITICAL: scene_id RULES
+- scene_id = the PHYSICAL LOCATION, shared across shots in the same place
+- Same location → same scene_id (e.g. "scene_market_stall")
+- Use short snake_case
+
+Return ONLY valid JSON, no markdown:
+{{
+  "shots": [
+    {{
+      "index": 0,
+      "scene_id": "scene_market",
+      "time_range": "{start_time:.2f}s - {shot_end:.2f}s",
+      "start_time": {start_time:.2f},
+      "end_time": {shot_end:.2f},
+      "duration": {duration:.2f},
+      "narrative_role": "Opening — buyer enters market",
+      "setting_description": "Outdoor market street with fruit stalls",
+      "environment_description": "Busy street, colorful stalls, sunlight",
+      "lighting_setup": "Natural daylight, warm tones",
+      "color_grading": "Warm, saturated",
+      "shot_size": "Wide",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Lively, everyday",
+      "composition": "Subject center, market fills background",
+      "subject_movement": "@character_01 walks toward the stall",
+      "characters": ["@character_01"],
+      "dialogue": [{{"speaker_id": "@character_01", "text": "这瓜多少钱", "start_time": {start_time:.2f}, "end_time": {start_time_plus:.2f}}}],
+      "t2i_prompt": "@character_01 [pose]. Background: [environment]. [Shot size], [lens], [lighting].",
+      "i2v_prompt": "@character_01 [motion]. [Camera]. @character_01 says: '这瓜多少钱'."
+    }}
+  ]
+}}
+
+RULES:
+- start_time and end_time must be ABSOLUTE timestamps (include the {start_time:.1f}s offset)
+- t2i_prompt: min 3-4 sentences, use @character_XX tokens, include clothing + environment + camera
+- i2v_prompt: full motion description, weave in all dialogue naturally
+- dialogue: copy text EXACTLY, include absolute timestamps
+"""
+
+
+def get_chunk_analysis_prompt(
+    start_time: float,
+    end_time: float,
+    characters: list,
+    transcript_lines: list = None,
+    target_shots: int = 10,
+) -> str:
+    import json as _json
+    duration = end_time - start_time
+
+    char_list = [{"id": c["id"], "name": c.get("name", ""), "description": c.get("description", "")} for c in characters]
+    characters_json = _json.dumps(char_list, ensure_ascii=False, indent=2)
+
+    if transcript_lines:
+        relevant = [
+            ln for ln in transcript_lines
+            if ln.get("end", 0) >= start_time and ln.get("start", 0) <= end_time
+        ]
+        if relevant:
+            lines_text = "\n".join(f"  [{ln['start']:.1f}s-{ln['end']:.1f}s] {ln['text']}" for ln in relevant)
+            transcript_section = f"AUDIO TRANSCRIPT for this segment:\n{lines_text}"
+        else:
+            transcript_section = "(No dialogue in this segment)"
+    else:
+        transcript_section = "(No transcript available)"
+
+    # Dummy values for the JSON example placeholders
+    shot_end = start_time + min(duration, 10.0)
+    start_time_plus = start_time + 2.0
+
+    return CHUNK_ANALYSIS_PROMPT.format(
+        start_time=start_time,
+        end_time=end_time,
+        duration=duration,
+        characters_json=characters_json,
+        transcript_section=transcript_section,
+        target_shots=target_shots,
+        shot_end=shot_end,
+        start_time_plus=start_time_plus,
+    )
+
+
 def get_analysis_prompt(
     max_shots: int = 10,
     transcript: str = "",
