@@ -34,9 +34,14 @@ def run(state: "PipelineState") -> str:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_path = os.path.join(state.output_dir, f"final_output_v2_{timestamp}.mp4")
 
+    # Re-encode with uniform 1280×720 to handle clips of different resolutions
     cmd = [
         "ffmpeg", "-y", "-f", "concat", "-safe", "0",
-        "-i", list_path, "-c", "copy", output_path,
+        "-i", list_path,
+        "-vf", "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,fps=25",
+        "-c:v", "libx264", "-pix_fmt", "yuv420p",
+        "-c:a", "aac",
+        output_path,
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
 

@@ -129,63 +129,6 @@ def _crop_grid(grid_img: Image.Image) -> List[Image.Image]:
     return [grid_img.crop(b) for b in boxes]
 
 
-def _zoom_and_select(
-    grid_img: Image.Image,
-    cell_img: Image.Image,
-    shot: "Shot",
-    position: str,
-    state: "PipelineState",
-    n_variations: int = 2,
-) -> Optional[Image.Image]:
-    """
-    Generate zoom-in variations from a grid cell and pick the best one via Gemini.
-    Falls back to the raw crop if all variations fail.
-    """
-    from v2.clients.gemini_client import _client, _GEMINI_VISION_MODEL_FLASH
-    from v2.prompts.zoom_in import compile_zoom_in_prompt
-    import json, re
-
-    zoom_prompt = compile_zoom_in_prompt(position, shot.t2i_prompt)
-    variations: List[Image.Image] = []
-
-    for _ in range(n_variations):
-        var = generate_keyframe(
-            prompt=zoom_prompt,
-            reference_images=[grid_img],
-        )
-        if var:
-            variations.append(var)
-
-    if not variations:
-        return cell_img  # fallback to raw crop
-
-    if len(variations) == 1:
-        return variations[0]
-
-    # Ask Gemini to pick the best variation
-    try:
-        select_prompt = (
-            f"You are reviewing {len(variations)} zoom-in variations of a video frame.\n"
-            f"Shot description: {shot.t2i_prompt[:200]}\n"
-            f"Image 1 is the reference crop. Images 2-{len(variations)+1} are the variations.\n"
-            f"Which variation best matches the shot description and maintains visual quality?\n"
-            f"Return JSON: {{\"best_index\": 1}} (1-based index among the variations, not including the crop)"
-        )
-        all_imgs = [cell_img] + variations
-        client = _client()
-        resp = client.models.generate_content(
-            model=_GEMINI_VISION_MODEL_FLASH,
-            contents=all_imgs + [select_prompt],
-        )
-        data = json.loads(re.search(r"\{.*\}", resp.text or "{}", re.DOTALL).group())
-        idx = int(data.get("best_index", 1)) - 1
-        if 0 <= idx < len(variations):
-            return variations[idx]
-    except Exception:
-        pass
-
-    return variations[0]
-
 
 def _partition_by_scene(shots: list, max_grid: int = 4) -> list:
     """
@@ -221,7 +164,8 @@ def _partition_by_scene(shots: list, max_grid: int = 4) -> list:
 
 def _run_consistency(state: "PipelineState") -> "PipelineState":
     from v2.prompts.narrative_grid import compile_narrative_grid_prompt
-    from v2.prompts.zoom_in import GRID_POSITIONS
+
+    GRID_POSITIONS = ["TOP-LEFT", "TOP-RIGHT", "BOTTOM-LEFT", "BOTTOM-RIGHT"]
 
     print("  Mode: CONSISTENCY (scene-aware 2×2 grid → crop → zoom)")
 
@@ -317,34 +261,17 @@ def _run_consistency(state: "PipelineState") -> "PipelineState":
         grid_save = os.path.join(state.output_dir, f"grid_{g_idx+1}_scene_{scene_id}.png")
         grid_img.save(grid_save)
 
-        # Crop + zoom each cell
+        # Crop grid into cells and save each directly as the shot's keyframe
         cells = _crop_grid(grid_img)
         for cell_idx, (shot, cell_img) in enumerate(zip(group, cells)):
             if getattr(shot, 'padded', False):
                 continue
 
             save_path = os.path.join(state.output_dir, f"shot_{shot.shot_id}.png")
-            position = GRID_POSITIONS[cell_idx]
-
-            print(f"    Shot {shot.shot_id} ({position}): zoom + select...")
-            final_img = _zoom_and_select(
-                grid_img=grid_img,
-                cell_img=cell_img,
-                shot=shot,
-                position=position,
-                state=state,
-            )
-            if final_img:
-                final_img.save(save_path)
-                shot.keyframe_path = save_path
-                shot.status = "keyframe_done"
-                print(f"    ✅ Shot {shot.shot_id} saved")
-            else:
-                # Last resort: save raw crop
-                cell_img.save(save_path)
-                shot.keyframe_path = save_path
-                shot.status = "keyframe_done"
-                print(f"    ⚠️  Shot {shot.shot_id}: used raw crop")
+            cell_img.save(save_path)
+            shot.keyframe_path = save_path
+            shot.status = "keyframe_done"
+            print(f"    ✅ Shot {shot.shot_id} saved")
 
     return state
 

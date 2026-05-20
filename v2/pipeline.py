@@ -15,6 +15,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from datetime import datetime
 
 # Ensure v2 package is importable from project root
@@ -34,20 +35,36 @@ from v2.pipeline import (
 )
 
 
+_step_t0: float = 0.0
+_pipeline_t0: float = 0.0
+
+def _step_start(step_num: str, name: str):
+    global _step_t0
+    _step_t0 = time.time()
+    elapsed = time.time() - _pipeline_t0
+    print(f"\n{'─'*60}")
+    print(f"▶  Step {step_num}: {name}  [pipeline +{elapsed:.0f}s]")
+    print(f"{'─'*60}")
+
+def _step_done():
+    elapsed = time.time() - _step_t0
+    print(f"✔  done in {elapsed:.1f}s")
+
+
 def run_pipeline(
     video_path: str,
     style: str = "disney",
     max_shots: int = 10,
     dev_mode: bool = True,
     output_dir: str = ".",
-    skip_to_step: int = 1,
     use_whisper: bool = True,
     generation_mode: str = "consistency",
+    yes: bool = False,
 ) -> str:
-    """
-    Run the full V2V pipeline. Returns path to final video.
-    skip_to_step: resume from this step if prior outputs exist.
-    """
+    """Run the full V2V pipeline. Returns path to final video."""
+    global _pipeline_t0
+    _pipeline_t0 = time.time()
+
     print("\n" + "=" * 70)
     print("🎬 Soap2Soap V2 — Video-to-Video Pipeline")
     print("=" * 70)
@@ -69,47 +86,75 @@ def run_pipeline(
         generation_mode=generation_mode,
     )
 
-    # Check for cached analysis
-    cache_path = os.path.join(output_dir, "v2_analysis.json")
-    if skip_to_step > 1 and os.path.exists(cache_path):
+    # Analysis cache lives next to the input video (reusable across runs)
+    video_base = os.path.splitext(os.path.basename(video_path))[0]
+    video_dir = os.path.dirname(os.path.abspath(video_path))
+    cache_path = os.path.join(video_dir, f"{video_base}_analysis.json")
+
+    if os.path.exists(cache_path):
         print(f"\n  ↩️  Loading cached analysis from {cache_path}")
         state = _load_state(state, cache_path)
-        # Re-apply timestamp correction on cached data too
         video_duration = step1_analyze._get_video_duration(video_path)
         state.shots = step1_analyze._fix_timestamps(state.shots, video_duration)
+        state.shots = step1_analyze._normalize_scene_ids(state.shots)
         for s in state.shots:
             print(f"    Shot {s.shot_id}: {s.time_range} ({s.duration:.1f}s)")
     else:
         # Step 0 — Whisper transcription (runs before Gemini analysis)
         transcript = ""
+        dialogue_lines = []
         if use_whisper:
+            _step_start("0/7", "Audio Transcription")
             dialogue_lines = step0_transcribe.run(state)
             transcript = step0_transcribe.format_transcript_for_prompt(dialogue_lines)
+            _step_done()
 
-        # Step 1 — Video Analysis (Gemini, with transcript injected)
-        state = step1_analyze.run(state, transcript=transcript)
+        # Step 1 — Video Analysis (per-shot clip upload approach)
+        _step_start("1/7", "Video Analysis")
+        state = step1_analyze.run(
+            state,
+            transcript=transcript,
+            transcript_lines=dialogue_lines,
+            yes=yes,
+        )
         _save_state(state, cache_path)
+        _step_done()
 
     # Step 2 — Character images
+    _step_start("2/7", "Character Reference Images")
     state = step2_characters.run(state)
+    _step_done()
 
     # Step 3 — Compile prompts
+    _step_start("3/7", "Prompt Compilation + Style Rewrite")
     state = step3_compile.run(state)
+    _step_done()
 
     # Step 3b — Camera group analysis (camera_tree mode only)
-    state = step3b_camera_groups.run(state)
+    if generation_mode == "camera_tree":
+        _step_start("3b/7", "Camera Group Analysis")
+        state = step3b_camera_groups.run(state)
+        _step_done()
 
     # Step 4 — Keyframes
+    _step_start("4/7", f"Keyframe Generation [{generation_mode.upper()}]")
     state = step4_keyframes.run(state)
+    _step_done()
 
     # Step 4b — Inspection & auto-fix
+    _step_start("4b/7", "Keyframe Inspection & Auto-Fix")
     state = step4b_inspect.run(state)
+    _step_done()
 
     # Step 5 — Video clips
+    _step_start("5/7", "Video Generation")
     state = step5_video.run(state)
+    _step_done()
 
     # Step 6 — Merge
+    _step_start("6/7", "Video Merge")
     final_video = step6_merge.run(state)
+    _step_done()
 
     # Summary
     summary = state.to_summary()
@@ -234,13 +279,13 @@ def main():
                         help="Use Veo 3 for video generation (default: static fallback)")
     parser.add_argument("--output-dir", default=".",
                         help="Output directory (default: current dir)")
-    parser.add_argument("--resume", action="store_true",
-                        help="Skip Step 0+1 if v2_analysis.json already exists")
     parser.add_argument("--no-whisper", action="store_true",
                         help="Skip Whisper transcription (faster, less accurate dialogue)")
     parser.add_argument("--mode", default="consistency",
                         choices=["default", "consistency", "camera_tree"],
                         help="Keyframe generation mode (default: consistency)")
+    parser.add_argument("--yes", action="store_true",
+                        help="Auto-confirm if > 16 shots detected (non-interactive)")
     args = parser.parse_args()
 
     final = run_pipeline(
@@ -249,9 +294,9 @@ def main():
         max_shots=args.shots,
         dev_mode=not args.real_video,
         output_dir=args.output_dir,
-        skip_to_step=2 if args.resume else 1,
         use_whisper=not args.no_whisper,
         generation_mode=args.mode,
+        yes=args.yes,
     )
 
     if final:

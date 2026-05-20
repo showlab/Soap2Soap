@@ -37,7 +37,8 @@ def generate_video_static_fallback(
         "-c:v", "libx264",
         "-t", str(duration),
         "-pix_fmt", "yuv420p",
-        "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",  # ensure even dimensions
+        "-vf", "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2",
+        "-r", "25",
         output_path,
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)

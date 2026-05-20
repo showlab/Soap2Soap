@@ -112,6 +112,114 @@ MANDATORY RULES:
 NO_CUTS_SECTION = ""
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Per-shot analysis (new architecture: one clip per API call)
+# ─────────────────────────────────────────────────────────────────────────────
+
+CHARACTER_EXTRACTION_PROMPT = """You are analyzing a video to identify all distinct characters by visual appearance only.
+Do NOT assume celebrity or fictional identity — use neutral names like "Character 1".
+
+Return ONLY valid JSON, no markdown, no explanation:
+{
+  "characters": [
+    {
+      "id": "@character_01",
+      "name": "Character 1",
+      "description": "Age: 30s. Male. Light skin. Hair: dark brown, short. Face: square jaw, stubble. Build: muscular. Clothing: dark blue long robe with gold trim, red flowing cape attached at shoulders, leather belt. Accessories: gold circular amulet on chest. Distinctive: glowing hand effects."
+    }
+  ]
+}
+
+RULES:
+- Use @character_01, @character_02, etc. as IDs
+- Be VERY detailed on clothing: each item with color, material, cut
+- Include all accessories and distinctive visual features
+- NO identity assumptions — describe only what you see
+"""
+
+SHOT_ANALYSIS_PROMPT = """You are a professional cinematographer analyzing a single video shot.
+
+SHOT INFO:
+- Index: {index} of {total}
+- Time range: {time_range}
+- Duration: {duration:.2f}s
+
+KNOWN CHARACTERS (use these IDs consistently):
+{characters_json}
+
+{transcript_section}
+
+Analyze ONLY this shot and return detailed metadata.
+Return ONLY valid JSON (one shot object), no markdown:
+{{
+  "scene_id": "scene_xxx",
+  "setting_description": "one sentence describing the physical location",
+  "environment_description": "detailed description of background, ground, sky, atmosphere, what fills the frame",
+  "lighting_setup": "light direction, quality, color temperature, key/fill ratio",
+  "color_grading": "color palette, saturation, contrast style",
+  "shot_size": "Extreme close-up / Close-up / Medium close-up / Medium / Wide / Extreme wide",
+  "camera_angle": "Eye-level / Low angle / High angle / Dutch angle",
+  "camera_movement": "Static / Pan / Tilt / Dolly / Handheld / Push-in / Pull-out",
+  "focal_length": "24mm / 35mm / 50mm / 85mm / 100mm etc.",
+  "depth_of_field": "Deep / Shallow — describe what is in/out of focus",
+  "mood_atmosphere": "2-3 emotional adjectives",
+  "composition": "subject placement, framing elements, rule of thirds etc.",
+  "subject_movement": "describe character actions using @character_XX tokens",
+  "characters": ["@character_01"],
+  "dialogue": [{{"speaker_id": "@character_01", "text": "exact words", "start_time": 0.0, "end_time": 1.0}}],
+  "t2i_prompt": "@character_01 [pose/action in detail]. @character_01 wears [full clothing details]. Background: [environment]. [Shot size], [focal length], [lighting]. [Color grade].",
+  "i2v_prompt": "@character_01 [motion description]. [Camera movement]. [Atmosphere]. Dialogue if any."
+}}
+
+RULES:
+- Use @character_XX tokens for every character present (NEVER their names)
+- t2i_prompt: minimum 4 sentences, full clothing + environment + camera + lighting
+- i2v_prompt: full motion/action description, weave in dialogue naturally
+- dialogue: only lines audible in THIS shot; copy text EXACTLY; include timestamps
+- scene_id: use the same value for all shots in the same physical location
+"""
+
+
+def get_shot_analysis_prompt(
+    index: int,
+    total: int,
+    start_time: float,
+    end_time: float,
+    characters: list,
+    transcript_lines: list = None,
+) -> str:
+    import json as _json
+    duration = end_time - start_time
+    time_range = f"{start_time:.2f}s - {end_time:.2f}s"
+
+    # Build characters JSON (id + description only)
+    char_list = [{"id": c["id"], "name": c.get("name", ""), "description": c.get("description", "")} for c in characters]
+    characters_json = _json.dumps(char_list, ensure_ascii=False, indent=2)
+
+    # Build transcript section for this shot's time window
+    if transcript_lines:
+        relevant = [
+            ln for ln in transcript_lines
+            if ln.get("end", 0) >= start_time and ln.get("start", 0) <= end_time
+        ]
+        if relevant:
+            lines_text = "\n".join(f"  [{ln['start']:.1f}s-{ln['end']:.1f}s] {ln['text']}" for ln in relevant)
+            transcript_section = f"AUDIO TRANSCRIPT for this shot:\n{lines_text}"
+        else:
+            transcript_section = "(No dialogue in this shot)"
+    else:
+        transcript_section = "(No transcript available)"
+
+    return SHOT_ANALYSIS_PROMPT.format(
+        index=index,
+        total=total,
+        time_range=time_range,
+        duration=duration,
+        characters_json=characters_json,
+        transcript_section=transcript_section,
+    )
+
+
 def get_analysis_prompt(
     max_shots: int = 10,
     transcript: str = "",

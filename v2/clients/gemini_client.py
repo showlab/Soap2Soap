@@ -13,7 +13,7 @@ from google.genai import types
 
 
 # VLM: video understanding, inspection, text reasoning
-VLM_MODEL = "gemini-3.1-flash"
+VLM_MODEL = "gemini-3.1-flash-lite"
 _GEMINI_VISION_MODEL_FLASH = VLM_MODEL  # alias used by step4_keyframes
 
 
@@ -42,16 +42,18 @@ def upload_video(video_path: str) -> str:
 
 
 def analyze_video(video_uri: str, prompt: str, model: str = VLM_MODEL) -> str:
-    """Send a video (by URI) to Gemini with a prompt and return the text response."""
+    """Send a video (by URI) to Gemini with a prompt and return the text response.
+    Prompt is placed BEFORE the video so schema constraints are read first.
+    """
     client = _client()
     response = client.models.generate_content(
         model=model,
         contents=[
-            types.Part.from_uri(file_uri=video_uri, mime_type="video/mp4"),
             prompt,
+            types.Part.from_uri(file_uri=video_uri, mime_type="video/mp4"),
         ],
         config=types.GenerateContentConfig(
-            max_output_tokens=8192,  # ensure full JSON output
+            max_output_tokens=32768,
         ),
     )
     return response.text

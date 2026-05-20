@@ -52,7 +52,7 @@ def _client() -> genai.Client:
 
 def _ask_gemini(prompt: str, images: List[Image.Image]) -> str:
     client = _client()
-    contents: list = images + [prompt]
+    contents: list = [prompt] + images
     response = client.models.generate_content(
         model=_GEMINI_VISION_MODEL,
         contents=contents,
