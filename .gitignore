@@ -1,4 +1,28 @@
 grid_generation.py
 grid_generation_3.py
-完整prompt及示例video_understanding_schema.md
 __pycache__/
+*.pyc
+
+# Generated outputs
+shot_*.png
+shot_*_video.mp4
+final_output_*.mp4
+char_*.png
+design_sheet.png
+inspection_grid.png
+grid_*_scene_*.png
+
+# Audio / transcript (generated per-run)
+*.wav
+*.json
+!example/*_analysis.json
+
+# Temp clips and resized videos
+example/*_clips/
+example/*_720p.mp4
+
+# Logs and misc
+*.log
+logs/
+generated_faces/
+reference_images/
