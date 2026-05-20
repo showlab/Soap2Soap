@@ -25,6 +25,7 @@ from v2.core.schema import PipelineState
 from v2.pipeline import (
     step0_transcribe,
     step1_analyze,
+    step1b_shot_planning,
     step2_characters,
     step3_compile,
     step3b_camera_groups,
@@ -119,6 +120,11 @@ def run_pipeline(
         )
         _save_state(state, cache_path)
         _step_done()
+
+    # Step 1b — Intelligent shot planning (consolidate raw cuts into narrative shots)
+    _step_start("1b/7", "Intelligent Shot Planning")
+    state = step1b_shot_planning.run(state)
+    _step_done()
 
     # Step 2 — Character images
     _step_start("2/7", "Character Reference Images")
@@ -271,7 +277,7 @@ def main():
     )
     parser.add_argument("video", help="Input video path")
     parser.add_argument("--style", default="disney",
-                        choices=["realistic", "disney", "anime", "japanese_anime",
+                        choices=["realistic", "disney", "pixar", "anime", "japanese_anime",
                                  "clay", "lego", "family_guy"])
     parser.add_argument("--shots", type=int, default=10,
                         help="Max shots to generate (default: 10)")
