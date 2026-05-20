@@ -203,5 +203,5 @@ python v2/pipeline.py example/avengers_720p.mp4 --style lego --shots 10 --mode c
 |------|-------|
 | Video analysis, text generation | `gemini-3.1-flash-lite` |
 | Keyframe image generation | `gemini-3.1-flash-image-preview` |
-| Character reference images | `imagen-3.0-generate-002` → fallback `gemini-3.1-flash-image-preview` |
+| Character reference images | `gemini-3.1-flash-image-preview` |
 | Video generation (real mode) | `veo-3.0-generate-preview` |

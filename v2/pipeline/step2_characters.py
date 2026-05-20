@@ -10,7 +10,7 @@ import os
 from typing import List, TYPE_CHECKING
 
 from PIL import Image
-from v2.clients.imagen_client import generate_character_image, generate_keyframe
+from v2.clients.imagen_client import generate_keyframe
 from v2.prompts.shot_compiler import STYLE_PREFIXES
 from v2.prompts.design_sheet import get_design_sheet_prompt
 
@@ -89,7 +89,7 @@ def run(state: "PipelineState") -> "PipelineState":
             style_prefix=style_prefix,
             description=char.description,
         )
-        img = generate_character_image(prompt, aspect_ratio="1:1", save_path=save_path)
+        img = generate_keyframe(prompt=prompt, reference_images=[], save_path=save_path)
         if img:
             char.image_path = save_path
             entity = state.reference_store.get_entity(char.id)
