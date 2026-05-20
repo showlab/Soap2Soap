@@ -1,11 +1,10 @@
 """
 Gemini prompt for video analysis.
 
-Key design: scene_id is a SHARED identifier for shots that take place in
-the same physical location/environment. Multiple shots can share the same
-scene_id. This is used later to group shots into the same consistency grid.
-
-Accepts an optional Whisper transcript to improve dialogue accuracy.
+Key design:
+- scene_id is a SHARED location identifier across shots in the same environment
+- t2i_prompt must be a RICH image-generation prompt using @character_XX tokens
+- When SceneDetect cuts are provided, Gemini must describe each cut exactly as given
 """
 
 VIDEO_ANALYSIS_PROMPT = """You are a professional cinematographer and script analyst.
@@ -13,27 +12,17 @@ VIDEO_ANALYSIS_PROMPT = """You are a professional cinematographer and script ana
 Analyze this video carefully and extract a structured JSON with:
 1. Characters (visual appearance only, NO identity assumptions)
 2. Scenes (distinct physical locations / environments)
-3. Up to {max_shots} shots, in chronological order
+3. Shots as specified below
 
 {transcript_section}
 
 ══════════════════════════════════════════════════════════
 CRITICAL: scene_id RULES
 ══════════════════════════════════════════════════════════
-scene_id represents the PHYSICAL LOCATION / ENVIRONMENT — NOT the shot number.
-
-Rules:
-• Assign the SAME scene_id to ALL shots filmed in the same place.
-  Example: if shots 1, 3, 5 are all on the ship's lower deck → all get scene_id "scene_ship_lower_deck"
-• Assign a DIFFERENT scene_id when the location clearly changes.
-  Example: shots 2, 4 cut to the ship's bridge → scene_id "scene_ship_bridge"
-• scene_id must be a short snake_case label describing the location:
-  "scene_ship_deck", "scene_interior_cabin", "scene_dining_room", etc.
-• If uncertain whether a cut is a new location or just a new camera angle of
-  the same place, use the SAME scene_id (same environment = same scene).
-
-This is essential: shots with the same scene_id will be generated together
-in the same consistency grid to ensure visual coherence.
+scene_id = the PHYSICAL LOCATION / ENVIRONMENT, shared across shots in the same place.
+• Same location → same scene_id (e.g. all battlefield shots → "scene_battlefield")
+• New location → new scene_id
+• Use short snake_case: "scene_ship_deck", "scene_interior_cabin", etc.
 
 ══════════════════════════════════════════════════════════
 OUTPUT FORMAT — return ONLY valid JSON, no markdown, no explanation:
@@ -45,36 +34,36 @@ OUTPUT FORMAT — return ONLY valid JSON, no markdown, no explanation:
     {{
       "id": "@character_01",
       "name": "Character 1",
-      "description": "Name: Character 1. [Age range]. [Gender]. [Skin tone]. [Hair: color, length, style]. [Face features]. [Build]. [Clothing: each item with color, fabric, cut in detail]. [Accessories]. [Distinctive features].",
-      "scenes": ["scene_ship_lower_deck", "scene_ship_bridge"]
+      "description": "Name: Character 1. Age: 30s. Male. Light skin. Hair: dark brown, short. Face: square jaw, stubble. Build: muscular. Clothing: dark blue long robe with gold trim, red flowing cape attached at shoulders, leather belt. Accessories: gold circular amulet on chest. Distinctive: glowing hand effects.",
+      "scenes": ["scene_battlefield"]
     }}
   ],
   "shots": [
     {{
       "index": 0,
-      "scene_id": "scene_ship_lower_deck",
+      "scene_id": "scene_battlefield",
       "time_range": "0.00s - 4.50s",
       "start_time": 0.0,
       "end_time": 4.5,
       "duration": 4.5,
-      "setting_description": "Interior lower deck of a large ship, wooden stairs, benches, passengers seated",
-      "environment_description": "Detailed environment: materials, colors, lighting sources, spatial layout, atmosphere",
-      "lighting_setup": "Strong backlight from stairway, soft fill from portholes",
-      "color_grading": "Slightly desaturated, warm highlights, cool shadows",
+      "setting_description": "Destroyed city battlefield, crumbled buildings, thick dust clouds",
+      "environment_description": "Rubble-strewn ground with broken concrete, orange dust fills the air, distant fires burning, sky is dark smoky orange, low visibility",
+      "lighting_setup": "Harsh overhead sunlight filtered through smoke, strong orange tint, deep shadows under debris",
+      "color_grading": "Desaturated with heavy orange-brown push, high contrast shadows",
       "shot_size": "Medium shot",
       "camera_angle": "Eye-level",
-      "camera_movement": "Smooth tracking right",
-      "focal_length": "35mm",
-      "depth_of_field": "Deep focus",
-      "mood_atmosphere": "Curious, slightly tense, class contrast",
-      "composition": "Rule of thirds, subject left entering from right",
-      "subject_movement": "@character_01 descends stairs and walks into room",
+      "camera_movement": "Slow push-in",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow, subject sharp, background blurred",
+      "mood_atmosphere": "Tense, desperate, apocalyptic",
+      "composition": "Subject center-left, rule of thirds, rubble framing right",
+      "subject_movement": "@character_01 raises both hands as glowing orange energy circles form around them",
       "characters": ["@character_01"],
       "dialogue": [
-        {{"speaker_id": "@character_01", "text": "Where am I?", "start_time": 2.1, "end_time": 3.0}}
+        {{"speaker_id": "@character_01", "text": "I can't stop him alone.", "start_time": 2.1, "end_time": 3.4}}
       ],
-      "t2i_prompt": "Concise visual description of the STATIC first frame, 2-3 sentences. Include @character_01 token.",
-      "i2v_prompt": "Full cinematic description of the complete shot action/motion. Include character actions, camera movement, atmosphere. If dialogue: weave it in naturally (e.g. '@character_01 turns and says ...'). Include @character_01 token."
+      "t2i_prompt": "@character_01 (Name from Image 1) stands center-left in a destroyed city battlefield. @character_01 wears a dark blue long robe with gold trim and a flowing red cape. Both hands raised, glowing orange energy circles forming around them. Background: crumbled concrete buildings, thick orange dust clouds. Medium shot, 85mm, shallow depth of field, eye-level. Orange-tinted desaturated color grade.",
+      "i2v_prompt": "@character_01 (Name from Image 1) slowly raises both hands as glowing orange energy circles expand around them. Slow push-in camera. Orange dust billows in background. Tense, desperate atmosphere. @character_01 says: 'I can't stop him alone.'"
     }}
   ]
 }}
@@ -82,43 +71,45 @@ OUTPUT FORMAT — return ONLY valid JSON, no markdown, no explanation:
 ══════════════════════════════════════════════════════════
 RULES
 ══════════════════════════════════════════════════════════
-- scene_id: SHARED by shots in the same physical location (see rules above)
-- shots: cover the ENTIRE video chronologically with no time gaps
-- Maximum {max_shots} shots total — merge very short cuts if needed
-- characters: @character_01, @character_02 etc. used consistently across all shots
-- t2i_prompt: STATIC first frame description (no motion words)
-- i2v_prompt: FULL action/motion description for video generation
-- dialogue: ONLY lines from the transcript within this shot's time range; copy EXACTLY; empty list if none
-- Dialogue entries MUST include start_time and end_time from the transcript
-- Clothing: be precise (colors, patterns, materials) — critical for visual consistency
-- Names: do NOT invent — use "Character 1", "Character 2" if unknown
+- scene_id: SHARED by shots in the same physical location
+- characters: Use @character_01, @character_02 etc. CONSISTENTLY across ALL shots
+- character description: Be VERY detailed on clothing (each item: color, material, cut), accessories, distinctive features — this is used for visual consistency
+- t2i_prompt REQUIREMENTS (CRITICAL):
+  * Must use @character_XX tokens for EVERY character present (NOT their names)
+  * Write it as a complete standalone image generation prompt
+  * Include: character(s) with tokens, what they are wearing, their pose/action, environment details, camera setup, lighting
+  * Minimum 3-4 sentences
+  * Example pattern: "@character_01 [description of pose/action]. @character_01 wears [clothing details]. Background: [environment]. [Shot size], [lens], [lighting]."
+- i2v_prompt: Full action/motion description. Use @character_XX tokens. Weave in dialogue naturally if present.
+- dialogue: ONLY transcript lines within this shot's time range; copy EXACTLY; include start_time and end_time
+- Names: do NOT invent — use "Character 1", "Character 2" etc. if unknown
 """
 
-TRANSCRIPT_SECTION_TEMPLATE = """AUDIO TRANSCRIPT (Whisper speech recognition — use for accurate dialogue):
+TRANSCRIPT_SECTION_TEMPLATE = """AUDIO TRANSCRIPT (Whisper — use for accurate dialogue):
 --- TRANSCRIPT START ---
 {transcript}
 --- TRANSCRIPT END ---
-
-Instructions:
-1. Fill the dialogue field for each shot using ONLY transcript lines within that shot's time range
-2. Enrich i2v_prompt with what characters are saying in that shot
-3. Identify speaker from what you see (lip movement, on-screen presence)
+Instructions: Match dialogue lines to shots by timestamp. Copy text EXACTLY. Identify speaker from on-screen presence.
 """
 
-NO_TRANSCRIPT_SECTION = "(No audio transcript — infer dialogue from lip movement if possible)"
+NO_TRANSCRIPT_SECTION = "(No audio transcript available)"
 
-CUTS_SECTION_TEMPLATE = """CAMERA CUTS (detected by SceneDetect — these are HARD boundaries):
+CUTS_SECTION_TEMPLATE = """
+══════════════════════════════════════════════════════════
+CAMERA CUTS — HARD CONSTRAINTS (detected by SceneDetect)
+══════════════════════════════════════════════════════════
+You MUST output EXACTLY {n_cuts} shots. Each cut below = exactly one shot.
+
 {cut_lines}
 
-CRITICAL RULES when SceneDetect cuts are provided:
-• Each cut above MUST become exactly ONE shot in your output.
-• Do NOT merge two cuts into one shot, even if the scene looks similar.
-• Do NOT split one cut into multiple shots.
-• Use the provided start_time and end_time EXACTLY as given — do not adjust them.
-• Total shots in your output must equal {n_cuts}.
+MANDATORY RULES:
+• Do NOT merge any two cuts — every cut is its own shot, even if < 1 second
+• Do NOT split any cut into multiple shots
+• Use the start_time and end_time EXACTLY as given (do not round or adjust)
+• Output shot count must equal {n_cuts}
 """
 
-NO_CUTS_SECTION = "(No cut detection data — determine shot boundaries from visual analysis)"
+NO_CUTS_SECTION = ""
 
 
 def get_analysis_prompt(
@@ -126,40 +117,35 @@ def get_analysis_prompt(
     transcript: str = "",
     cuts: list = None,
 ) -> str:
-    # Transcript section
-    if transcript and transcript != "(no speech detected)":
-        transcript_section = TRANSCRIPT_SECTION_TEMPLATE.format(transcript=transcript)
-    else:
-        transcript_section = NO_TRANSCRIPT_SECTION
+    transcript_section = (
+        TRANSCRIPT_SECTION_TEMPLATE.format(transcript=transcript)
+        if transcript and transcript != "(no speech detected)"
+        else NO_TRANSCRIPT_SECTION
+    )
 
-    # Cuts section
+    # Build shot count instruction
     if cuts:
-        cut_lines = "\n".join(
+        shot_count_instruction = f"You must output EXACTLY {len(cuts)} shots — one per SceneDetect cut listed below."
+        cuts_lines = "\n".join(
             f"  Shot {i+1}: start={s:.3f}s  end={e:.3f}s  duration={e-s:.2f}s"
             for i, (s, e) in enumerate(cuts)
         )
         cuts_section = CUTS_SECTION_TEMPLATE.format(
-            cut_lines=cut_lines,
             n_cuts=len(cuts),
+            cut_lines=cuts_lines,
         )
     else:
+        shot_count_instruction = f"Up to {max_shots} shots, in chronological order, covering the full video."
         cuts_section = NO_CUTS_SECTION
 
-    # Replace max_shots instruction when cuts are provided
-    if cuts:
-        max_shots_note = (
-            f"You must output EXACTLY {len(cuts)} shots — one per SceneDetect cut above. "
-            f"Do not output more or fewer."
-        )
-    else:
-        max_shots_note = f"Up to {max_shots} shots (scene segments), in chronological order"
-
-    prompt = VIDEO_ANALYSIS_PROMPT.replace(
-        "2. Up to {max_shots} shots (scene segments), in chronological order",
-        f"2. {max_shots_note}"
+    prompt = VIDEO_ANALYSIS_PROMPT.format(
+        transcript_section=transcript_section,
     )
 
-    return prompt.format(
-        max_shots=max_shots,
-        transcript_section=transcript_section,
-    ) + f"\n\n{cuts_section}"
+    # Replace the shot count placeholder
+    prompt = prompt.replace(
+        "3. Shots as specified below",
+        f"3. {shot_count_instruction}"
+    )
+
+    return prompt + cuts_section
