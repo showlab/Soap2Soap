@@ -17,9 +17,8 @@ grid_*_scene_*.png
 *.json
 !example/*_analysis.json
 
-# Temp clips and resized videos
+# Temp clips (large, not tracked)
 example/*_clips/
-example/*_720p.mp4
 
 # Logs and misc
 *.log
