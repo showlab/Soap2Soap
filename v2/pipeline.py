@@ -60,6 +60,7 @@ def run_pipeline(
     use_whisper: bool = True,
     generation_mode: str = "consistency",
     yes: bool = False,
+    no_inspect: bool = False,
 ) -> str:
     """Run the full V2V pipeline. Returns path to final video."""
     global _pipeline_t0
@@ -141,10 +142,13 @@ def run_pipeline(
     state = step4_keyframes.run(state)
     _step_done()
 
-    # Step 4b — Inspection & auto-fix
-    _step_start("4b/7", "Keyframe Inspection & Auto-Fix")
-    state = step4b_inspect.run(state)
-    _step_done()
+    # Step 4b — Inspection & auto-fix (skip with --no-inspect)
+    if not no_inspect:
+        _step_start("4b/7", "Keyframe Inspection & Auto-Fix")
+        state = step4b_inspect.run(state)
+        _step_done()
+    else:
+        print("\n  ⏭️  Step 4b skipped (--no-inspect)")
 
     # Step 5 — Video clips
     _step_start("5/7", "Video Generation")
@@ -286,6 +290,8 @@ def main():
                         help="Keyframe generation mode (default: consistency)")
     parser.add_argument("--yes", action="store_true",
                         help="Auto-confirm if > 16 shots detected (non-interactive)")
+    parser.add_argument("--no-inspect", action="store_true",
+                        help="Skip Step 4b keyframe inspection (faster, raw Grid output)")
     args = parser.parse_args()
 
     final = run_pipeline(
@@ -297,6 +303,7 @@ def main():
         use_whisper=not args.no_whisper,
         generation_mode=args.mode,
         yes=args.yes,
+        no_inspect=args.no_inspect,
     )
 
     if final:

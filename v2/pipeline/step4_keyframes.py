@@ -129,6 +129,63 @@ def _crop_grid(grid_img: Image.Image) -> List[Image.Image]:
     return [grid_img.crop(b) for b in boxes]
 
 
+def _refine_keyframe(
+    cell_img: Image.Image,
+    shot: "Shot",
+    state: "PipelineState",
+) -> Image.Image:
+    """
+    Refine a cropped Grid cell using character reference images.
+    Input: raw crop + character refs for the characters in this shot.
+    Output: refined keyframe with corrected character appearance.
+    Falls back to raw crop on failure.
+    """
+    # Load character reference images for this shot's characters
+    char_refs: List[Image.Image] = []
+    for char_id in shot.characters:
+        entity = state.reference_store.get_entity(char_id)
+        if entity and entity.image_path and os.path.exists(entity.image_path):
+            try:
+                char_refs.append(Image.open(entity.image_path))
+            except Exception:
+                pass
+
+    # Fallback: use design sheet if individual refs unavailable
+    if not char_refs and state.design_sheet_path and os.path.exists(state.design_sheet_path):
+        try:
+            char_refs.append(Image.open(state.design_sheet_path))
+        except Exception:
+            pass
+
+    if not char_refs:
+        return cell_img  # no refs available, return raw crop
+
+    n_chars = len(shot.characters)
+    char_ids = ", ".join(shot.characters) if shot.characters else "the character(s)"
+    ref_label = "character reference sheet" if len(char_refs) == 1 else f"{len(char_refs)} character reference sheets"
+
+    refine_prompt = (
+        f"Refine this keyframe using the provided {ref_label}.\n\n"
+        f"Image 1 is the RAW KEYFRAME to refine.\n"
+        f"Images 2-{len(char_refs)+1} are CHARACTER REFERENCE SHEETS for {char_ids} "
+        f"(each sheet shows face close-up on the left and full-body outfit on the right).\n\n"
+        f"Instructions:\n"
+        f"- Keep the scene composition, background, camera angle, and action from Image 1\n"
+        f"- Correct the character(s) appearance to precisely match the reference sheets: "
+        f"face, hair color/style, skin tone, clothing (every item), accessories\n"
+        f"- Maintain the same artistic style as Image 1\n"
+        f"- Output a single refined image (not a collage)\n\n"
+        f"Shot description: {shot.t2i_prompt[:300]}"
+    )
+
+    ref_images = [cell_img] + char_refs
+    refined = generate_keyframe(
+        prompt=refine_prompt,
+        reference_images=ref_images,
+    )
+    return refined if refined else cell_img
+
+
 
 def _partition_by_scene(shots: list, max_grid: int = 4) -> list:
     """
@@ -261,14 +318,21 @@ def _run_consistency(state: "PipelineState") -> "PipelineState":
         grid_save = os.path.join(state.output_dir, f"grid_{g_idx+1}_scene_{scene_id}.png")
         grid_img.save(grid_save)
 
-        # Crop grid into cells and save each directly as the shot's keyframe
+        # Crop grid into cells, refine each with character refs, then save
         cells = _crop_grid(grid_img)
         for cell_idx, (shot, cell_img) in enumerate(zip(group, cells)):
             if getattr(shot, 'padded', False):
                 continue
 
             save_path = os.path.join(state.output_dir, f"shot_{shot.shot_id}.png")
-            cell_img.save(save_path)
+
+            # Refine the raw crop with character reference images
+            n_chars = len(shot.characters)
+            char_label = f"{n_chars} char(s)" if n_chars else "no chars"
+            print(f"    Shot {shot.shot_id}: refining with {char_label}...")
+            final_img = _refine_keyframe(cell_img, shot, state)
+
+            final_img.save(save_path)
             shot.keyframe_path = save_path
             shot.status = "keyframe_done"
             print(f"    ✅ Shot {shot.shot_id} saved")
