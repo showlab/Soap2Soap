@@ -39,7 +39,7 @@ def upload_video(video_path: str) -> str:
     return video_file.uri
 
 
-def analyze_video(video_uri: str, prompt: str, model: str = "gemini-2.0-flash") -> str:
+def analyze_video(video_uri: str, prompt: str, model: str = "gemini-2.5-flash-preview-05-20") -> str:
     """Send a video (by URI) to Gemini with a prompt and return the text response."""
     client = _client()
     response = client.models.generate_content(
@@ -48,6 +48,9 @@ def analyze_video(video_uri: str, prompt: str, model: str = "gemini-2.0-flash") 
             types.Part.from_uri(file_uri=video_uri, mime_type="video/mp4"),
             prompt,
         ],
+        config=types.GenerateContentConfig(
+            max_output_tokens=8192,  # ensure full JSON output
+        ),
     )
     return response.text
 
@@ -79,20 +82,37 @@ Rewrite this prompt to be safe and compliant while preserving the visual composi
 
 
 def extract_json(text: str) -> dict:
-    """Extract the first JSON object found in a text response."""
-    # Try ```json ... ``` block first
+    """
+    Extract the first JSON object from a Gemini response.
+    Handles: ```json...``` blocks, raw {...}, and truncated responses
+    where Gemini forgot to include the outer braces.
+    """
+    candidates = []
+
+    # 1. Try ```json ... ``` block (may or may not include outer braces)
     m = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
     if m:
-        try:
-            return json.loads(m.group(1))
-        except json.JSONDecodeError:
-            pass
-    # Try raw { ... }
+        content = m.group(1).strip()
+        candidates.append(content)
+        # If block content doesn't start with {, try wrapping it
+        if not content.startswith("{"):
+            candidates.append("{" + content + "}")
+
+    # 2. Try raw { ... } anywhere in the text
     start = text.find("{")
     end = text.rfind("}")
     if start != -1 and end > start:
+        candidates.append(text[start:end + 1])
+
+    # 3. Try wrapping the whole text (for severely truncated responses)
+    stripped = text.strip()
+    if stripped and not stripped.startswith("{"):
+        candidates.append("{" + stripped + "}")
+
+    for candidate in candidates:
         try:
-            return json.loads(text[start:end + 1])
+            return json.loads(candidate)
         except json.JSONDecodeError:
             pass
+
     raise ValueError(f"No valid JSON found in response:\n{text[:500]}")
