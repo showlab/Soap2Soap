@@ -19,7 +19,8 @@ IMAGEN_MODEL = "imagen-3.0-generate-002"
 
 # Gemini image generation — supports multi-image input (reference consistency)
 # Use the model confirmed working with a standard GENAI_API_KEY
-GEMINI_IMAGE_MODEL = "gemini-3-pro-image-preview"
+# Image generation model (supports multi-image reference input)
+GEMINI_IMAGE_MODEL = "gemini-3.1-flash-image-preview"
 
 
 def _client() -> genai.Client:

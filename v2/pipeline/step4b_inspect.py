@@ -36,7 +36,7 @@ if TYPE_CHECKING:
     from v2.core.schema import PipelineState, Shot
 
 MAX_RETRIES = 3
-_GEMINI_VISION_MODEL = "gemini-2.0-flash"
+from v2.clients.gemini_client import VLM_MODEL as _GEMINI_VISION_MODEL
 
 
 # ─────────────────────────────────────────────────────────────────────────────

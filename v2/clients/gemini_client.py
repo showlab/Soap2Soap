@@ -12,7 +12,9 @@ from google import genai
 from google.genai import types
 
 
-_GEMINI_VISION_MODEL_FLASH = "gemini-2.0-flash"
+# VLM: video understanding, inspection, text reasoning
+VLM_MODEL = "gemini-3.1-flash"
+_GEMINI_VISION_MODEL_FLASH = VLM_MODEL  # alias used by step4_keyframes
 
 
 def _client() -> genai.Client:
@@ -39,7 +41,7 @@ def upload_video(video_path: str) -> str:
     return video_file.uri
 
 
-def analyze_video(video_uri: str, prompt: str, model: str = "gemini-2.5-flash-preview-05-20") -> str:
+def analyze_video(video_uri: str, prompt: str, model: str = VLM_MODEL) -> str:
     """Send a video (by URI) to Gemini with a prompt and return the text response."""
     client = _client()
     response = client.models.generate_content(
@@ -55,7 +57,7 @@ def analyze_video(video_uri: str, prompt: str, model: str = "gemini-2.5-flash-pr
     return response.text
 
 
-def text_generate(prompt: str, model: str = "gemini-2.0-flash") -> str:
+def text_generate(prompt: str, model: str = VLM_MODEL) -> str:
     """Plain text generation."""
     client = _client()
     response = client.models.generate_content(model=model, contents=prompt)
