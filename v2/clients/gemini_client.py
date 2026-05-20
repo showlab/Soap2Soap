@@ -56,14 +56,14 @@ def analyze_video(video_uri: str, prompt: str, model: str = VLM_MODEL) -> str:
             max_output_tokens=32768,
         ),
     )
-    return response.text
+    return response.text or ""
 
 
 def text_generate(prompt: str, model: str = VLM_MODEL) -> str:
     """Plain text generation."""
     client = _client()
     response = client.models.generate_content(model=model, contents=prompt)
-    return response.text
+    return response.text or ""
 
 
 def safety_rewrite(original_prompt: str) -> str:
@@ -91,6 +91,9 @@ def extract_json(text: str) -> dict:
     Handles: ```json...``` blocks, raw {...}, and truncated responses
     where Gemini forgot to include the outer braces.
     """
+    if not text:
+        raise ValueError("Empty response from Gemini")
+
     candidates = []
 
     # 1. Try ```json ... ``` block (may or may not include outer braces)

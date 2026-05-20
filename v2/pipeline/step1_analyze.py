@@ -205,8 +205,9 @@ def _analyze_shot(
     end: float,
     characters: List[dict],
     transcript_lines: Optional[List[dict]] = None,
+    max_retries: int = 3,
 ) -> Optional[dict]:
-    """Analyze a single shot clip and return schema dict."""
+    """Analyze a single shot clip and return schema dict. Retries on empty response."""
     prompt = get_shot_analysis_prompt(
         index=index,
         total=total,
@@ -215,13 +216,19 @@ def _analyze_shot(
         characters=characters,
         transcript_lines=transcript_lines,
     )
-    try:
-        raw = analyze_video(clip_uri, prompt)
-        data = extract_json(raw)
-        return data
-    except Exception as e:
-        print(f"    ⚠️  Shot {index} analysis failed: {e}")
-        return None
+    import time as _time
+    for attempt in range(1, max_retries + 1):
+        try:
+            raw = analyze_video(clip_uri, prompt)
+            data = extract_json(raw)
+            return data
+        except Exception as e:
+            if attempt < max_retries:
+                print(f"    ⚠️  Shot {index} attempt {attempt} failed: {e} — retrying...")
+                _time.sleep(2)
+            else:
+                print(f"    ⚠️  Shot {index} analysis failed after {max_retries} attempts: {e}")
+    return None
 
 
 def _process_clip(
