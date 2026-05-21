@@ -1,26 +1,45 @@
-grid_generation.py
-grid_generation_3.py
 __pycache__/
 *.pyc
 
-# Generated outputs
-shot_*.png
-shot_*_video.mp4
-final_output_*.mp4
-char_*.png
-design_sheet.png
-inspection_grid.png
-grid_*_scene_*.png
+# ── Root-level scratch outputs (generated per run, NOT in example subdirs) ──
+/shot_*.png
+/shot_*_video.mp4
+/final_output_*.mp4
+/char_*.png
+/design_sheet.png
+/inspection_grid.png
+/grid_*_scene_*.png
+/keyframes_3x3.png
+/main_characters_*.png
 
-# Audio / transcript (generated per-run)
+# ── Audio / transcripts ──────────────────────────────────────
 *.wav
-*.json
-!example/*_analysis.json
 
-# Temp clips (large, not tracked)
+# ── JSON (exclude everything except named example dirs) ──────
+*.json
+!example/huaqiang_watermelon/analysis.json
+!example/titanic/analysis.json
+
+# ── Loose JSON in example root (superseded by subdirs) ───────
+/example/bilibili_input_analysis.json
+/example/titannic_analysis.json
+/example/test_input_2_analysis.json
+/example/avengers_analysis.json
+
+# ── Temp chunk/clip dirs ─────────────────────────────────────
+example/*_chunks/
 example/*_clips/
 
-# Logs and misc
+# ── Stale loose videos in example root ───────────────────────
+/example/bilibili_input.mp4
+/example/titannic.mp4
+/example/titannic_pixar_output.mp4
+/example/test_input_2*.mp4
+/example/avengers_720p.mp4
+/example/input_long.mp4
+/example/minitest_titanic*.mp4
+
+# ── Logs and misc ─────────────────────────────────────────────
 *.log
 logs/
 generated_faces/
