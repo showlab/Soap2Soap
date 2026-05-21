@@ -11,7 +11,7 @@ from typing import Optional
 from google import genai
 from google.genai import types
 
-VEO_MODEL = "veo-3.0-generate-preview"
+VEO_MODEL = "veo-3.0-generate-001"
 
 
 def _client() -> genai.Client:
@@ -37,8 +37,7 @@ def generate_video_static_fallback(
         "-c:v", "libx264",
         "-t", str(duration),
         "-pix_fmt", "yuv420p",
-        "-vf", "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2",
-        "-r", "25",
+        "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2",  # ensure even dimensions
         output_path,
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -63,16 +62,15 @@ def generate_video_veo(
     """
     client = _client()
 
-    # Upload keyframe image as the first frame
-    with open(image_path, "rb") as f:
-        image_file = client.files.upload(
-            file=f,
-            config=types.UploadFileConfig(mime_type="image/png")
-        )
+    # Veo only supports 4, 6, or 8 second durations
+    valid_durations = [4, 6, 8]
+    veo_duration = min(valid_durations, key=lambda d: abs(d - duration))
+    if veo_duration != duration:
+        print(f"  ⚠️  Veo does not support {duration}s — using {veo_duration}s")
 
     for attempt in range(1, max_retries + 1):
         try:
-            print(f"  🎬 Veo attempt {attempt}: generating {duration}s video...")
+            print(f"  🎬 Veo attempt {attempt}: generating {veo_duration}s video...")
             operation = client.models.generate_videos(
                 model=VEO_MODEL,
                 prompt=prompt,
@@ -80,10 +78,9 @@ def generate_video_veo(
                     image_bytes=open(image_path, "rb").read(),
                     mime_type="image/png",
                 ),
-                config=types.GenerateVideoConfig(
+                config=types.GenerateVideosConfig(
                     aspect_ratio=aspect_ratio,
-                    duration_seconds=duration,
-                    number_of_videos=1,
+                    duration_seconds=str(veo_duration),
                 ),
             )
 

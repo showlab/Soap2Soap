@@ -137,13 +137,9 @@ def compile_t2i_prompt(shot: "Shot", style: str = "realistic") -> str:
 def compile_i2v_prompt(shot: "Shot", style: str = "realistic") -> str:
     """
     Build and style-rewrite the video generation prompt for a shot.
+    Dialogue is preserved in the original language (not rewritten).
     """
     base = shot.i2v_prompt or shot.t2i_prompt or "A cinematic shot."
-
-    dialogue_note = ""
-    if shot.dialogue:
-        lines = "; ".join(f'{d.speaker_id} says: "{d.text}"' for d in shot.dialogue)
-        dialogue_note = f" Dialogue: {lines}."
 
     motion_note = ""
     if shot.subject_movement:
@@ -151,5 +147,14 @@ def compile_i2v_prompt(shot: "Shot", style: str = "realistic") -> str:
     if shot.camera_movement:
         motion_note += f" Camera: {shot.camera_movement}."
 
-    raw = f"{base}{motion_note}{dialogue_note}"
-    return _rewrite_for_style(raw, style)
+    # Rewrite only the motion/scene description, not the dialogue
+    raw_scene = f"{base}{motion_note}"
+    styled_scene = _rewrite_for_style(raw_scene, style)
+
+    # Preserve dialogue in original language
+    dialogue_note = ""
+    if shot.dialogue:
+        lines = "; ".join(f'{d.speaker_id} says: "{d.text}"' for d in shot.dialogue)
+        dialogue_note = f" Spoken dialogue (preserve original language exactly): {lines}."
+
+    return f"{styled_scene}{dialogue_note}"
