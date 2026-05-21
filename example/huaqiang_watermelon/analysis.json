@@ -223,7 +223,7 @@
           "text": "行"
         }
       ],
-      "t2i_prompt": "Split screen or tight composition featuring @character_01 and @character_02. High tension atmosphere, natural lighting, sharp focus on their facial expressions.",
+      "t2i_prompt": "Claymation stop-motion scene. Camera positioned BEHIND @character_01 clay figure (black clay jacket, short clay hair visible from back), looking toward @character_02 clay figure (green clay jacket) standing behind the market stall counter. Clay watermelons piled between them. We see @character_01 from shoulders/back, @character_02 from the front but small in frame. Wide shot composition — figures are small, market environment fills the frame. Colourful clay stall, handcrafted textures, warm stop-motion lighting. Highly stylized clay puppets, NOT realistic.",
       "i2v_prompt": "@character_01 gestures at the watermelons and tells @character_02 to pick one. @character_02 nods and agrees."
     },
     {
@@ -255,7 +255,7 @@
           "text": "这个怎么样？"
         }
       ],
-      "t2i_prompt": "@character_01 picks up a watermelon from the counter to inspect it. @character_02 watches closely. Natural daylight, bustling market atmosphere in the background.",
+      "t2i_prompt": "Claymation stop-motion scene. Camera focused on clay watermelons on a market stall table. A pair of clay hands (green clay jacket sleeve — @character_02) picks up one large green clay watermelon, holding it forward. Another pair of clay hands (@character_01, black clay jacket sleeve) reaches toward it. FOCUS on the clay watermelon and clay hands — figures mostly out of frame or seen from chest-down. Bright colourful clay fruits fill the stall. Textured clay surfaces, warm lighting. No faces visible — waist-down or hand-focused framing only.",
       "i2v_prompt": "@character_02 lifts a watermelon from the pile and holds it up toward @character_01 for inspection."
     },
     {
@@ -291,7 +291,7 @@
           "text": "我开水果摊的，能卖给你生瓜蛋子？"
         }
       ],
-      "t2i_prompt": "Close-up of @character_01 with a serious face asking a question. Then cut to close-up of @character_02 looking offended. Sharp focus, high contrast, natural lighting.",
+      "t2i_prompt": "Claymation stop-motion scene. Two clay figure busts at a market stall in confrontation. @character_01 clay figure (black clay jacket, short clay hair) leans forward with a stern expression. @character_02 clay figure (green clay jacket) leans back with hands raised. Both faces are highly stylized clay doll faces — simplified button eyes, clay nose, small clay mouth. NOT realistic — clearly handmade clay puppets. Visible clay texture. Warm stop-motion lighting.",
       "i2v_prompt": "@character_01 eyes the melon suspiciously and questions @character_02. @character_02 responds with indignation."
     },
     {
