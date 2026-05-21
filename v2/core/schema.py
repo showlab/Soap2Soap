@@ -75,6 +75,9 @@ class PipelineState:
     # Generation mode for keyframes
     generation_mode: str = "consistency"  # "default" | "consistency" | "camera_tree"
 
+    # Video generation model
+    video_model: str = "veo"             # "veo" | "kling"
+
     characters: List[Character] = field(default_factory=list)
     shots: List[Shot] = field(default_factory=list)
 

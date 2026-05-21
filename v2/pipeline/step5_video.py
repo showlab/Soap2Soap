@@ -1,7 +1,7 @@
 """
 Step 5 — Video Generation.
 dev_mode=True  → static 3-second clip per keyframe (fast, no API cost)
-dev_mode=False → Veo 3 image-to-video (concurrent)
+dev_mode=False → Veo 3 or Kling image-to-video (selected via state.video_model)
 """
 from __future__ import annotations
 import os
@@ -9,7 +9,8 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import TYPE_CHECKING
 
-from v2.clients.veo_client import generate_video
+from v2.clients.veo_client import generate_video as _veo_generate
+from v2.clients.veo_client import generate_video_static_fallback
 from v2.core.reference_resolver import resolve_references
 
 if TYPE_CHECKING:
@@ -34,7 +35,8 @@ def _process_shot(shot, state, total):
         _safe_print(f"  ⏭️  Shot {shot.shot_id} — video exists, skipping")
         return shot.shot_id, video_path, "skipped"
 
-    mode_label = "STATIC" if state.dev_mode else "Veo 3"
+    video_model = getattr(state, "video_model", "veo")
+    mode_label = "STATIC" if state.dev_mode else video_model.upper()
     _safe_print(f"  🎬 [{shot.shot_id}/{total}] {mode_label}: Shot {shot.shot_id} ({shot.time_range})")
 
     final_prompt, _ = resolve_references(
@@ -46,14 +48,26 @@ def _process_shot(shot, state, total):
 
     _safe_print(f"     Prompt ({len(final_prompt)}c): {final_prompt[:120]}...")
 
-    ok = generate_video(
-        image_path=shot.keyframe_path,
-        prompt=final_prompt,
-        output_path=video_path,
-        dev_mode=state.dev_mode,
-        duration=int(shot.duration),  # veo_client snaps to 4/6/8
-        aspect_ratio=state.aspect_ratio,
-    )
+    if state.dev_mode:
+        ok = generate_video_static_fallback(shot.keyframe_path, video_path, duration=3)
+    elif video_model == "kling":
+        from v2.clients.kling_client import generate_video_kling
+        ok = generate_video_kling(
+            image_path=shot.keyframe_path,
+            prompt=final_prompt,
+            output_path=video_path,
+            duration=int(shot.duration),
+            aspect_ratio=state.aspect_ratio,
+        )
+    else:  # veo (default)
+        ok = _veo_generate(
+            image_path=shot.keyframe_path,
+            prompt=final_prompt,
+            output_path=video_path,
+            dev_mode=False,
+            duration=int(shot.duration),
+            aspect_ratio=state.aspect_ratio,
+        )
 
     if ok:
         return shot.shot_id, video_path, "done"
