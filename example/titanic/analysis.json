@@ -6,27 +6,27 @@
     {
       "id": "@character_01",
       "name": "Character 1",
-      "description": "Age: 20s. Female. Light skin. Hair: auburn, worn in an updo with loose strands. Clothing: white Victorian-style blouse with high lace collar, intricate lace detailing on bodice, long sleeves. Over that, a light yellow skirt with a prominent, wide decorative belt or sash at the waist. Accessories: light tan pouch-like purse. Distinctive: formal/elegant appearance, poised posture."
+      "description": "Age: 20s. Female. Fair skin. Hair: auburn, worn in an updo with soft curls framing her face. Face: oval shape, sharp nose, light lipstick. Build: slender. Clothing: cream-colored long-sleeved blouse with intricate lace detail on the high collar and bodice, a butter-yellow high-waisted skirt featuring a wide band around the waist with a circular ornate gold buckle. Accessories: small light-colored handbag. Distinctive: prominent, regal appearance."
     },
     {
       "id": "@character_02",
       "name": "Character 2",
-      "description": "Age: 20s. Male. Light skin. Hair: blonde, side-parted, moderate length. Clothing: dark brown, long-sleeved button-up shirt, tan suspenders, dark trousers. Distinctive: casual attire."
+      "description": "Age: 20s. Male. Fair skin. Hair: light brown, parted in the middle. Face: boyish features, sharp jawline. Build: slim. Clothing: plain light-colored, long-sleeved button-up shirt with thin suspenders over dark trousers. Distinctive: clean-shaven, youthful appearance."
     },
     {
       "id": "@character_03",
       "name": "Character 3",
-      "description": "Age: 20s. Male. Olive skin. Hair: dark brown. Clothing: light long-sleeved shirt, dark brown vest, dark brown trousers. Accessories: dark newsboy cap. Distinctive: friendly demeanor, smiling."
+      "description": "Age: 20s. Male. Olive skin. Hair: dark, short. Face: sharp features, defined brows, stubble. Build: slender. Clothing: beige long-sleeved shirt with a light-colored vest, dark trousers. Accessories: dark newsboy cap. Distinctive: expressive, smiling face."
     },
     {
       "id": "@character_04",
       "name": "Character 4",
-      "description": "Age: 20s. Female. Light skin. Hair: light blonde, styled in short waves. Clothing: dark, long-sleeved dress with a white lace-trimmed collar and a white ruffled bib or dickey. Accessories: small, dark-colored bow tie at the neck. Distinctive: soft, pleasant facial features."
+      "description": "Age: 20s. Female. Fair skin. Hair: light blonde, pinned up with small curls near her ears. Face: soft features, light lipstick. Clothing: black top with a high collar, white intricate lace insert at the neck and cuffs, red ribbon bow tie at the neck, beige skirt. Distinctive: smiling, pleasant appearance."
     },
     {
       "id": "@character_05",
       "name": "Character 5",
-      "description": "Age: 20s. Male. Light skin. Hair: curly, blonde. Clothing: light, simple long-sleeved shirt. Distinctive: prominent, light-colored eyes, intense gaze."
+      "description": "Age: 20s. Male. Fair skin. Hair: curly, light-colored. Face: oval face, soft jawline. Build: slim. Clothing: light cream button-up shirt with buttons, dark trousers."
     }
   ],
   "shots": [
@@ -37,137 +37,199 @@
       "start_time": 0.0,
       "end_time": 7.0,
       "duration": 7.0,
-      "setting_description": "Ship interior with white walls, railings, and numerous passengers seated on benches",
-      "environment_description": "Sunlight streaming through large circular windows, creating a bright and airy atmosphere",
-      "lighting_setup": "Natural diffused daylight, high key",
-      "color_grading": "Soft, natural tones with warm highlights",
-      "shot_size": "Wide",
+      "setting_description": "Ship interior with rows of benches",
+      "environment_description": "Crowded, bright, light-colored walls, industrial ship aesthetic",
+      "lighting_setup": "High-key natural light filtering through portholes",
+      "color_grading": "Soft, natural tones",
+      "shot_size": "Medium Long",
       "camera_angle": "Eye-level",
-      "camera_movement": "Static",
-      "focal_length": "35mm",
-      "depth_of_field": "Moderate",
-      "mood_atmosphere": "Observational",
-      "composition": "@character_01 enters from the left, center frame between white pillars",
-      "subject_movement": "@character_01 walks down the stairs and enters the seating area",
+      "camera_movement": "Panning",
+      "focal_length": "50mm",
+      "depth_of_field": "Medium",
+      "mood_atmosphere": "Observational, slightly bustling",
+      "composition": "@character_01 enters from a staircase, moving through a seated crowd",
+      "subject_movement": "@character_01 walks down stairs and into the seating area, looking around",
       "characters": [
         "@character_01"
       ],
       "dialogue": [],
-      "t2i_prompt": "@character_01 wearing a Victorian blouse and yellow skirt walks through a bright ship interior. The background features white pillars and other passengers sitting on wooden benches. Natural bright sunlight streams in from windows. Medium-wide shot, cinematic lighting.",
-      "i2v_prompt": "@character_01 walks gracefully down the stairs and through the seated crowd, her posture poised. The camera remains static as she moves across the frame. Ambient noise of a ship interior."
+      "t2i_prompt": "@character_01 wearing a cream-colored lace blouse and butter-yellow skirt with gold buckle, walking down stairs into a crowded ship interior. The background features light industrial walls and porthole windows with bright natural sunlight streaming in. Medium long shot, 50mm lens, soft natural lighting.",
+      "i2v_prompt": "@character_01 and @character_02 stand on the bow of the ship among noisy crowds. Wide establishing shot."
     },
     {
       "index": 1,
       "scene_id": "scene_ship_interior",
-      "time_range": "7.00s - 14.00s",
+      "time_range": "7.00s - 15.00s",
       "start_time": 7.0,
-      "end_time": 14.0,
-      "duration": 7.0,
-      "setting_description": "Ship interior, central aisle",
-      "environment_description": "Crowded but orderly interior space, soft light",
-      "lighting_setup": "Soft, frontal daylight",
-      "color_grading": "Warm, clean",
-      "shot_size": "Medium",
-      "camera_angle": "Eye-level",
-      "camera_movement": "Slow pan",
-      "focal_length": "50mm",
-      "depth_of_field": "Shallow",
-      "mood_atmosphere": "Introspective",
-      "composition": "@character_01 in center frame, focus on her face",
-      "subject_movement": "@character_01 looks around, pauses, and scans the crowd",
-      "characters": [
-        "@character_01"
-      ],
-      "dialogue": [],
-      "t2i_prompt": "Close-up of @character_01 with an elegant updo and white blouse, looking around with a poised expression. Soft lighting highlights her facial features. The background is a blurred, crowded ship interior. Cinematic quality, shallow depth of field.",
-      "i2v_prompt": "@character_01 scans the room, her eyes moving thoughtfully, expressing a soft, searching look. Camera subtly pans as she turns her head."
-    },
-    {
-      "index": 2,
-      "scene_id": "scene_ship_interior",
-      "time_range": "14.00s - 25.00s",
-      "start_time": 14.0,
-      "end_time": 25.0,
-      "duration": 11.0,
-      "setting_description": "Ship interior, seated section",
-      "environment_description": "Benches crowded with passengers",
-      "lighting_setup": "Soft daylight, natural contrast",
-      "color_grading": "Soft, cinematic",
-      "shot_size": "Medium-wide",
-      "camera_angle": "Eye-level",
-      "camera_movement": "Static",
-      "focal_length": "35mm",
-      "depth_of_field": "Deep",
-      "mood_atmosphere": "Anticipatory",
-      "composition": "The group is seated on the left, @character_01 in the background",
-      "subject_movement": "@character_03, @character_04, and @character_05 watch @character_01",
-      "characters": [
-        "@character_03",
-        "@character_04",
-        "@character_05"
-      ],
-      "dialogue": [],
-      "t2i_prompt": "@character_03, @character_04, and @character_05 sitting together on wooden benches inside a ship. @character_03 wears a newsboy cap, @character_04 a dark dress, and @character_05 a light shirt. They look toward the camera with interest. Natural daylight.",
-      "i2v_prompt": "The group interacts and whispers, glancing toward the background where @character_01 is walking. @character_03 gestures slightly."
-    },
-    {
-      "index": 3,
-      "scene_id": "scene_ship_interior",
-      "time_range": "25.00s - 38.40s",
-      "start_time": 25.0,
-      "end_time": 38.4,
-      "duration": 13.4,
-      "setting_description": "Ship interior, near a bench",
-      "environment_description": "Crowded ship, soft sunlight",
-      "lighting_setup": "Natural light, soft shadows",
-      "color_grading": "Warm",
-      "shot_size": "Medium",
-      "camera_angle": "Eye-level",
-      "camera_movement": "Static",
-      "focal_length": "50mm",
-      "depth_of_field": "Shallow",
-      "mood_atmosphere": "Conversational",
-      "composition": "@character_01 approaches @character_05, center frame",
-      "subject_movement": "@character_01 walks toward @character_05 and initiates conversation",
-      "characters": [
-        "@character_01",
-        "@character_05"
-      ],
-      "dialogue": [
-        {
-          "speaker_id": "@character_01",
-          "text": "Mr. Hello, Mr. Dawson. Hello again. May I speak with you?"
-        },
-        {
-          "speaker_id": "@character_05",
-          "text": "Yeah."
-        }
-      ],
-      "t2i_prompt": "@character_01 standing in front of @character_05 who is seated on a wooden bench. @character_01 is wearing a Victorian-style blouse, @character_05 wears a brown button-up. They are in a ship interior with other passengers nearby. Medium shot.",
-      "i2v_prompt": "@character_01 addresses @character_05, speaking clearly. @character_05 responds with a nod and a 'Yeah'. Natural conversational motion."
-    },
-    {
-      "index": 4,
-      "scene_id": "scene_ship_interior",
-      "time_range": "38.40s - 45.00s",
-      "start_time": 38.4,
-      "end_time": 45.0,
-      "duration": 6.6,
+      "end_time": 15.0,
+      "duration": 8.0,
       "setting_description": "Ship interior",
-      "environment_description": "Crowded ship area",
-      "lighting_setup": "Natural, bright",
-      "color_grading": "Warm",
-      "shot_size": "Medium-close",
+      "environment_description": "Crowded ship hall",
+      "lighting_setup": "Soft diffused light",
+      "color_grading": "Soft, natural",
+      "shot_size": "Close-up",
       "camera_angle": "Eye-level",
       "camera_movement": "Static",
       "focal_length": "85mm",
       "depth_of_field": "Shallow",
-      "mood_atmosphere": "Serious, intimate",
-      "composition": "@character_01 and @character_05 in profile",
-      "subject_movement": "Both characters engage in brief dialogue",
+      "mood_atmosphere": "Pensive",
+      "composition": "@character_01 in center frame, looking at people",
+      "subject_movement": "@character_01 looks around calmly",
+      "characters": [
+        "@character_01"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "Close-up of @character_01 with auburn hair in an updo and sharp facial features. She wears a cream lace blouse. Background is a blurred busy ship hall. 85mm lens, shallow depth of field, soft diffused lighting.",
+      "i2v_prompt": "@character_01 stands still, her gaze shifting thoughtfully from left to right as she observes the passengers."
+    },
+    {
+      "index": 2,
+      "scene_id": "scene_ship_interior",
+      "time_range": "15.00s - 25.00s",
+      "start_time": 15.0,
+      "end_time": 25.0,
+      "duration": 10.0,
+      "setting_description": "Ship interior seating",
+      "environment_description": "Passengers on benches",
+      "lighting_setup": "Natural diffused light",
+      "color_grading": "Neutral",
+      "shot_size": "Wide",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "35mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Observational",
+      "composition": "Group shot with @character_01 moving in the background",
+      "subject_movement": "@character_01 continues walking past seated characters",
+      "characters": [
+        "@character_01"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "Wide shot of a crowded ship hall with passengers seated on long wooden benches. @character_01 in her cream blouse and yellow skirt walks through the central aisle. 35mm lens, natural daylight, deep depth of field.",
+      "i2v_prompt": "@character_01 slowly traverses the hall, passing by various passengers sitting on benches as they watch her walk by."
+    },
+    {
+      "index": 3,
+      "scene_id": "scene_ship_interior",
+      "time_range": "25.00s - 34.00s",
+      "start_time": 25.0,
+      "end_time": 34.0,
+      "duration": 9.0,
+      "setting_description": "Benches in the ship hall",
+      "environment_description": "Crowded area with @character_02, @character_03, and @character_04",
+      "lighting_setup": "Soft, natural interior light",
+      "color_grading": "Balanced",
+      "shot_size": "Medium",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "50mm",
+      "depth_of_field": "Medium",
+      "mood_atmosphere": "Conversational",
+      "composition": "@character_03 and @character_04 seated, looking at @character_02",
+      "subject_movement": "@character_02 stands up",
+      "characters": [
+        "@character_02",
+        "@character_03",
+        "@character_04"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "Pixar 3D animated movie style. Ship steerage interior — wooden benches, round portholes, warm lantern light. Wide shot from behind a crowd of animated passengers. In the middle distance, a young man (@character_02) with light brown hair and suspenders begins to turn and rise from a bench, seen from behind/three-quarter angle. Around him, other animated passengers sit and chat. Warm soft Pixar lighting, rich ship interior detail. Faces NOT visible — characters seen from back or side. Crowd fills the frame.",
+      "i2v_prompt": "A young man sitting on a wooden bench in a crowded ship interior hears his name called, turns his head and begins to rise. Pixar 3D animation style. Warm lantern light, busy background of animated passengers."
+    },
+    {
+      "index": 4,
+      "scene_id": "scene_ship_interior",
+      "time_range": "34.00s - 42.00s",
+      "start_time": 34.0,
+      "end_time": 42.0,
+      "duration": 8.0,
+      "setting_description": "Ship hall aisle",
+      "environment_description": "Crowded ship hall",
+      "lighting_setup": "Natural light",
+      "color_grading": "Natural",
+      "shot_size": "Medium Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Formal interaction",
+      "composition": "@character_01 and @character_02 facing each other",
+      "subject_movement": "Facing each other",
       "characters": [
         "@character_01",
-        "@character_05"
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "Hello, Mr. Dawson."
+        },
+        {
+          "speaker_id": "@character_02",
+          "text": "Hello again."
+        }
+      ],
+      "t2i_prompt": "Medium close-up of @character_01 and @character_02 looking at each other in a ship hallway. @character_01 in cream blouse, @character_02 in button-up shirt and suspenders. Shallow depth of field, 85mm lens.",
+      "i2v_prompt": "@character_01 walks toward @character_02 and greets him formally in the ship corridor."
+    },
+    {
+      "index": 5,
+      "scene_id": "scene_ship_interior",
+      "time_range": "42.00s - 48.00s",
+      "start_time": 42.0,
+      "end_time": 48.0,
+      "duration": 6.0,
+      "setting_description": "Ship hall",
+      "environment_description": "Ship hall with people in background",
+      "lighting_setup": "Soft, natural",
+      "color_grading": "Neutral",
+      "shot_size": "Medium Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Serious",
+      "composition": "@character_01 speaking to @character_02",
+      "subject_movement": "Small head movements, speaking",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "May I speak with you?"
+        },
+        {
+          "speaker_id": "@character_02",
+          "text": "Yeah."
+        }
+      ],
+      "t2i_prompt": "Medium close-up of @character_01 and @character_02. @character_01 asks a question. 85mm lens, soft light, blurred background of ship passengers.",
+      "i2v_prompt": "@character_01 leans in slightly and makes her request. @character_02 listens attentively."
+    },
+    {
+      "index": 6,
+      "scene_id": "scene_ship_interior",
+      "time_range": "48.00s - 55.00s",
+      "start_time": 48.0,
+      "end_time": 55.0,
+      "duration": 7.0,
+      "setting_description": "Ship hall",
+      "environment_description": "Ship hall",
+      "lighting_setup": "Natural light",
+      "color_grading": "Natural",
+      "shot_size": "Medium Close-up",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "85mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Professional, slightly intimate",
+      "composition": "Focus on @character_01 and @character_02 exchange",
+      "subject_movement": "Subtle nods and facial expressions",
+      "characters": [
+        "@character_01",
+        "@character_02"
       ],
       "dialogue": [
         {
@@ -175,150 +237,87 @@
           "text": "In private?"
         },
         {
-          "speaker_id": "@character_05",
+          "speaker_id": "@character_02",
           "text": "Yes, of course. After you."
         }
       ],
-      "t2i_prompt": "Close up of @character_01 and @character_05 talking to each other inside a ship. @character_01 is looking at @character_05 with a serious expression. @character_05 is listening intently. Shallow depth of field, natural lighting.",
-      "i2v_prompt": "@character_01 asks 'In private?' and @character_05 nods while replying 'Yes, of course. After you.'."
-    },
-    {
-      "index": 5,
-      "scene_id": "scene_ship_interior",
-      "time_range": "45.00s - 52.00s",
-      "start_time": 45.0,
-      "end_time": 52.0,
-      "duration": 7.0,
-      "setting_description": "Ship interior aisle",
-      "environment_description": "Busy interior",
-      "lighting_setup": "Natural light",
-      "color_grading": "Warm",
-      "shot_size": "Wide",
-      "camera_angle": "Eye-level",
-      "camera_movement": "Tracking shot",
-      "focal_length": "35mm",
-      "depth_of_field": "Deep",
-      "mood_atmosphere": "Flowing, narrative transition",
-      "composition": "@character_01 and @character_05 walking away from the camera",
-      "subject_movement": "They walk together through the aisle towards the stairs",
-      "characters": [
-        "@character_01",
-        "@character_05"
-      ],
-      "dialogue": [],
-      "t2i_prompt": "@character_01 and @character_05 walking together along the aisle of a ship interior. @character_01 is slightly in front. The background is filled with passengers and white walls. Wide shot, soft natural light.",
-      "i2v_prompt": "@character_01 and @character_05 walk side by side down the aisle, moving away from the group they were just with."
-    },
-    {
-      "index": 6,
-      "scene_id": "scene_ship_interior",
-      "time_range": "52.00s - 60.00s",
-      "start_time": 52.0,
-      "end_time": 60.0,
-      "duration": 8.0,
-      "setting_description": "Ship interior, bench area",
-      "environment_description": "Passengers watching the duo leave",
-      "lighting_setup": "Soft daylight",
-      "color_grading": "Warm",
-      "shot_size": "Medium",
-      "camera_angle": "Eye-level",
-      "camera_movement": "Static",
-      "focal_length": "50mm",
-      "depth_of_field": "Moderate",
-      "mood_atmosphere": "Curious",
-      "composition": "The group watching from the benches",
-      "subject_movement": "Characters react to the departure",
-      "characters": [
-        "@character_03",
-        "@character_04"
-      ],
-      "dialogue": [],
-      "t2i_prompt": "@character_03 and @character_04 sitting on a bench inside a ship looking toward the camera. They look curious. Soft natural daylight, ship environment in the background.",
-      "i2v_prompt": "The group on the benches continues to watch the two figures walk away, with small, subtle movements of curiosity."
+      "t2i_prompt": "Medium close-up of @character_01 and @character_02. They are having a conversation about privacy. 85mm lens, natural lighting, shallow depth of field.",
+      "i2v_prompt": "@character_01 glances around and asks for privacy. @character_02 gestures graciously for her to lead."
     },
     {
       "index": 7,
-      "scene_id": "scene_ship_deck",
-      "time_range": "60.00s - 64.00s",
-      "start_time": 60.0,
-      "end_time": 64.0,
-      "duration": 4.0,
-      "setting_description": "The deck of a large ocean liner at night with rows of wooden chairs.",
-      "environment_description": "Starlit sky, expansive wooden deck with deck chairs and maritime fixtures.",
-      "lighting_setup": "Low-key night lighting, moonlight illumination.",
-      "color_grading": "Cool blue tones with warm skin highlights.",
-      "shot_size": "Wide shot",
+      "scene_id": "scene_ship_interior",
+      "time_range": "55.00s - 60.00s",
+      "start_time": 55.0,
+      "end_time": 60.0,
+      "duration": 5.0,
+      "setting_description": "Ship hall",
+      "environment_description": "Moving through a crowd",
+      "lighting_setup": "Natural daylight",
+      "color_grading": "Neutral",
+      "shot_size": "Medium",
       "camera_angle": "Eye-level",
-      "camera_movement": "Tracking shot",
-      "focal_length": "35mm",
-      "depth_of_field": "Deep",
-      "mood_atmosphere": "Carefree, romantic, nocturnal.",
-      "composition": "The two characters are centered in the frame, walking towards the right.",
-      "subject_movement": "@character_01 and @character_02 walk side-by-side on the deck, singing.",
+      "camera_movement": "Tracking",
+      "focal_length": "50mm",
+      "depth_of_field": "Medium",
+      "mood_atmosphere": "Moving towards resolution",
+      "composition": "@character_01 walking, followed by @character_02",
+      "subject_movement": "@character_01 and @character_02 walk away together",
       "characters": [
         "@character_01",
         "@character_02"
       ],
-      "dialogue": [
-        {
-          "speaker_id": "@character_01",
-          "text": "Come Josephine on my flying machine and it's up she goes up she goes"
-        }
-      ],
-      "t2i_prompt": "@character_01 and @character_02 walking together on the deck of a massive ship at night. @character_01 is wearing an elegant long dark dress, @character_02 is in a white button-up shirt with suspenders. Wide shot, 35mm lens, natural moonlight, cinematic lighting. The wooden deck is lined with empty deck chairs under a clear starry sky.",
-      "i2v_prompt": "@character_01 and @character_02 are walking along the ship deck at night. @character_01 is singing and gesturing gracefully as she walks. Camera tracks alongside them. @character_01 says: 'Come Josephine on my flying machine and it's up she goes up she goes'."
+      "dialogue": [],
+      "t2i_prompt": "Medium shot of @character_01 and @character_02 walking through the ship hall. They are heading towards a new location. 50mm lens, natural light, background of seated passengers.",
+      "i2v_prompt": "@character_01 and @character_02 walk together along the ship corridor."
     },
     {
       "index": 8,
-      "scene_id": "scene_ship_deck",
-      "time_range": "64.00s - 72.00s",
-      "start_time": 64.0,
-      "end_time": 72.0,
-      "duration": 8.0,
-      "setting_description": "The deck of the ship with nautical background.",
-      "environment_description": "Night sea environment, railings and equipment visible.",
-      "lighting_setup": "Moonlight, dark ambiance.",
-      "color_grading": "Deep blues and natural shadows.",
+      "scene_id": "ship_deck_evening",
+      "time_range": "60.00s - 63.80s",
+      "start_time": 60.0,
+      "end_time": 63.8,
+      "duration": 3.8,
+      "setting_description": "Interior deck space on a grand cruise ship.",
+      "environment_description": "Well-lit interior corridor with wooden panels.",
+      "lighting_setup": "Soft warm interior lighting, cinematic focus.",
+      "color_grading": "Naturalistic warm tones.",
       "shot_size": "Medium shot",
       "camera_angle": "Eye-level",
-      "camera_movement": "Tracking/Panning",
+      "camera_movement": "Static",
       "focal_length": "50mm",
-      "depth_of_field": "Medium",
-      "mood_atmosphere": "Playful and whimsical.",
-      "composition": "Characters are positioned closer to the lens.",
-      "subject_movement": "@character_01 and @character_02 interact playfully while singing.",
+      "depth_of_field": "Shallow, focusing on the foreground character.",
+      "mood_atmosphere": "Cheerful and inquisitive.",
+      "composition": "@character_03 and @character_04 in the background looking at @character_05 in the foreground.",
+      "subject_movement": "",
       "characters": [
-        "@character_01",
-        "@character_02"
+        "@character_03",
+        "@character_04",
+        "@character_05"
       ],
-      "dialogue": [
-        {
-          "speaker_id": "@character_01",
-          "text": "balancing a bird on a beam in the air she goes where there she goes"
-        }
-      ],
-      "t2i_prompt": "@character_01 and @character_02 in a medium shot on the deck of a vintage ocean liner at night. Both appear lighthearted and focused on each other. Cinematic night lighting, soft focus background of the ship railing. They are wearing their period-accurate attire, 50mm lens, film noir color palette.",
-      "i2v_prompt": "@character_01 and @character_02 walk closely on the deck. @character_01 sings enthusiastically. @character_02 joins in the rhythm. @character_01 says: 'balancing a bird on a beam in the air she goes where there she goes'."
+      "dialogue": [],
+      "t2i_prompt": "Cinematic medium shot of @character_03, @character_04, and @character_05 in a luxurious indoor ship deck. @character_03 wears a newsboy cap, @character_04 in a black high-collar top with a red ribbon, @character_05 in a cream shirt. Soft interior lighting, warm ambient glow.",
+      "i2v_prompt": "@character_05 stands in the foreground, turning his head, while @character_03 and @character_04 observe from the background, smiling and chatting. Static cinematic shot."
     },
     {
       "index": 9,
-      "scene_id": "scene_ship_deck",
-      "time_range": "72.00s - 81.10s",
-      "start_time": 72.0,
-      "end_time": 81.1,
-      "duration": 9.1,
-      "setting_description": "Ship deck with wide view of the surroundings.",
-      "environment_description": "Expansive wooden deck leading into the distance.",
-      "lighting_setup": "Night sky, ambient deck lights.",
-      "color_grading": "Cinematic night tones.",
+      "scene_id": "ship_deck_night",
+      "time_range": "63.80s - 72.00s",
+      "start_time": 63.8,
+      "end_time": 72.0,
+      "duration": 8.2,
+      "setting_description": "Exterior deck of a ship at night.",
+      "environment_description": "Expansive wooden deck under a starry night sky.",
+      "lighting_setup": "Low-key moonlight, cinematic night photography.",
+      "color_grading": "Cool blue tones with deep shadows.",
       "shot_size": "Long shot",
       "camera_angle": "Eye-level",
-      "camera_movement": "Static pull back",
+      "camera_movement": "Slow tracking shot",
       "focal_length": "35mm",
       "depth_of_field": "Deep",
-      "mood_atmosphere": "Lighthearted, closing of the segment.",
-      "composition": "Characters moving away from the camera into the distance.",
-      "subject_movement": "@character_01 and @character_02 walk forward and end their song.",
+      "mood_atmosphere": "Romantic and whimsical.",
+      "composition": "The couple centered, walking hand in hand along the vast deck.",
+      "subject_movement": "",
       "characters": [
         "@character_01",
         "@character_02"
@@ -326,11 +325,78 @@
       "dialogue": [
         {
           "speaker_id": "@character_01",
-          "text": "up up a little bit high"
+          "text": "Come, Josephine, in my flying machine"
+        },
+        {
+          "speaker_id": "@character_01",
+          "text": "And it's up she goes, up she goes"
         }
       ],
-      "t2i_prompt": "@character_01 and @character_02 walking away from the camera on a long, wooden ship deck at night. Long shot, 35mm lens. Moonlight illuminates the scene with deep blue shadows. The vast, empty deck creates a sense of openness and freedom.",
-      "i2v_prompt": "@character_01 and @character_02 walk side-by-side, their figures getting slightly smaller in the frame as they move forward. @character_01 finishes singing the final notes. @character_01 says: 'up up a little bit high'."
+      "t2i_prompt": "Cinematic long shot of @character_01 and @character_02 walking on an outdoor ship deck at night. @character_01 wears a cream blouse and yellow skirt, @character_02 wears a white button-up and suspenders. Moonlit sky, wooden deck planks, romantic atmosphere.",
+      "i2v_prompt": "@character_01 and @character_02 stand at the bow of the ship with arms spread, singing together joyfully into the wind."
+    },
+    {
+      "index": 10,
+      "scene_id": "ship_deck_night",
+      "time_range": "72.00s - 77.00s",
+      "start_time": 72.0,
+      "end_time": 77.0,
+      "duration": 5.0,
+      "setting_description": "Exterior deck of a ship at night.",
+      "environment_description": "Side view of the wooden deck with seating.",
+      "lighting_setup": "Moonlight and distant deck lamps.",
+      "color_grading": "Night-time cool palette.",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "40mm",
+      "depth_of_field": "Shallow",
+      "mood_atmosphere": "Joyful, lighthearted.",
+      "composition": "Profile shot of the two walking side by side.",
+      "subject_movement": "",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "@character_01",
+          "text": "Balancing high on a breeze in the sky"
+        },
+        {
+          "speaker_id": "@character_01",
+          "text": "Up, up, a little bit higher"
+        }
+      ],
+      "t2i_prompt": "Close-up profile shot of @character_01 and @character_02, looking at each other while walking. @character_01 wearing a cream blouse, @character_02 in suspenders. Cool night lighting, soft focus on the background.",
+      "i2v_prompt": "@character_01 and @character_02 continue singing, laughing, the ocean wind blowing through their hair."
+    },
+    {
+      "index": 11,
+      "scene_id": "ship_deck_night",
+      "time_range": "77.00s - 81.10s",
+      "start_time": 77.0,
+      "end_time": 81.1,
+      "duration": 4.1,
+      "setting_description": "Exterior deck of a ship at night.",
+      "environment_description": "Vast, empty deck under the night sky.",
+      "lighting_setup": "Moonlight, high contrast.",
+      "color_grading": "Cool blue, cinematic.",
+      "shot_size": "Wide shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Static",
+      "focal_length": "24mm",
+      "depth_of_field": "Deep",
+      "mood_atmosphere": "Serene and romantic.",
+      "composition": "Wide angle showing the scale of the ship deck, couple walking away.",
+      "subject_movement": "",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [],
+      "t2i_prompt": "Wide shot of the expansive cruise ship deck at night. @character_01 and @character_02 are small figures walking away into the distance. Moonlight casting long shadows on the wooden planks.",
+      "i2v_prompt": "@character_01 and @character_02 continue walking away from the camera, side by side, as they disappear towards the far end of the deck."
     }
   ]
 }
