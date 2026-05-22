@@ -483,6 +483,12 @@ The scene wardrobe contains EXACT clothing DNA specifications. You MUST follow A
             print(f"\nTotal reference images: {len(ref_images)} (loaded from memory package)")
             print(f"Prompt length: {len(prompt_str)} characters")
 
+            # Truncate prompt if it exceeds the safe limit to avoid EMPTY_PARTS from Gemini
+            MAX_PROMPT_CHARS = 4000
+            if len(prompt_str) > MAX_PROMPT_CHARS:
+                print(f"⚠️  Prompt exceeds {MAX_PROMPT_CHARS} chars, truncating to reduce EMPTY_PARTS risk")
+                prompt_str = prompt_str[:MAX_PROMPT_CHARS]
+
         else:
             # Original logic (without using memory package)
             content_json = shot_data["json_content"]
@@ -1056,6 +1062,11 @@ The scene wardrobe contains EXACT clothing DNA specifications. You MUST follow A
 
             if not operation.response or not operation.response.generated_videos:
                 print(f"⚠️  Shot {shot_id} did not generate valid video")
+                # Log raw operation info to distinguish quota vs content-filter failures
+                print(f"   Operation name   : {getattr(operation, 'name', 'N/A')}")
+                print(f"   Operation metadata: {getattr(operation, 'metadata', 'N/A')}")
+                print(f"   Operation error  : {getattr(operation, 'error', 'N/A')}")
+                print(f"   Response         : {operation.response}")
                 return False
 
             # Save result - use official recommended method to download video

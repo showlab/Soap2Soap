@@ -2,10 +2,17 @@
 
 # =================================================================
 # Usage: ./run_scriptgen.sh <VIDEO_PATH> <OUTPUT_JSON_PATH>
-# Example: ./un_scriptgen.sh ./video.mov ./my_script.json
+# Example: ./run_scriptgen.sh ./video.mov ./my_script.json
 # =================================================================
 
-# 1. Check parameters (now requires 2 parameters: video path + script output path)
+# Resolve python3 executable
+PYTHON=$(which python3 2>/dev/null || which python 2>/dev/null)
+if [ -z "$PYTHON" ]; then
+    echo "Error: python3 not found. Please install Python 3."
+    exit 1
+fi
+
+# 1. Check parameters
 if [ "$#" -lt 2 ]; then
     echo "Usage: $0 <VIDEO_PATH> <OUTPUT_JSON_PATH>"
     exit 1
@@ -26,8 +33,8 @@ DIR=$(dirname "$VIDEO_PATH")
 FILENAME=$(basename "$VIDEO_PATH")
 NAME_NO_EXT="${FILENAME%.*}"
 AUDIO_PATH="$DIR/${NAME_NO_EXT}.wav"
-# Whisper default generated JSON path
-WHISPER_JSON_PATH="$DIR/${NAME_NO_EXT}.json"
+# Use a distinct _transcript suffix so it never collides with the output script JSON
+WHISPER_JSON_PATH="$DIR/${NAME_NO_EXT}_transcript.json"
 
 echo "=========================================="
 echo "🎬 Processing: $FILENAME"
@@ -48,6 +55,7 @@ fi
 # Step 2: Run Whisper (Speech to Text)
 # --------------------------------------
 echo "[2/3] Running OpenAI Whisper..."
+echo "      Note: Whisper medium model is ~1.4 GB and will be downloaded on first run."
 if [ -f "$WHISPER_JSON_PATH" ]; then
      echo "      Transcript already exists, skipping Whisper."
 else
@@ -55,6 +63,10 @@ else
     # This avoids subject error inference problems during translation
     # Subsequent translation will be handled by Python script with context-aware translation API
     whisper "$AUDIO_PATH" --model medium --task transcribe --language zh --output_format json --output_dir "$DIR" --verbose False
+    # Whisper writes <name>.json; rename to <name>_transcript.json to avoid collision
+    if [ -f "$DIR/${NAME_NO_EXT}.json" ] && [ ! -f "$WHISPER_JSON_PATH" ]; then
+        mv "$DIR/${NAME_NO_EXT}.json" "$WHISPER_JSON_PATH"
+    fi
     echo "      Transcript generated: $WHISPER_JSON_PATH"
     echo "      Note: Transcript is in Chinese. Translation will be handled by Python script with context awareness."
 fi
@@ -64,11 +76,17 @@ fi
 # --------------------------------------
 echo "[3/3] Generating Script with Gemini..."
 
-#Input video + transcribed lines
-python video_to_script2.py \
+# Input video + transcribed lines
+"$PYTHON" video_to_script2.py \
     --video "$VIDEO_PATH" \
     --transcript "$WHISPER_JSON_PATH" \
     --output "$OUTPUT_JSON"
+
+PYTHON_EXIT=$?
+if [ $PYTHON_EXIT -ne 0 ]; then
+    echo "Error: video_to_script2.py failed with exit code $PYTHON_EXIT"
+    exit $PYTHON_EXIT
+fi
 
 echo "=========================================="
 echo "✅ Done! Final Script saved to: $OUTPUT_JSON"

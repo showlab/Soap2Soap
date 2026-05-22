@@ -52,7 +52,7 @@ except ImportError as e:
 class RegenerateTool:
     """Keyframe Regeneration Tool"""
 
-    def __init__(self, script_json="clip1_script.json", style="realistic", backup=False, max_retries=3, enable_inspection=True):
+    def __init__(self, script_json="clip1_script.json", style="realistic", backup=False, max_retries=3, enable_inspection=True, shots=None, generate_video=False):
         """
         Initialize
 
@@ -62,12 +62,16 @@ class RegenerateTool:
             backup: Whether to backup original images
             max_retries: Maximum retry count
             enable_inspection: Whether to enable quality inspection
+            shots: Pre-selected shots string (e.g. "3", "1,3,5", "failed", "all"); skips interactive prompt
+            generate_video: Also generate video clip after each successful keyframe
         """
         self.script_json = script_json
         self.style = style
         self.backup = backup
         self.max_retries = max_retries
         self.enable_inspection = enable_inspection
+        self.shots_preselect = shots
+        self.generate_video = generate_video
 
         # Configuration file paths
         self.character_mapping_file = "character_mapping.json"
@@ -481,6 +485,18 @@ class RegenerateTool:
                             print(f"⏭️  Skipping quality inspection (no character information)")
                         shot_success = True
                         success_count += 1
+
+                        # Optionally generate the video clip for this shot
+                        if self.generate_video:
+                            print(f"\n🎬 Generating video clip for Shot {shot_id}...")
+                            try:
+                                video_ok = self.generation_agent.generate_video_for_shot(shot_id)
+                                if video_ok:
+                                    print(f"✅ Shot {shot_id} video generated: shot_{shot_id}_video.mp4")
+                                else:
+                                    print(f"⚠️  Shot {shot_id} video generation failed (keyframe kept)")
+                            except Exception as ve:
+                                print(f"⚠️  Shot {shot_id} video generation error: {ve}")
                         break
 
                 except Exception as e:
@@ -733,8 +749,19 @@ class RegenerateTool:
         # 3. Display list
         self.display_shot_list()
 
-        # 4. Interactive selection
-        selected_shots = self.interactive_select_shots()
+        # 4. Interactive selection (or pre-selected via --shots)
+        if self.shots_preselect is not None:
+            s = self.shots_preselect.strip().lower()
+            if s == 'all':
+                selected_shots = list(self.generated_shots)
+            elif s == 'failed':
+                selected_shots = [sh for sh in self.generated_shots if not sh['is_valid']]
+                print(f"✅ Auto-selected {len(selected_shots)} failed/ungenerated shots")
+            else:
+                indices = self._parse_selection(s, len(self.generated_shots))
+                selected_shots = [self.generated_shots[i] for i in (indices or [])]
+        else:
+            selected_shots = self.interactive_select_shots()
 
         if not selected_shots:
             print(f"\n⚠️  No keyframes selected, exiting")
@@ -794,6 +821,14 @@ Interactive commands:
                        action='store_true',
                        help='Disable quality inspection (enabled by default)')
 
+    parser.add_argument('--shots',
+                       type=str,
+                       default=None,
+                       help='Directly specify shots to generate, e.g. "3" or "1,3,5" or "failed" or "all", skipping interactive prompt')
+
+    parser.add_argument('--generate-video', action='store_true',
+                       help='Also generate video clip after each successful keyframe')
+
     args = parser.parse_args()
 
     try:
@@ -808,7 +843,9 @@ Interactive commands:
             style=args.style,
             backup=args.backup,
             max_retries=args.max_retries,
-            enable_inspection=not args.no_inspection
+            enable_inspection=not args.no_inspection,
+            shots=args.shots,
+            generate_video=args.generate_video
         )
 
         # Run

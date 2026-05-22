@@ -148,7 +148,7 @@ except ImportError:
 class MasterAgent:
     """Master Orchestration Agent"""
 
-    def __init__(self, script_json="clip1_script.json", max_retries=3, style="realistic", auto_generate_face=False):
+    def __init__(self, script_json="clip1_script.json", max_retries=3, style="realistic", auto_generate_face=False, auto_yes=False):
         """
         Initialize
 
@@ -157,12 +157,14 @@ class MasterAgent:
             max_retries: Maximum retry count
             style: Generation style ("realistic", "lego", "disney", "anime", "clay", "japanese_anime", "family_guy")
             auto_generate_face: Whether to automatically use AI to generate face images (True=AI generated, False=manually uploaded)
+            auto_yes: Skip interactive video generation confirmation prompt
         """
         self.script_json = script_json
         self.max_retries = max_retries
         self.mode = "video"  # Force use video mode
         self.style = style
         self.auto_generate_face = auto_generate_face
+        self.auto_yes = auto_yes
 
         # Configuration file paths
         self.character_mapping_file = "character_mapping.json"
@@ -807,19 +809,22 @@ class MasterAgent:
             print(f"{'='*70}")
 
             # User confirmation
-            while True:
-                user_input = input("\nContinue to generate video? Please enter [Y]es or [N]o: ").strip().lower()
+            if self.auto_yes:
+                print(f"\n✅ Auto-confirmed (--yes flag), starting video generation...")
+            else:
+                while True:
+                    user_input = input("\nContinue to generate video? Please enter [Y]es or [N]o: ").strip().lower()
 
-                if user_input in ['y', 'yes', '是', '好的']:
-                    print(f"\n✅ User confirmed, starting video generation...")
-                    break
-                elif user_input in ['n', 'no', '否', '不']:
-                    print(f"\n❌ User cancelled, exiting program.")
-                    print(f"💡 Tip: You can run the following command to generate keyframes:")
-                    print(f"   python agent_master.py {self.script_json} --mode image")
-                    return False
-                else:
-                    print(f"⚠️  Invalid input, please enter Y or N")
+                    if user_input in ['y', 'yes', '是', '好的']:
+                        print(f"\n✅ User confirmed, starting video generation...")
+                        break
+                    elif user_input in ['n', 'no', '否', '不']:
+                        print(f"\n❌ User cancelled, exiting program.")
+                        print(f"💡 Tip: You can run the following command to generate keyframes:")
+                        print(f"   python agent_master.py {self.script_json} --mode image")
+                        return False
+                    else:
+                        print(f"⚠️  Invalid input, please enter Y or N")
 
         # 7. Generate all shots
         print(f"\n{'='*70}")
@@ -864,7 +869,7 @@ class MasterAgent:
                 print(f"🎉 Final complete video generated: {final_video_path}")
                 print(f"{'='*70}")
             else:
-                print(f"\n⚠️  Video concatenation failed, please manually check shots/ directory")
+                print(f"\n⚠️  Video concatenation failed, please check shot_*_video.mp4 files in the working directory")
 
         return self.stats["failed_shots"] == 0
 
@@ -884,13 +889,10 @@ class MasterAgent:
         print("🎬 Step 5: Video concatenation")
         print(f"{'='*70}")
 
-        # Video output directory
-        video_dir = "shots"
-        if not os.path.exists(video_dir):
-            print(f"❌ Video directory does not exist: {video_dir}")
-            return None
-
-        print(f"📁 Scanning video directory: {video_dir}/")
+        # Scan current directory for video clips (legacy code looked in shots/ subdir,
+        # but agent_generation saves files to the working directory directly)
+        video_dir = "."
+        print(f"📁 Scanning for video clips in current directory")
 
         # Get all video files
         video_files = glob.glob(os.path.join(video_dir, "shot_*_video.mp4"))
@@ -1076,6 +1078,9 @@ Note: The system will automatically generate video clips and concatenate them in
     parser.add_argument('--auto-generate-face', action='store_true',
                        help='Enable AI auto-generate face mode (use Gemini to auto-generate face images based on character descriptions, no manual upload needed)')
 
+    parser.add_argument('--yes', '-y', action='store_true',
+                       help='Auto-confirm video generation without interactive prompt')
+
     args = parser.parse_args()
 
     # ========== Initialize logging system ==========
@@ -1102,7 +1107,8 @@ Note: The system will automatically generate video clips and concatenate them in
             script_json=args.script,
             max_retries=args.max_retries,
             style=args.style,
-            auto_generate_face=args.auto_generate_face
+            auto_generate_face=args.auto_generate_face,
+            auto_yes=args.yes
         )
 
         # Execute complete process
