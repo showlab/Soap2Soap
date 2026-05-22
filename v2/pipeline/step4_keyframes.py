@@ -15,7 +15,10 @@ Supports three modes (set via state.generation_mode):
 from __future__ import annotations
 import io
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Optional, TYPE_CHECKING
+
+KF_WORKERS = 10  # concurrent keyframe generation / refinement threads
 
 from PIL import Image
 
@@ -31,8 +34,28 @@ def _kf_generate(state, prompt, reference_images, aspect_ratio="16:9", save_path
 
 # Keep generate_keyframe as alias for callers that don't have state
 generate_keyframe = _gemini_keyframe
-from v2.clients.gemini_client import safety_rewrite
+from v2.clients.gemini_client import safety_rewrite, text_generate
 from v2.core.reference_resolver import resolve_references
+
+
+def _compress_grid_prompt(prompt: str, limit: int) -> str:
+    """Use Gemini to compress a grid prompt to within `limit` characters."""
+    compress_instruction = (
+        f"The following is an image generation prompt for a 2×2 grid of cinematic frames. "
+        f"It is too long. Compress it to under {limit} characters while preserving: "
+        f"(1) the 4-panel grid structure, "
+        f"(2) each panel's core scene description and character actions, "
+        f"(3) the art style and consistency instructions. "
+        f"Remove redundant wording and verbose phrasing. Output ONLY the compressed prompt, no explanation.\n\n"
+        f"{prompt}"
+    )
+    try:
+        compressed = text_generate(compress_instruction)
+        # Hard truncate as safety net
+        return compressed[:limit] if len(compressed) > limit else compressed
+    except Exception as e:
+        print(f"  ⚠️  Gemini compression failed ({e}) — hard truncating")
+        return prompt[:limit]
 
 if TYPE_CHECKING:
     from v2.core.schema import PipelineState, Shot
@@ -44,27 +67,27 @@ if TYPE_CHECKING:
 
 def _base_ref_images(shot: "Shot", state: "PipelineState") -> List[Image.Image]:
     """
-    Load the design sheet (preferred) or individual character reference images
-    for the characters that appear in this shot.
+    Load individual character reference images for characters in this shot.
+    Falls back to design sheet if no individual refs are available.
     """
     images = []
 
-    # Use design sheet as primary reference (all characters in one image)
-    if state.design_sheet_path and os.path.exists(state.design_sheet_path):
-        try:
-            images.append(Image.open(state.design_sheet_path))
-            return images
-        except Exception:
-            pass
-
-    # Fallback: individual character images
-    for char_id in shot.characters:
+    # Prefer per-character refs (only those relevant to this shot)
+    for char_id in getattr(shot, 'characters', []):
         entity = state.reference_store.get_entity(char_id)
         if entity and entity.image_path and os.path.exists(entity.image_path):
             try:
                 images.append(Image.open(entity.image_path))
             except Exception:
                 pass
+
+    # Fallback: design sheet when no individual refs exist
+    if not images and state.design_sheet_path and os.path.exists(state.design_sheet_path):
+        try:
+            images.append(Image.open(state.design_sheet_path))
+        except Exception:
+            pass
+
     return images
 
 
@@ -111,16 +134,23 @@ def _generate_one(
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _run_default(state: "PipelineState") -> "PipelineState":
-    print("  Mode: DEFAULT (each shot independent)")
-    for shot in state.shots:
+    print(f"  Mode: DEFAULT (each shot independent, {KF_WORKERS} workers)")
+    total = len(state.shots)
+
+    def _process(shot):
         save_path = os.path.join(state.output_dir, f"shot_{shot.shot_id}.png")
         if os.path.exists(save_path):
             print(f"  ⏭️  Shot {shot.shot_id} exists")
             shot.keyframe_path = save_path
             shot.status = "keyframe_done"
-            continue
-        print(f"  [{shot.shot_id}/{len(state.shots)}] Shot {shot.shot_id} ({shot.time_range})")
+            return
+        print(f"  [{shot.shot_id}/{total}] Shot {shot.shot_id} ({shot.time_range})")
         _generate_one(shot, state)
+
+    with ThreadPoolExecutor(max_workers=KF_WORKERS) as ex:
+        futures = {ex.submit(_process, s): s for s in state.shots}
+        for f in as_completed(futures):
+            f.result()
     return state
 
 
@@ -282,14 +312,37 @@ def _run_consistency(state: "PipelineState") -> "PipelineState":
             for s in padded_group
         ]
 
-        # Reference images: design sheet + previous grids FROM SAME SCENE ONLY
+        # Reference images: chars in this grid + previous grids FROM SAME SCENE ONLY
+        # Collect the union of characters appearing across all shots in this group
+        chars_in_group = []
+        seen_ids = set()
+        for s in group:
+            for cid in getattr(s, 'characters', []):
+                if cid not in seen_ids:
+                    seen_ids.add(cid)
+                    chars_in_group.append(cid)
+
         ref_imgs: List[Image.Image] = []
-        if state.design_sheet_path and os.path.exists(state.design_sheet_path):
+        for cid in chars_in_group:
+            entity = state.reference_store.get_entity(cid)
+            if entity and entity.image_path and os.path.exists(entity.image_path):
+                try:
+                    ref_imgs.append(Image.open(entity.image_path))
+                except Exception:
+                    pass
+
+        # Fallback to design sheet if no individual refs found
+        if not ref_imgs and state.design_sheet_path and os.path.exists(state.design_sheet_path):
             try:
                 ref_imgs.append(Image.open(state.design_sheet_path))
             except Exception:
                 pass
+
+        # Scene continuity: append previous grid(s) from same scene
         ref_imgs.extend(prev_same_scene)
+
+        char_ids_label = ", ".join(chars_in_group) if chars_in_group else "none"
+        print(f"    refs: chars=[{char_ids_label}], prev_scene_grids={len(prev_same_scene)}")
 
         grid_prompt = compile_narrative_grid_prompt(
             shots=shot_dicts,
@@ -299,8 +352,14 @@ def _run_consistency(state: "PipelineState") -> "PipelineState":
             previous_grids=len(prev_same_scene),
         )
 
+        PROMPT_LIMIT = 4000
+        if len(grid_prompt) > PROMPT_LIMIT:
+            print(f"  ⚠️  Grid prompt {len(grid_prompt)}c > {PROMPT_LIMIT}c — compressing with Gemini...")
+            grid_prompt = _compress_grid_prompt(grid_prompt, PROMPT_LIMIT)
+            print(f"  ✂️  Compressed to {len(grid_prompt)}c")
+
         print(f"\n  Grid {g_idx+1}/{len(groups)} (scene='{scene_id}', "
-              f"shots {[s.shot_id for s in group]})...")
+              f"shots {[s.shot_id for s in group]}, prompt={len(grid_prompt)}c)...")
 
         grid_img = _kf_generate(state, prompt=grid_prompt, reference_images=ref_imgs, aspect_ratio="16:9")
 
@@ -318,24 +377,29 @@ def _run_consistency(state: "PipelineState") -> "PipelineState":
         grid_save = os.path.join(state.output_dir, f"grid_{g_idx+1}_scene_{scene_id}.png")
         grid_img.save(grid_save)
 
-        # Crop grid into cells, refine each with character refs, then save
+        # Crop grid into cells, refine each with character refs (concurrent)
         cells = _crop_grid(grid_img)
-        for cell_idx, (shot, cell_img) in enumerate(zip(group, cells)):
-            if getattr(shot, 'padded', False):
-                continue
+        real_pairs = [
+            (shot, cell_img)
+            for shot, cell_img in zip(group, cells)
+            if not getattr(shot, 'padded', False)
+        ]
 
+        def _refine_and_save(shot, cell_img):
             save_path = os.path.join(state.output_dir, f"shot_{shot.shot_id}.png")
-
-            # Refine the raw crop with character reference images
             n_chars = len(shot.characters)
             char_label = f"{n_chars} char(s)" if n_chars else "no chars"
             print(f"    Shot {shot.shot_id}: refining with {char_label}...")
             final_img = _refine_keyframe(cell_img, shot, state)
-
             final_img.save(save_path)
             shot.keyframe_path = save_path
             shot.status = "keyframe_done"
             print(f"    ✅ Shot {shot.shot_id} saved")
+
+        with ThreadPoolExecutor(max_workers=KF_WORKERS) as ex:
+            futures = [ex.submit(_refine_and_save, s, c) for s, c in real_pairs]
+            for f in as_completed(futures):
+                f.result()
 
     return state
 

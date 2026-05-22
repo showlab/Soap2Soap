@@ -180,6 +180,18 @@ def run_pipeline(
     return final_video
 
 
+def _i2v_with_dialogue(shot) -> str:
+    """Return i2v_prompt with dialogue appended if not already included."""
+    base = shot.i2v_prompt or ""
+    if not shot.dialogue:
+        return base
+    lines = "；".join(f'{d.speaker_id}说："{d.text}"' for d in shot.dialogue)
+    dialogue_note = f" 台词：{lines}。"
+    if dialogue_note.strip() in base:
+        return base
+    return base + dialogue_note
+
+
 def _save_state(state: PipelineState, path: str):
     """Save analysis results to JSON cache."""
     data = {
@@ -213,7 +225,7 @@ def _save_state(state: PipelineState, path: str):
                 "characters": s.characters,
                 "dialogue": [{"speaker_id": d.speaker_id, "text": d.text} for d in s.dialogue],
                 "t2i_prompt": s.t2i_prompt,
-                "i2v_prompt": s.i2v_prompt,
+                "i2v_prompt": _i2v_with_dialogue(s),
             }
             for s in state.shots
         ],
@@ -304,7 +316,7 @@ def main():
                         help="Video generation model: seeddance (default) or veo")
     parser.add_argument("--keyframe-model", default="gemini",
                         choices=["gemini", "gpt-image"],
-                        help="Keyframe generation model: gemini (default) or gpt-image")
+                        help="Keyframe generation model: gemini (default) or gpt-image (Runware GPT Image 2, requires RUNWARE_API_KEY)")
     parser.add_argument("--dialogue-lang", default="auto",
                         choices=["auto", "zh", "en"],
                         help="Dialogue language in i2v prompt: auto (detect), zh (Chinese), en (English)")

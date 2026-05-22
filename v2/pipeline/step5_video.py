@@ -17,7 +17,7 @@ from v2.core.reference_resolver import resolve_references
 if TYPE_CHECKING:
     from v2.core.schema import PipelineState
 
-I2V_WORKERS = 5
+I2V_WORKERS = 17
 I2V_MAX_RETRIES = 2
 
 _print_lock = threading.Lock()

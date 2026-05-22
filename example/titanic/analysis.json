@@ -170,7 +170,7 @@
         }
       ],
       "t2i_prompt": "Medium close-up of @character_01 and @character_02 looking at each other in a ship hallway. @character_01 in cream blouse, @character_02 in button-up shirt and suspenders. Shallow depth of field, 85mm lens.",
-      "i2v_prompt": "@character_01 walks toward @character_02 and greets him formally in the ship corridor."
+      "i2v_prompt": "@character_01 walks toward @character_02 and greets him formally in the ship corridor. 台词：@character_01说：\"Hello, Mr. Dawson.\"；@character_02说：\"Hello again.\"。"
     },
     {
       "index": 5,
@@ -206,7 +206,7 @@
         }
       ],
       "t2i_prompt": "Medium close-up of @character_01 and @character_02. @character_01 asks a question. 85mm lens, soft light, blurred background of ship passengers.",
-      "i2v_prompt": "@character_01 leans in slightly and makes her request. @character_02 listens attentively."
+      "i2v_prompt": "@character_01 leans in slightly and makes her request. @character_02 listens attentively. 台词：@character_01说：\"May I speak with you?\"；@character_02说：\"Yeah.\"。"
     },
     {
       "index": 6,
@@ -242,7 +242,7 @@
         }
       ],
       "t2i_prompt": "Medium close-up of @character_01 and @character_02. They are having a conversation about privacy. 85mm lens, natural lighting, shallow depth of field.",
-      "i2v_prompt": "@character_01 glances around and asks for privacy. @character_02 gestures graciously for her to lead."
+      "i2v_prompt": "@character_01 glances around and asks for privacy. @character_02 gestures graciously for her to lead. 台词：@character_01说：\"In private?\"；@character_02说：\"Yes, of course. After you.\"。"
     },
     {
       "index": 7,
@@ -333,7 +333,7 @@
         }
       ],
       "t2i_prompt": "Cinematic long shot of @character_01 and @character_02 walking on an outdoor ship deck at night. @character_01 wears a cream blouse and yellow skirt, @character_02 wears a white button-up and suspenders. Moonlit sky, wooden deck planks, romantic atmosphere.",
-      "i2v_prompt": "@character_01 and @character_02 stand at the bow of the ship with arms spread, singing together joyfully into the wind."
+      "i2v_prompt": "@character_01 and @character_02 stand at the bow of the ship with arms spread, singing together joyfully into the wind. 台词：@character_01说：\"Come, Josephine, in my flying machine\"；@character_01说：\"And it's up she goes, up she goes\"。"
     },
     {
       "index": 10,
@@ -369,7 +369,7 @@
         }
       ],
       "t2i_prompt": "Close-up profile shot of @character_01 and @character_02, looking at each other while walking. @character_01 wearing a cream blouse, @character_02 in suspenders. Cool night lighting, soft focus on the background.",
-      "i2v_prompt": "@character_01 and @character_02 continue singing, laughing, the ocean wind blowing through their hair."
+      "i2v_prompt": "@character_01 and @character_02 continue singing, laughing, the ocean wind blowing through their hair. 台词：@character_01说：\"Balancing high on a breeze in the sky\"；@character_01说：\"Up, up, a little bit higher\"。"
     },
     {
       "index": 11,
