@@ -61,8 +61,9 @@ def run_pipeline(
     generation_mode: str = "consistency",
     yes: bool = False,
     no_inspect: bool = False,
-    video_model: str = "veo",
+    video_model: str = "seeddance",
     dialogue_lang: str = "auto",
+    keyframe_model: str = "gemini",
 ) -> str:
     """Run the full V2V pipeline. Returns path to final video."""
     global _pipeline_t0
@@ -90,6 +91,7 @@ def run_pipeline(
         generation_mode=generation_mode,
         video_model=video_model,
         dialogue_lang=dialogue_lang,
+        keyframe_model=keyframe_model,
     )
 
     # Analysis cache lives next to the input video (reusable across runs)
@@ -300,6 +302,9 @@ def main():
     parser.add_argument("--video-model", default="seeddance",
                         choices=["seeddance", "veo"],
                         help="Video generation model: seeddance (default) or veo")
+    parser.add_argument("--keyframe-model", default="gemini",
+                        choices=["gemini", "gpt-image"],
+                        help="Keyframe generation model: gemini (default) or gpt-image")
     parser.add_argument("--dialogue-lang", default="auto",
                         choices=["auto", "zh", "en"],
                         help="Dialogue language in i2v prompt: auto (detect), zh (Chinese), en (English)")
@@ -317,6 +322,7 @@ def main():
         no_inspect=args.no_inspect,
         video_model=args.video_model,
         dialogue_lang=args.dialogue_lang,
+        keyframe_model=args.keyframe_model,
     )
 
     if final:

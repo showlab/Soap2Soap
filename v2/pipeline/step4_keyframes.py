@@ -19,7 +19,18 @@ from typing import List, Optional, TYPE_CHECKING
 
 from PIL import Image
 
-from v2.clients.imagen_client import generate_keyframe
+from v2.clients.imagen_client import generate_keyframe as _gemini_keyframe
+from v2.clients.imagen_client import generate_keyframe_with_model as generate_keyframe_model
+
+
+def _kf_generate(state, prompt, reference_images, aspect_ratio="16:9", save_path=None):
+    """Route keyframe generation to the model selected in state.keyframe_model."""
+    model = getattr(state, "keyframe_model", "gemini")
+    return generate_keyframe_model(model, prompt, reference_images, aspect_ratio, save_path)
+
+
+# Keep generate_keyframe as alias for callers that don't have state
+generate_keyframe = _gemini_keyframe
 from v2.clients.gemini_client import safety_rewrite
 from v2.core.reference_resolver import resolve_references
 
@@ -86,11 +97,7 @@ def _generate_one(
     legend = ("Reference images: " + ", ".join(legend_parts) + ". ") if legend_parts else ""
     full_prompt = f"{legend}{consistency_note}Shot Description: {shot.t2i_prompt}"
 
-    img = generate_keyframe(
-        prompt=full_prompt,
-        reference_images=all_refs,
-        save_path=save_path,
-    )
+    img = _kf_generate(state, prompt=full_prompt, reference_images=all_refs, save_path=save_path)
     if img:
         shot.keyframe_path = save_path
         shot.status = "keyframe_done"
@@ -179,10 +186,7 @@ def _refine_keyframe(
     )
 
     ref_images = [cell_img] + char_refs
-    refined = generate_keyframe(
-        prompt=refine_prompt,
-        reference_images=ref_images,
-    )
+    refined = _kf_generate(state, prompt=refine_prompt, reference_images=ref_images)
     return refined if refined else cell_img
 
 
@@ -298,11 +302,7 @@ def _run_consistency(state: "PipelineState") -> "PipelineState":
         print(f"\n  Grid {g_idx+1}/{len(groups)} (scene='{scene_id}', "
               f"shots {[s.shot_id for s in group]})...")
 
-        grid_img = generate_keyframe(
-            prompt=grid_prompt,
-            reference_images=ref_imgs,
-            aspect_ratio="16:9",
-        )
+        grid_img = _kf_generate(state, prompt=grid_prompt, reference_images=ref_imgs, aspect_ratio="16:9")
 
         if not grid_img:
             print(f"  ❌ Grid {g_idx+1} failed — falling back to default for these shots")
@@ -408,11 +408,7 @@ def _run_camera_tree(state: "PipelineState") -> "PipelineState":
         print(f"  [{shot.shot_id}/{len(state.shots)}] Shot {shot.shot_id} "
               f"(group={frame.group_id}, depth={frame.depth}, refs={len(all_refs)})")
 
-        img = generate_keyframe(
-            prompt=full_prompt,
-            reference_images=all_refs,
-            save_path=save_path,
-        )
+        img = _kf_generate(state, prompt=full_prompt, reference_images=all_refs, save_path=save_path)
         if img:
             shot.keyframe_path = save_path
             shot.status = "keyframe_done"

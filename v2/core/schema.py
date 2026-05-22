@@ -75,6 +75,9 @@ class PipelineState:
     # Generation mode for keyframes
     generation_mode: str = "consistency"  # "default" | "consistency" | "camera_tree"
 
+    # Keyframe generation model
+    keyframe_model: str = "gemini"       # "gemini" | "gpt-image"
+
     # Video generation model
     video_model: str = "seeddance"       # "seeddance" | "veo"
 

@@ -142,6 +142,23 @@ def generate_keyframe(
     return None
 
 
+def generate_keyframe_with_model(
+    model: str,
+    prompt: str,
+    reference_images: List[Image.Image],
+    aspect_ratio: str = "16:9",
+    save_path: Optional[str] = None,
+) -> Optional[Image.Image]:
+    """
+    Unified keyframe generation entry point.
+    model: "gemini" (default) or "gpt-image"
+    """
+    if model == "gpt-image":
+        from v2.clients.gpt_image_client import generate_keyframe as gpt_keyframe
+        return gpt_keyframe(prompt, reference_images, aspect_ratio, save_path)
+    return generate_keyframe(prompt, reference_images, aspect_ratio, save_path)
+
+
 def _log_response(response) -> None:
     """Print raw response metadata to distinguish quota exhaustion from content filters."""
     candidates = getattr(response, "candidates", [])
