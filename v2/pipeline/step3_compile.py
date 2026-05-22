@@ -16,9 +16,12 @@ def run(state: "PipelineState") -> "PipelineState":
     print("STEP 3 — Prompt Compilation")
     print("=" * 60)
 
+    dialogue_lang = getattr(state, 'dialogue_lang', 'auto')
+    print(f"  Dialogue language: {dialogue_lang}")
+
     for shot in state.shots:
         shot.t2i_prompt = compile_t2i_prompt(shot, style=state.style)
-        shot.i2v_prompt = compile_i2v_prompt(shot, style=state.style)
+        shot.i2v_prompt = compile_i2v_prompt(shot, style=state.style, dialogue_lang=dialogue_lang)
         print(f"  Shot {shot.shot_id}: t2i={len(shot.t2i_prompt)}c  i2v={len(shot.i2v_prompt)}c")
 
     return state

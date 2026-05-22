@@ -62,6 +62,7 @@ def run_pipeline(
     yes: bool = False,
     no_inspect: bool = False,
     video_model: str = "veo",
+    dialogue_lang: str = "auto",
 ) -> str:
     """Run the full V2V pipeline. Returns path to final video."""
     global _pipeline_t0
@@ -88,6 +89,7 @@ def run_pipeline(
         output_dir=output_dir,
         generation_mode=generation_mode,
         video_model=video_model,
+        dialogue_lang=dialogue_lang,
     )
 
     # Analysis cache lives next to the input video (reusable across runs)
@@ -295,9 +297,12 @@ def main():
                         help="Auto-confirm if > 16 shots detected (non-interactive)")
     parser.add_argument("--no-inspect", action="store_true",
                         help="Skip Step 4b keyframe inspection (faster, raw Grid output)")
-    parser.add_argument("--video-model", default="veo",
-                        choices=["veo", "kling"],
-                        help="Video generation model: veo (default) or kling")
+    parser.add_argument("--video-model", default="seeddance",
+                        choices=["seeddance", "veo"],
+                        help="Video generation model: seeddance (default) or veo")
+    parser.add_argument("--dialogue-lang", default="auto",
+                        choices=["auto", "zh", "en"],
+                        help="Dialogue language in i2v prompt: auto (detect), zh (Chinese), en (English)")
     args = parser.parse_args()
 
     final = run_pipeline(
@@ -311,6 +316,7 @@ def main():
         yes=args.yes,
         no_inspect=args.no_inspect,
         video_model=args.video_model,
+        dialogue_lang=args.dialogue_lang,
     )
 
     if final:

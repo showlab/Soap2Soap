@@ -76,7 +76,10 @@ class PipelineState:
     generation_mode: str = "consistency"  # "default" | "consistency" | "camera_tree"
 
     # Video generation model
-    video_model: str = "veo"             # "veo" | "kling"
+    video_model: str = "seeddance"       # "seeddance" | "veo"
+
+    # Dialogue language for i2v prompts
+    dialogue_lang: str = "auto"          # "auto" | "zh" | "en"
 
     characters: List[Character] = field(default_factory=list)
     shots: List[Shot] = field(default_factory=list)

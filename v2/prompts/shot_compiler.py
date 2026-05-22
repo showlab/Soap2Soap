@@ -134,10 +134,22 @@ def compile_t2i_prompt(shot: "Shot", style: str = "realistic") -> str:
     return _rewrite_for_style(raw, style)
 
 
-def compile_i2v_prompt(shot: "Shot", style: str = "realistic") -> str:
+def _detect_language(texts: list[str]) -> str:
+    """Return 'zh' if any text contains Chinese characters, else 'en'."""
+    for t in texts:
+        if any('一' <= c <= '鿿' for c in t):
+            return 'zh'
+    return 'en'
+
+
+def compile_i2v_prompt(shot: "Shot", style: str = "realistic", dialogue_lang: str = "auto") -> str:
     """
     Build and style-rewrite the video generation prompt for a shot.
-    Dialogue is preserved in the original language (not rewritten).
+
+    dialogue_lang:
+      "auto" — detect from dialogue text (Chinese chars → zh, else en)
+      "zh"   — always use Chinese dialogue instruction
+      "en"   — always use English dialogue instruction
     """
     base = shot.i2v_prompt or shot.t2i_prompt or "A cinematic shot."
 
@@ -147,14 +159,22 @@ def compile_i2v_prompt(shot: "Shot", style: str = "realistic") -> str:
     if shot.camera_movement:
         motion_note += f" Camera: {shot.camera_movement}."
 
-    # Rewrite only the motion/scene description, not the dialogue
     raw_scene = f"{base}{motion_note}"
     styled_scene = _rewrite_for_style(raw_scene, style)
 
-    # Preserve dialogue in original language
     dialogue_note = ""
     if shot.dialogue:
-        lines = "; ".join(f'{d.speaker_id} says: "{d.text}"' for d in shot.dialogue)
-        dialogue_note = f" Spoken dialogue (preserve original language exactly): {lines}."
+        # Resolve effective language
+        if dialogue_lang == "auto":
+            lang = _detect_language([d.text for d in shot.dialogue])
+        else:
+            lang = dialogue_lang
+
+        if lang == "zh":
+            lines = "；".join(f'{d.speaker_id}说："{d.text}"' for d in shot.dialogue)
+            dialogue_note = f" 对话内容（必须严格使用中文原文发音）：{lines}。"
+        else:
+            lines = "; ".join(f'{d.speaker_id} says: "{d.text}"' for d in shot.dialogue)
+            dialogue_note = f" Spoken dialogue (preserve original language exactly): {lines}."
 
     return f"{styled_scene}{dialogue_note}"

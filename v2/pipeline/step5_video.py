@@ -1,7 +1,7 @@
 """
 Step 5 — Video Generation.
 dev_mode=True  → static 3-second clip per keyframe (fast, no API cost)
-dev_mode=False → Veo 3 or Kling image-to-video (selected via state.video_model)
+dev_mode=False → Seed Dance 2.0 (default) or Veo 3 image-to-video
 """
 from __future__ import annotations
 import os
@@ -50,9 +50,9 @@ def _process_shot(shot, state, total):
 
     if state.dev_mode:
         ok = generate_video_static_fallback(shot.keyframe_path, video_path, duration=3)
-    elif video_model == "kling":
-        from v2.clients.kling_client import generate_video_kling
-        ok = generate_video_kling(
+    elif video_model == "seeddance":
+        from v2.clients.seeddance_client import generate_video_seeddance
+        ok = generate_video_seeddance(
             image_path=shot.keyframe_path,
             prompt=final_prompt,
             output_path=video_path,
