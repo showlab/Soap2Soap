@@ -88,7 +88,6 @@ def generate_keyframe(
 
     MAX_CHARS = 4000
     if len(current_prompt) > MAX_CHARS:
-        print(f"  ⚠️  Prompt {len(current_prompt)}c → truncating to {MAX_CHARS}c")
         current_prompt = current_prompt[:MAX_CHARS]
 
     for attempt in range(1, max_retries + 1):
@@ -140,6 +139,23 @@ def generate_keyframe(
                 time.sleep(5)
 
     return None
+
+
+def generate_keyframe_with_model(
+    model: str,
+    prompt: str,
+    reference_images: List[Image.Image],
+    aspect_ratio: str = "16:9",
+    save_path: Optional[str] = None,
+) -> Optional[Image.Image]:
+    """
+    Unified keyframe generation entry point.
+    model: "gemini" (default) or "gpt-image" (Runware GPT Image 2)
+    """
+    if model == "gpt-image":
+        from v2.clients.runware_client import generate_keyframe as runware_keyframe
+        return runware_keyframe(prompt, reference_images, aspect_ratio, save_path)
+    return generate_keyframe(prompt, reference_images, aspect_ratio, save_path)
 
 
 def _log_response(response) -> None:

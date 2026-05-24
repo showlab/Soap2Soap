@@ -52,6 +52,7 @@ def compile_narrative_grid_prompt(
     characters: Optional[List[Dict]] = None,
     environment: Optional[str] = None,
     previous_grids: int = 0,
+    source_frame_grid: bool = False,
 ) -> str:
     """
     Build a 2×2 grid generation prompt.
@@ -62,6 +63,8 @@ def compile_narrative_grid_prompt(
         characters: List of {"name": str, "description": str}.
         environment: Shared environment description.
         previous_grids: How many previous grids exist (for reference labeling).
+        source_frame_grid: If True, the last reference image is a 2×2 grid of
+            source-video frames used as layout/composition reference.
     """
     if len(shots) != 4:
         raise ValueError(f"narrative_grid requires exactly 4 shots, got {len(shots)}")
@@ -76,7 +79,15 @@ def compile_narrative_grid_prompt(
     }.get(style, style)
 
     # Reference section
-    if previous_grids == 0:
+    if source_frame_grid:
+        reference_section = (
+            "• Images 1-N: Character reference sheet(s)\n"
+            "• LAST image: A 2×2 grid of REAL source-video frames showing the original "
+            "compositions, framing, and scene layouts for each of the 4 panels (TL/TR/BL/BR). "
+            "Use this last image as the LAYOUT REFERENCE — mimic the camera angle, framing, "
+            "and composition of each cell while rendering everything in the target visual style."
+        )
+    elif previous_grids == 0:
         reference_section = "• Image 1: Character design sheet (all characters shown together)"
     else:
         lines = ["• Image 1: Character design sheet"]

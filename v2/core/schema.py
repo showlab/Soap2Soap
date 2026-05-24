@@ -75,8 +75,17 @@ class PipelineState:
     # Generation mode for keyframes
     generation_mode: str = "consistency"  # "default" | "consistency" | "camera_tree"
 
+    # Keyframe generation model
+    keyframe_model: str = "gemini"       # "gemini" | "gpt-image"
+
     # Video generation model
-    video_model: str = "veo"             # "veo" | "kling"
+    video_model: str = "seeddance"       # "seeddance" | "veo"
+
+    # Dialogue language for i2v prompts
+    dialogue_lang: str = "auto"          # "auto" | "zh" | "en"
+
+    # Use source-video midpoint frames as 2×2 reference grid for keyframe generation
+    source_frame_grid: bool = False
 
     characters: List[Character] = field(default_factory=list)
     shots: List[Shot] = field(default_factory=list)

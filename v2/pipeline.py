@@ -61,7 +61,10 @@ def run_pipeline(
     generation_mode: str = "consistency",
     yes: bool = False,
     no_inspect: bool = False,
-    video_model: str = "veo",
+    video_model: str = "seeddance",
+    dialogue_lang: str = "auto",
+    keyframe_model: str = "gemini",
+    source_frame_grid: bool = False,
 ) -> str:
     """Run the full V2V pipeline. Returns path to final video."""
     global _pipeline_t0
@@ -88,6 +91,9 @@ def run_pipeline(
         output_dir=output_dir,
         generation_mode=generation_mode,
         video_model=video_model,
+        dialogue_lang=dialogue_lang,
+        keyframe_model=keyframe_model,
+        source_frame_grid=source_frame_grid,
     )
 
     # Analysis cache lives next to the input video (reusable across runs)
@@ -176,6 +182,18 @@ def run_pipeline(
     return final_video
 
 
+def _i2v_with_dialogue(shot) -> str:
+    """Return i2v_prompt with dialogue appended if not already included."""
+    base = shot.i2v_prompt or ""
+    if not shot.dialogue:
+        return base
+    lines = "；".join(f'{d.speaker_id}说："{d.text}"' for d in shot.dialogue)
+    dialogue_note = f" 台词：{lines}。"
+    if dialogue_note.strip() in base:
+        return base
+    return base + dialogue_note
+
+
 def _save_state(state: PipelineState, path: str):
     """Save analysis results to JSON cache."""
     data = {
@@ -209,7 +227,7 @@ def _save_state(state: PipelineState, path: str):
                 "characters": s.characters,
                 "dialogue": [{"speaker_id": d.speaker_id, "text": d.text} for d in s.dialogue],
                 "t2i_prompt": s.t2i_prompt,
-                "i2v_prompt": s.i2v_prompt,
+                "i2v_prompt": _i2v_with_dialogue(s),
             }
             for s in state.shots
         ],
@@ -295,9 +313,17 @@ def main():
                         help="Auto-confirm if > 16 shots detected (non-interactive)")
     parser.add_argument("--no-inspect", action="store_true",
                         help="Skip Step 4b keyframe inspection (faster, raw Grid output)")
-    parser.add_argument("--video-model", default="veo",
-                        choices=["veo", "kling"],
-                        help="Video generation model: veo (default) or kling")
+    parser.add_argument("--video-model", default="seeddance",
+                        choices=["seeddance", "veo"],
+                        help="Video generation model: seeddance (default) or veo")
+    parser.add_argument("--keyframe-model", default="gemini",
+                        choices=["gemini", "gpt-image"],
+                        help="Keyframe generation model: gemini (default) or gpt-image (Runware GPT Image 2, requires RUNWARE_API_KEY)")
+    parser.add_argument("--dialogue-lang", default="auto",
+                        choices=["auto", "zh", "en"],
+                        help="Dialogue language in i2v prompt: auto (detect), zh (Chinese), en (English)")
+    parser.add_argument("--source-frame-grid", action="store_true",
+                        help="Use midpoint frames from source video as 2×2 layout reference for grid generation")
     args = parser.parse_args()
 
     final = run_pipeline(
@@ -311,6 +337,9 @@ def main():
         yes=args.yes,
         no_inspect=args.no_inspect,
         video_model=args.video_model,
+        dialogue_lang=args.dialogue_lang,
+        keyframe_model=args.keyframe_model,
+        source_frame_grid=args.source_frame_grid,
     )
 
     if final:

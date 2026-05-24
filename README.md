@@ -1,6 +1,6 @@
 # Soap2Soap
 
-**Video-to-Video generation powered by Google Gemini.** Transform any video into a fully stylized animated version — Pixar, Disney, LEGO, anime, and more — with consistent characters, environments, and cinematic composition preserved across every shot.
+**Video-to-Video generation powered by Google Gemini + Seed Dance 2.0.** Transform any video into a fully stylized animated version — Pixar, Disney, LEGO, anime, clay, and more — with consistent characters, environments, and cinematic composition preserved across every shot.
 
 ---
 
@@ -11,18 +11,19 @@ Input Video
     ↓
 Step 0  Whisper audio transcription (dialogue + timestamps)
     ↓
-Step 1  SceneDetect cut detection → per-shot clip upload → parallel Gemini analysis
-        (character extraction from full video + detailed per-shot schema)
+Step 1  Sliding-window Gemini analysis (~60s chunks, parallel)
+        (character extraction + per-shot schema with scene_id, t2i/i2v prompts, dialogue)
     ↓
 Step 2  Character reference images (Imagen 3 / Gemini) + unified Design Sheet
     ↓
 Step 3  Prompt compilation + Gemini style rewrite (LEGO, Pixar, Disney, etc.)
+        Dialogue language unified: --dialogue-lang zh|en|auto
     ↓
-Step 4  Keyframe generation — Consistency mode: 2×2 grid per scene group → crop
+Step 4  Keyframe generation — Consistency mode: 2×2 grid per scene group → crop + refine
     ↓
-Step 4b Keyframe inspection & auto-fix (Pass 1: per-frame; Pass 2: grid consistency)
+Step 4b Keyframe inspection & auto-fix (skippable with --no-inspect)
     ↓
-Step 5  Video clips (Veo 3 or static fallback for dev mode)
+Step 5  Video clips — Seed Dance 2.0 (default) or Veo 3
     ↓
 Step 6  ffmpeg merge → final video (1280×720)
 ```
@@ -33,72 +34,104 @@ Step 6  ffmpeg merge → final video (1280×720)
 
 ### 1. Prerequisites
 
-- **Python 3.8+**
-- **ffmpeg** — video processing
+- **Python 3.10+**
+- **ffmpeg**
   ```bash
-  # macOS
-  brew install ffmpeg
-  # Ubuntu
-  sudo apt install ffmpeg
+  brew install ffmpeg        # macOS
+  sudo apt install ffmpeg    # Ubuntu
   ```
 
 ### 2. Install Python Dependencies
 
 ```bash
-pip install google-genai Pillow opencv-python scenedetect[opencv] openai-whisper
+pip install google-genai Pillow opencv-python scenedetect[opencv] openai-whisper byteplus-python-sdk-v2 httpx PyJWT
 ```
 
 > **macOS (Homebrew Python):** add `--break-system-packages` if needed.
 
-> **First run note:** Whisper downloads the `medium` model (~1.4 GB) automatically.
-
 | Package | Purpose |
 |---------|---------|
-| `google-genai` | Gemini API (video analysis, image generation) |
+| `google-genai` | Gemini API (video analysis, image generation, Veo 3) |
 | `Pillow` | Image processing |
 | `opencv-python` | Video reading |
 | `scenedetect[opencv]` | Camera cut detection |
 | `openai-whisper` | Speech-to-text transcription |
+| `byteplus-python-sdk-v2` | Seed Dance 2.0 (BytePlus ARK) |
+| `httpx` | Async HTTP (video download) |
+| `PyJWT` | JWT auth (not needed for Seed Dance, reserved) |
 
-### 3. Set Gemini API Key
+### 3. Set API Keys
 
-Get your key from [Google AI Studio](https://aistudio.google.com/apikey):
-
+**Gemini (required for analysis + keyframes):**
 ```bash
-export GENAI_API_KEY="your_api_key_here"
+export GENAI_API_KEY="your_gemini_api_key"
 ```
+
+**Seed Dance 2.0 (required for real video generation, default):**
+```bash
+export BYTEPLUS_API_KEY="ark-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+```
+Get your key from [BytePlus ARK](https://ark.ap-southeast.bytepluses.com/).
+
+**Veo 3 (optional alternative video model):**
+```bash
+export GENAI_API_KEY="your_gemini_api_key"   # same key as above
+```
+
+**Runware (optional — for GPT Image 2 keyframe generation):**
+```bash
+export RUNWARE_API_KEY="your_runware_api_key"
+```
+Get your key from [Runware](https://runware.ai/). Used when `--keyframe-model gpt-image` is set.
 
 ---
 
 ## Quick Start
 
 ```bash
-# Basic usage
-python v2/pipeline.py input_video.mp4 --style pixar
+# Seed Dance 2.0 (default), clay style, Chinese dialogue
+python v2/pipeline.py my_video.mp4 --style clay --real-video --dialogue-lang zh
 
-# Specify shot count and generation mode
-python v2/pipeline.py input_video.mp4 --style disney --shots 20 --mode consistency
+# With source-frame layout reference (垫图) — preserves original compositions
+python v2/pipeline.py my_video.mp4 --style clay --real-video --source-frame-grid
 
-# No shot limit (auto-detects all cuts), skip confirmation prompt
-python v2/pipeline.py input_video.mp4 --style lego --shots 100 --yes
+# GPT Image 2 (Runware) for keyframes
+RUNWARE_API_KEY=xxx python v2/pipeline.py my_video.mp4 --style pixar --keyframe-model gpt-image --real-video
 
-# Use Veo 3 for real video generation (instead of static fallback)
-python v2/pipeline.py input_video.mp4 --style anime --real-video
+# Veo 3 alternative
+python v2/pipeline.py my_video.mp4 --style pixar --real-video --video-model veo
 
-# Skip Whisper transcription
-python v2/pipeline.py input_video.mp4 --style pixar --no-whisper
+# Dev mode (fast, no API cost for video)
+python v2/pipeline.py my_video.mp4 --style disney
+
+# Full options
+python v2/pipeline.py my_video.mp4 \
+  --style clay \
+  --shots 100 \
+  --mode consistency \
+  --real-video \
+  --video-model seeddance \
+  --dialogue-lang zh \
+  --output-dir ./output \
+  --yes \
+  --no-inspect
 ```
 
 ### All CLI Options
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--style` | `disney` | Target visual style (see below) |
+| `--style` | `disney` | Target visual style |
 | `--shots` | `10` | Max shots to generate |
 | `--mode` | `consistency` | Keyframe generation mode |
+| `--keyframe-model` | `gemini` | Image model: `gemini` (default) or `gpt-image` (Runware GPT Image 2) |
+| `--source-frame-grid` | off | **垫图**: extract midpoint frame from each source-video shot and compose a 2×2 reference grid to guide keyframe layout. Unlocks concurrent grid generation. |
+| `--real-video` | off | Use real video model (Seed Dance / Veo 3) |
+| `--video-model` | `seeddance` | Video model: `seeddance` or `veo` |
+| `--dialogue-lang` | `auto` | Dialogue language in i2v prompt: `auto`, `zh`, `en` |
 | `--yes` | off | Auto-confirm when >16 shots detected |
-| `--real-video` | off | Use Veo 3 instead of static 3s fallback |
 | `--no-whisper` | off | Skip audio transcription |
+| `--no-inspect` | off | Skip Step 4b keyframe inspection |
 | `--output-dir` | `.` | Output directory |
 
 ---
@@ -118,11 +151,20 @@ python v2/pipeline.py input_video.mp4 --style pixar --no-whisper
 
 ---
 
+## Video Models
+
+| Model | Flag | Notes |
+|-------|------|-------|
+| **Seed Dance 2.0** | `--video-model seeddance` | **Default.** BytePlus ARK `seedance-1-5-pro-251215`. High quality, ~7-17MB per clip. Requires `BYTEPLUS_API_KEY`. |
+| **Veo 3** | `--video-model veo` | Google `veo-3.0-generate-001`. Requires `GENAI_API_KEY`. Subject to Google IP/safety filters. |
+
+---
+
 ## Generation Modes
 
 | Mode | Description |
 |------|-------------|
-| `consistency` | **Default.** Groups shots by scene, generates 2×2 grids for visual consistency, then crops each cell as a keyframe. |
+| `consistency` | **Default.** Groups shots by scene, generates 2×2 grids for visual consistency, then crops + refines each cell. |
 | `default` | Each shot generated independently with character refs. |
 | `camera_tree` | Groups shots by camera setup (DAG scheduling). Best for complex multi-angle scenes. |
 
@@ -130,53 +172,45 @@ python v2/pipeline.py input_video.mp4 --style pixar --no-whisper
 
 ## Smart Caching
 
-The pipeline caches intermediate results to avoid redundant API calls across runs:
+All intermediate results are cached — rerunning with the same input skips completed steps:
 
-| Cache | Location | What it stores |
-|-------|----------|----------------|
-| Analysis JSON | `{input_dir}/{video_name}_analysis.json` | Shot descriptions, character list, scene IDs |
-| Shot clips | `{input_dir}/{video_name}_clips/` | Per-shot video segments |
-| 720p resize | `{input_dir}/{video_name}_720p.mp4` | Resized video for faster upload |
-| Whisper transcript | `./{video_name}.json` | Audio transcription |
-
-On subsequent runs with the same input video, **Step 1 is skipped entirely** if the analysis JSON exists.
-
----
-
-## Output Files
-
-| File | Description |
-|------|-------------|
-| `shot_N.png` | Keyframe for shot N |
-| `shot_N_video.mp4` | Video clip for shot N (3s static or Veo 3) |
-| `final_output_v2_{timestamp}.mp4` | Final merged video (1280×720) |
-| `char_character_NN.png` | Character reference image |
-| `design_sheet.png` | Unified character design sheet |
-| `inspection_grid.png` | All keyframes in a labeled grid (for review) |
+| Cache | Location |
+|-------|----------|
+| Analysis JSON | `{output_dir}/input_720p_analysis.json` |
+| Character images | `{output_dir}/char_character_NN.png` |
+| Design sheet | `{output_dir}/design_sheet.png` |
+| Keyframes | `{output_dir}/shot_N.png` |
+| Video clips | `{output_dir}/shot_N_video.mp4` |
 
 ---
 
 ## Examples
 
-### Titanic → Pixar 3D
+Two complete examples with all intermediate files (analysis JSON, character refs, keyframes, video clips, final output) are included:
+
+### 华强买瓜 — Clay Style
 
 ```bash
-python v2/pipeline.py example/titannic_720p.mp4 --style pixar --shots 100 --yes
+python v2/pipeline.py example/huaqiang_watermelon/input_720p.mp4 \
+  --style clay --shots 100 --mode consistency --yes --real-video \
+  --video-model seeddance --dialogue-lang zh \
+  --output-dir example/huaqiang_watermelon
 ```
 
-- 20 shots detected across 3 scenes (ship interior, day deck, night deck)
-- 6 characters identified and given reference images
-- Fully consistent Pixar-style output
+- 17 shots, 6 characters, all Chinese dialogue preserved
+- Final video: `example/huaqiang_watermelon/final_output.mp4`
 
-**Output:** `example/titannic_pixar_output.mp4`
-
-### Avengers → LEGO
+### Titanic — Pixar Style
 
 ```bash
-python v2/pipeline.py example/avengers_720p.mp4 --style lego --shots 10 --mode consistency
+python v2/pipeline.py example/titanic/input_720p.mp4 \
+  --style pixar --shots 100 --mode consistency --yes --real-video \
+  --video-model seeddance --dialogue-lang en \
+  --output-dir example/titanic
 ```
 
-**Analysis cache:** `example/avengers_analysis.json` (reuse without re-uploading)
+- 12 shots, 5 characters, English dialogue
+- Final video: `example/titanic/final_output.mp4`
 
 ---
 
@@ -184,24 +218,33 @@ python v2/pipeline.py example/avengers_720p.mp4 --style lego --shots 10 --mode c
 
 ### Video Analysis (Step 1)
 
-1. **SceneDetect** finds all camera cuts (frame-accurate)
-2. Shots shorter than 1 second are filtered out
-3. Full video uploaded once → Gemini extracts character list with consistent `@character_XX` IDs
-4. Each shot clip extracted with `ffmpeg -c copy` (fast, no re-encode)
-5. Clips uploaded and analyzed **in parallel** (5 workers) — each clip gets a full schema: `scene_id`, `t2i_prompt`, `i2v_prompt`, camera setup, lighting, dialogue, etc.
-6. `scene_id` values normalized across calls (fixes zero-padding inconsistencies like `scene_001` vs `scene_01`)
+1. Input video resized to 720p (cached)
+2. Whisper transcribes audio with timestamps
+3. Video split into ~60s chunks, each analyzed by Gemini **in parallel**
+4. Each chunk returns ~10 narrative shots (not one per camera cut)
+5. Shots merged and scene IDs normalized across chunks
+6. Analysis cached as `input_720p_analysis.json` for reuse
 
-### Prompt Pipeline (Steps 3→4)
+### Prompt Pipeline (Step 3)
 
-- **Step 3:** Raw content description from Step 1 → Gemini rewrites it into target style language (e.g. "LEGO minifigure with printed torso" instead of "man wearing jacket")
-- **Step 4:** `@character_XX` tokens replaced with `"Character N from Image M"`, reference images attached to each API call
-- **Consistency mode:** Shots in the same scene share a 2×2 grid generation — all 4 cells generated together forcing style/environment coherence, then cropped individually
+- Raw scene descriptions → Gemini rewrites into target style language
+- Dialogue preserved separately (not rewritten): `--dialogue-lang zh|en|auto`
+- `@character_XX` tokens replaced with `"Character N from Image M"` at generation time
 
-### Models
+### Keyframe Generation (Step 4 — Consistency Mode)
 
-| Task | Model |
-|------|-------|
-| Video analysis, text generation | `gemini-3.1-flash-lite` |
-| Keyframe image generation | `gemini-3.1-flash-image-preview` |
-| Character reference images | `gemini-3.1-flash-image-preview` |
-| Video generation (real mode) | `veo-3.0-generate-preview` |
+1. Shots grouped by `scene_id` into batches of 4
+2. **Reference images per batch** — only the characters appearing in that batch's shots (smart per-grid assignment):
+   - Default mode: previous grid(s) from the same scene act as the layout reference (grids run sequentially due to this chain)
+   - **Source-frame-grid mode** (`--source-frame-grid`): for each batch, extract the midpoint frame of each shot from the original video and compose them into a 2×2 grid. This becomes the layout reference instead of previous AI grids — and since there's no inter-grid dependency, **all grids run concurrently**.
+3. Grid prompts >4000c are auto-compressed by Gemini before generation
+4. Gemini generates a 2×2 grid image for the batch
+5. Grid cropped into 4 cells → each cell refined with per-character reference images (refinement runs concurrently, up to 10 workers)
+6. Result: visually consistent keyframes across all shots in a scene
+
+### I2V Prompt Pipeline (Step 5)
+
+- `@character_XX` tokens replaced with natural-language aliases (e.g. `the man in black zip-up light jacket`) before being sent to the I2V model
+- Dialogue speakers use role labels directly from `analysis.json` (e.g. `华强`, `瓜贩1`, `Jack`, `Rose`)
+- **Off-screen voiceover** (speaker IDs `旁白`, `背景音`, `街边群众`) gets a special "no visible character speaks" instruction so the I2V model doesn't lip-sync them to on-screen characters
+- I2V runs concurrently — up to 17 workers in parallel

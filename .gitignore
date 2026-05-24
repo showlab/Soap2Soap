@@ -44,3 +44,9 @@ example/*_clips/
 logs/
 generated_faces/
 reference_images/
+
+# Pipeline temp files (never commit)
+input_720p.wav
+input_720p.json
+input_720p_analysis.json
+*_chunks/
