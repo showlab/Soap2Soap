@@ -253,7 +253,11 @@ def compile_i2v_prompt(shot: "Shot", style: str = "realistic", dialogue_lang: st
       "zh"   — always use Chinese dialogue instruction
       "en"   — always use English dialogue instruction
     """
+    import re
     base = shot.i2v_prompt or shot.t2i_prompt or "A cinematic shot."
+    # Strip any pre-existing dialogue tail from base (e.g., "台词：xxx说：..."),
+    # since we re-append a standardized dialogue note below.
+    base = re.sub(r"\s*台词：.*$", "", base).strip()
 
     motion_note = ""
     if shot.subject_movement:
@@ -270,26 +274,43 @@ def compile_i2v_prompt(shot: "Shot", style: str = "realistic", dialogue_lang: st
     # Light style rewrite: only adds a style label, stays faithful to original content
     styled_scene = _rewrite_i2v_for_style(raw_scene, style)
 
+    # Off-screen / voiceover speakers — should NOT be lip-synced to visible characters
+    OFF_SCREEN_SPEAKERS = {"旁白", "背景音", "街边群众"}
+
     dialogue_note = ""
     if shot.dialogue:
-        # Resolve effective language
         if dialogue_lang == "auto":
             lang = _detect_language([d.text for d in shot.dialogue])
         else:
             lang = dialogue_lang
 
         alias = char_alias_map or {}
-        if lang == "zh":
-            lines = "；".join(
-                f'{alias.get(d.speaker_id, d.speaker_id)}说："{d.text}"'
-                for d in shot.dialogue
-            )
-            dialogue_note = f" 对话内容（必须严格使用中文原文发音）：{lines}。"
-        else:
-            lines = "; ".join(
-                f'{alias.get(d.speaker_id, d.speaker_id)} says: "{d.text}"'
-                for d in shot.dialogue
-            )
-            dialogue_note = f" Spoken dialogue (preserve original language exactly): {lines}."
+        on_screen = [d for d in shot.dialogue if d.speaker_id not in OFF_SCREEN_SPEAKERS]
+        off_screen = [d for d in shot.dialogue if d.speaker_id in OFF_SCREEN_SPEAKERS]
+
+        parts = []
+        if off_screen:
+            if lang == "zh":
+                lines = "；".join(f'{d.speaker_id}："{d.text}"' for d in off_screen)
+                parts.append(f"画外音（off-screen voiceover ONLY, no visible character speaks）：{lines}。")
+            else:
+                lines = "; ".join(f'{d.speaker_id}: "{d.text}"' for d in off_screen)
+                parts.append(f"Off-screen voiceover (NOT spoken by any visible character): {lines}.")
+
+        if on_screen:
+            if lang == "zh":
+                lines = "；".join(
+                    f'{alias.get(d.speaker_id, d.speaker_id)}说："{d.text}"'
+                    for d in on_screen
+                )
+                parts.append(f"对话内容（必须严格使用中文原文发音）：{lines}。")
+            else:
+                lines = "; ".join(
+                    f'{alias.get(d.speaker_id, d.speaker_id)} says: "{d.text}"'
+                    for d in on_screen
+                )
+                parts.append(f"Spoken dialogue (preserve original language exactly): {lines}.")
+
+        dialogue_note = " " + " ".join(parts)
 
     return f"{styled_scene}{dialogue_note}"

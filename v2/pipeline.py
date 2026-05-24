@@ -64,6 +64,7 @@ def run_pipeline(
     video_model: str = "seeddance",
     dialogue_lang: str = "auto",
     keyframe_model: str = "gemini",
+    source_frame_grid: bool = False,
 ) -> str:
     """Run the full V2V pipeline. Returns path to final video."""
     global _pipeline_t0
@@ -92,6 +93,7 @@ def run_pipeline(
         video_model=video_model,
         dialogue_lang=dialogue_lang,
         keyframe_model=keyframe_model,
+        source_frame_grid=source_frame_grid,
     )
 
     # Analysis cache lives next to the input video (reusable across runs)
@@ -320,6 +322,8 @@ def main():
     parser.add_argument("--dialogue-lang", default="auto",
                         choices=["auto", "zh", "en"],
                         help="Dialogue language in i2v prompt: auto (detect), zh (Chinese), en (English)")
+    parser.add_argument("--source-frame-grid", action="store_true",
+                        help="Use midpoint frames from source video as 2×2 layout reference for grid generation")
     args = parser.parse_args()
 
     final = run_pipeline(
@@ -335,6 +339,7 @@ def main():
         video_model=args.video_model,
         dialogue_lang=args.dialogue_lang,
         keyframe_model=args.keyframe_model,
+        source_frame_grid=args.source_frame_grid,
     )
 
     if final:

@@ -57,9 +57,14 @@
       "characters": [
         "@character_01"
       ],
-      "dialogue": [],
+      "dialogue": [
+        {
+          "speaker_id": "旁白",
+          "text": "有一个人前来买瓜"
+        }
+      ],
       "t2i_prompt": "@character_01 with short buzz cut hair, wearing a black zip-up light jacket and black t-shirt, rides a dark blue motorized scooter on a public street. Behind him are other people riding scooters and a black car. Eye-level shot, 35mm lens, overcast daylight.",
-      "i2v_prompt": "@character_01 rides his scooter down the street, turns, and parks it near the market stall. Narrator voiceover: '有一个人前来买瓜'."
+      "i2v_prompt": "@character_01 rides his scooter down the street, turns, and parks it near the market stall. 台词：旁白说：\"有一个人前来买瓜\"。"
     },
     {
       "index": 1,
@@ -85,12 +90,12 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_03",
+          "speaker_id": "背景音",
           "text": "生意行吗，你哥俩"
         }
       ],
       "t2i_prompt": "@character_01 with thin face and buzz cut stands next to his scooter. He is looking off-camera at the sellers. Medium shot, focus on upper body. Natural lighting, urban street background.",
-      "i2v_prompt": "@character_01 walks toward the market stall. A bystander calls out in the background. 台词：@character_03说：\"生意行吗，你哥俩\"。"
+      "i2v_prompt": "@character_01 walks toward the market stall. A bystander calls out in the background. 台词：背景音说：\"生意行吗，你哥俩\"。"
     },
     {
       "index": 2,
@@ -117,16 +122,16 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_01",
+          "speaker_id": "华强",
           "text": "哥们，这瓜多少钱一斤呐？"
         },
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "两块钱一斤"
         }
       ],
       "t2i_prompt": "@character_01 in a black jacket talks to @character_02 who wears a dark green windbreaker and olive green t-shirt. The counter is covered with watermelons and bananas. Medium close-up, sharp focus, natural daylight.",
-      "i2v_prompt": "@character_01 leans over the counter toward @character_02 and asks about the price. 台词：@character_01说：\"哥们，这瓜多少钱一斤呐？\"；@character_02说：\"两块钱一斤\"。"
+      "i2v_prompt": "@character_01 leans over the counter toward @character_02 and asks about the price. 台词：华强说：\"哥们，这瓜多少钱一斤呐？\"；瓜贩1说：\"两块钱一斤\"。"
     },
     {
       "index": 3,
@@ -152,12 +157,12 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_01",
+          "speaker_id": "华强",
           "text": "卧槽，这瓜皮子是金子做的？还是这瓜粒子是金子做的？"
         }
       ],
       "t2i_prompt": "Close-up of @character_01, clean-shaven face, thin features. He looks skeptical. Background is blurred market. Sharp focus, daylight.",
-      "i2v_prompt": "@character_01 reacts with disbelief at the price, raising an eyebrow and gesturing at the watermelons. 台词：@character_01说：\"卧槽，这瓜皮子是金子做的？还是这瓜粒子是金子做的？\"。"
+      "i2v_prompt": "@character_01 reacts with disbelief at the price, raising an eyebrow and gesturing at the watermelons. 台词：华强说：\"卧槽，这瓜皮子是金子做的？还是这瓜粒子是金子做的？\"。"
     },
     {
       "index": 4,
@@ -183,12 +188,12 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "你瞧瞧这现在哪有瓜呀，这都是大棚的瓜，你嫌贵我还嫌贵呢"
         }
       ],
       "t2i_prompt": "@character_02 with a pockmarked face and short dark hair wears a green windbreaker. He sits at his fruit stall, gesturing as he talks. Medium shot, clear focus.",
-      "i2v_prompt": "@character_02 gestures at his stall, speaking defensively to @character_01. 台词：@character_02说：\"你瞧瞧这现在哪有瓜呀，这都是大棚的瓜，你嫌贵我还嫌贵呢\"。"
+      "i2v_prompt": "@character_02 gestures at his stall, speaking defensively to @character_01. 台词：瓜贩1说：\"你瞧瞧这现在哪有瓜呀，这都是大棚的瓜，你嫌贵我还嫌贵呢\"。"
     },
     {
       "index": 5,
@@ -215,16 +220,16 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_01",
+          "speaker_id": "华强",
           "text": "给我挑一个"
         },
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "行"
         }
       ],
       "t2i_prompt": "Claymation stop-motion scene. Camera positioned BEHIND @character_01 clay figure (black clay jacket, short clay hair visible from back), looking toward @character_02 clay figure (green clay jacket) standing behind the market stall counter. Clay watermelons piled between them. We see @character_01 from shoulders/back, @character_02 from the front but small in frame. Wide shot composition — figures are small, market environment fills the frame. Colourful clay stall, handcrafted textures, warm stop-motion lighting. Highly stylized clay puppets, NOT realistic.",
-      "i2v_prompt": "@character_01 gestures at the watermelons and tells @character_02 to pick one. @character_02 nods and agrees. 台词：@character_01说：\"给我挑一个\"；@character_02说：\"行\"。"
+      "i2v_prompt": "@character_01 gestures at the watermelons and tells @character_02 to pick one. @character_02 nods and agrees. 台词：华强说：\"给我挑一个\"；瓜贩1说：\"行\"。"
     },
     {
       "index": 6,
@@ -251,12 +256,12 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "这个怎么样？"
         }
       ],
       "t2i_prompt": "Claymation stop-motion scene. Camera focused on clay watermelons on a market stall table. A pair of clay hands (green clay jacket sleeve — @character_02) picks up one large green clay watermelon, holding it forward. Another pair of clay hands (@character_01, black clay jacket sleeve) reaches toward it. FOCUS on the clay watermelon and clay hands — figures mostly out of frame or seen from chest-down. Bright colourful clay fruits fill the stall. Textured clay surfaces, warm lighting. No faces visible — waist-down or hand-focused framing only.",
-      "i2v_prompt": "@character_02 lifts a watermelon from the pile and holds it up toward @character_01 for inspection. 台词：@character_02说：\"这个怎么样？\"。"
+      "i2v_prompt": "@character_02 lifts a watermelon from the pile and holds it up toward @character_01 for inspection. 台词：瓜贩1说：\"这个怎么样？\"。"
     },
     {
       "index": 7,
@@ -283,16 +288,16 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_01",
+          "speaker_id": "华强",
           "text": "这瓜保熟吗？"
         },
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "我开水果摊的，能卖给你生瓜蛋子？"
         }
       ],
       "t2i_prompt": "Claymation stop-motion scene. Two clay figure busts at a market stall in confrontation. @character_01 clay figure (black clay jacket, short clay hair) leans forward with a stern expression. @character_02 clay figure (green clay jacket) leans back with hands raised. Both faces are highly stylized clay doll faces — simplified button eyes, clay nose, small clay mouth. NOT realistic — clearly handmade clay puppets. Visible clay texture. Warm stop-motion lighting.",
-      "i2v_prompt": "@character_01 eyes the melon suspiciously and questions @character_02. @character_02 responds with indignation. 台词：@character_01说：\"这瓜保熟吗？\"；@character_02说：\"我开水果摊的，能卖给你生瓜蛋子？\"。"
+      "i2v_prompt": "@character_01 eyes the melon suspiciously and questions @character_02. @character_02 responds with indignation. 台词：华强说：\"这瓜保熟吗？\"；瓜贩1说：\"我开水果摊的，能卖给你生瓜蛋子？\"。"
     },
     {
       "index": 8,
@@ -319,16 +324,16 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_01",
+          "speaker_id": "华强",
           "text": "我问你这瓜保熟吗？"
         },
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "你是故意找茬是不是？你要不要吧？"
         }
       ],
       "t2i_prompt": "@character_01 is leaning into @character_02, looking very aggressive. @character_02 looks back with an angry, hardened expression. Low angle shot, sharp details on their faces.",
-      "i2v_prompt": "@character_01 presses @character_02 aggressively. @character_02 leans forward and challenges back. 台词：@character_01说：\"我问你这瓜保熟吗？\"；@character_02说：\"你是故意找茬是不是？你要不要吧？\"。"
+      "i2v_prompt": "@character_01 presses @character_02 aggressively. @character_02 leans forward and challenges back. 台词：华强说：\"我问你这瓜保熟吗？\"；瓜贩1说：\"你是故意找茬是不是？你要不要吧？\"。"
     },
     {
       "index": 9,
@@ -354,12 +359,12 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_01",
+          "speaker_id": "华强",
           "text": "你这瓜要熟我肯定要啊。那它要是不熟怎么办呀？"
         }
       ],
       "t2i_prompt": "Close-up shot of @character_01 looking slightly down while talking. Clean-shaven face visible. Natural daylight, shallow depth of field, neutral colors.",
-      "i2v_prompt": "@character_01 holds his ground calmly, staring at @character_02 and posing his condition. 台词：@character_01说：\"你这瓜要熟我肯定要啊。那它要是不熟怎么办呀？\"。"
+      "i2v_prompt": "@character_01 holds his ground calmly, staring at @character_02 and posing his condition. 台词：华强说：\"你这瓜要熟我肯定要啊。那它要是不熟怎么办呀？\"。"
     },
     {
       "index": 10,
@@ -386,12 +391,12 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "要是不熟，我自己吃了他，满意了吧"
         }
       ],
       "t2i_prompt": "@character_01 wearing a black zip-up jacket stands at a market stall talking to @character_02 who wears a dark green windbreaker. Piles of green watermelons are visible on a wooden rack between them. Medium shot, eye-level, natural outdoor daylight.",
-      "i2v_prompt": "@character_02 slaps the watermelon confidently and makes his bold promise to @character_01. 台词：@character_02说：\"要是不熟，我自己吃了他，满意了吧\"。"
+      "i2v_prompt": "@character_02 slaps the watermelon confidently and makes his bold promise to @character_01. 台词：瓜贩1说：\"要是不熟，我自己吃了他，满意了吧\"。"
     },
     {
       "index": 11,
@@ -418,12 +423,12 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "15斤，30块"
         }
       ],
       "t2i_prompt": "A close-up of a large green watermelon on a vintage metal scale. @character_02's hands with a gold watch are visible adjusting the balance. Natural sunlight, blurred market background. Cinematic macro photography.",
-      "i2v_prompt": "@character_02 announces the weight and price. @character_01 immediately challenges, pointing at the scale. 台词：@character_02说：\"15斤，30块\"。"
+      "i2v_prompt": "@character_02 announces the weight and price. @character_01 immediately challenges, pointing at the scale. 台词：瓜贩1说：\"15斤，30块\"。"
     },
     {
       "index": 12,
@@ -450,12 +455,12 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_01",
+          "speaker_id": "华强",
           "text": "这哪够15斤啊，你这称有问题呀"
         }
       ],
       "t2i_prompt": "@character_01 stands in front of a market stall, pointing at a watermelon. @character_02 watches with a pockmarked face. Natural daylight, medium shot, eye-level framing.",
-      "i2v_prompt": "@character_01 leans in close, pointing at the scale and accusing @character_02 of cheating. 台词：@character_01说：\"这哪够15斤啊，你这称有问题呀\"。"
+      "i2v_prompt": "@character_01 leans in close, pointing at the scale and accusing @character_02 of cheating. 台词：华强说：\"这哪够15斤啊，你这称有问题呀\"。"
     },
     {
       "index": 13,
@@ -483,12 +488,12 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "你故意找茬是吧，你要不要吧，要不要？"
         }
       ],
       "t2i_prompt": "@character_02, wearing a dark green jacket, leans forward aggressively toward @character_01. @character_03 stands behind them watching. Medium shot, sharp focus on faces.",
-      "i2v_prompt": "@character_02 steps forward aggressively, confronting @character_01 face to face. 台词：@character_02说：\"你故意找茬是吧，你要不要吧，要不要？\"。"
+      "i2v_prompt": "@character_02 steps forward aggressively, confronting @character_01 face to face. 台词：瓜贩1说：\"你故意找茬是吧，你要不要吧，要不要？\"。"
     },
     {
       "index": 14,
@@ -514,16 +519,16 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_01",
+          "speaker_id": "华强",
           "text": "吸铁石"
         },
         {
-          "speaker_id": "@character_01",
+          "speaker_id": "华强",
           "text": "另外你说的，这瓜要是生的你自己吞进去"
         }
       ],
       "t2i_prompt": "Portrait of @character_01 looking stern. He wears a black zip-up jacket. Natural daylight. Medium close-up, shallow depth of field, blurred market background.",
-      "i2v_prompt": "@character_01 points at the scale accusingly, then leans in with a threatening expression toward @character_02. 台词：@character_01说：\"吸铁石\"；@character_01说：\"另外你说的，这瓜要是生的你自己吞进去\"。"
+      "i2v_prompt": "@character_01 points at the scale accusingly, then leans in with a threatening expression toward @character_02. 台词：华强说：\"吸铁石\"；华强说：\"另外你说的，这瓜要是生的你自己吞进去\"。"
     },
     {
       "index": 15,
@@ -550,15 +555,47 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_02",
+          "speaker_id": "瓜贩1",
           "text": "你劈我瓜是吧！"
         }
       ],
       "t2i_prompt": "A sharp knife cuts into a large watermelon on a wooden board. The market stall is in the background with blurry figures. High action, low-angle, natural light.",
-      "i2v_prompt": "@character_02 shouts furiously as the situation escalates. @character_01 reaches for the watermelon. 台词：@character_02说：\"你劈我瓜是吧！\"。"
+      "i2v_prompt": "@character_02 shouts furiously as the situation escalates. @character_01 reaches for the watermelon. 台词：瓜贩1说：\"你劈我瓜是吧！\"。"
     },
     {
       "index": 16,
+      "scene_id": "scene_market_stall",
+      "time_range": "105.40s - 110.40s",
+      "start_time": 105.4,
+      "end_time": 110.4,
+      "duration": 5.0,
+      "setting_description": "Market stall area",
+      "environment_description": "Chaotic market scene around the watermelon stall, with the split watermelon and debris on the table",
+      "lighting_setup": "Daylight",
+      "color_grading": "",
+      "shot_size": "Medium shot",
+      "camera_angle": "Eye-level",
+      "camera_movement": "Handheld, dynamic",
+      "focal_length": "",
+      "depth_of_field": "",
+      "mood_atmosphere": "Violent, explosive",
+      "composition": "",
+      "subject_movement": "@character_01 lunges at @character_02 brandishing the watermelon knife",
+      "characters": [
+        "@character_01",
+        "@character_02"
+      ],
+      "dialogue": [
+        {
+          "speaker_id": "瓜贩1",
+          "text": "你干嘛！别过来！"
+        }
+      ],
+      "t2i_prompt": "@character_01 in a black zip-up jacket lunges forward at @character_02 (in a dark green windbreaker), wielding a large watermelon knife above his head with a furious expression. @character_02 stumbles backward in panic, raising his hands defensively. The split watermelon and a chaotic market stall are visible in the background. Medium shot, eye-level, handheld dynamic angle, natural daylight.",
+      "i2v_prompt": "@character_01 charges at @character_02 with the watermelon knife raised high, while @character_02 stumbles backward in panic, hands raised defensively. 台词：瓜贩1说：\"你干嘛！别过来！\"。"
+    },
+    {
+      "index": 17,
       "scene_id": "scene_market_stall",
       "time_range": "110.40s - 116.30s",
       "start_time": 110.4,
@@ -584,16 +621,16 @@
       ],
       "dialogue": [
         {
-          "speaker_id": "@character_03",
+          "speaker_id": "瓜贩2",
           "text": "萨日朗，萨日朗。郝哥，萨日朗，萨日朗"
         },
         {
-          "speaker_id": "@character_04",
+          "speaker_id": "街边群众",
           "text": "华强，哎，华强"
         }
       ],
       "t2i_prompt": "A wide shot of a city street with @character_01 riding a dark blue scooter away from the camera. In the foreground, @character_04, @character_05, and @character_06 look on. Natural daylight, street setting.",
-      "i2v_prompt": "@character_01 rides away on his dark blue scooter through the busy market street. Bystanders watch and call out after him. 台词：@character_03说：\"萨日朗，萨日朗。郝哥，萨日朗，萨日朗\"；@character_04说：\"华强，哎，华强\"。"
+      "i2v_prompt": "@character_01 rides away on his dark blue scooter through the busy market street. Bystanders watch and call out after him. 台词：瓜贩2说：\"萨日朗，萨日朗。郝哥，萨日朗，萨日朗\"；街边群众说：\"华强，哎，华强\"。"
     }
   ]
 }

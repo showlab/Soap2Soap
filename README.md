@@ -78,6 +78,12 @@ Get your key from [BytePlus ARK](https://ark.ap-southeast.bytepluses.com/).
 export GENAI_API_KEY="your_gemini_api_key"   # same key as above
 ```
 
+**Runware (optional — for GPT Image 2 keyframe generation):**
+```bash
+export RUNWARE_API_KEY="your_runware_api_key"
+```
+Get your key from [Runware](https://runware.ai/). Used when `--keyframe-model gpt-image` is set.
+
 ---
 
 ## Quick Start
@@ -85,6 +91,12 @@ export GENAI_API_KEY="your_gemini_api_key"   # same key as above
 ```bash
 # Seed Dance 2.0 (default), clay style, Chinese dialogue
 python v2/pipeline.py my_video.mp4 --style clay --real-video --dialogue-lang zh
+
+# With source-frame layout reference (垫图) — preserves original compositions
+python v2/pipeline.py my_video.mp4 --style clay --real-video --source-frame-grid
+
+# GPT Image 2 (Runware) for keyframes
+RUNWARE_API_KEY=xxx python v2/pipeline.py my_video.mp4 --style pixar --keyframe-model gpt-image --real-video
 
 # Veo 3 alternative
 python v2/pipeline.py my_video.mp4 --style pixar --real-video --video-model veo
@@ -112,6 +124,8 @@ python v2/pipeline.py my_video.mp4 \
 | `--style` | `disney` | Target visual style |
 | `--shots` | `10` | Max shots to generate |
 | `--mode` | `consistency` | Keyframe generation mode |
+| `--keyframe-model` | `gemini` | Image model: `gemini` (default) or `gpt-image` (Runware GPT Image 2) |
+| `--source-frame-grid` | off | **垫图**: extract midpoint frame from each source-video shot and compose a 2×2 reference grid to guide keyframe layout. Unlocks concurrent grid generation. |
 | `--real-video` | off | Use real video model (Seed Dance / Veo 3) |
 | `--video-model` | `seeddance` | Video model: `seeddance` or `veo` |
 | `--dialogue-lang` | `auto` | Dialogue language in i2v prompt: `auto`, `zh`, `en` |
@@ -220,7 +234,17 @@ python v2/pipeline.py example/titanic/input_720p.mp4 \
 ### Keyframe Generation (Step 4 — Consistency Mode)
 
 1. Shots grouped by `scene_id` into batches of 4
-2. Each batch: design sheet + previous grids passed as reference images
-3. Gemini generates a 2×2 grid image for the batch
-4. Grid cropped into 4 cells → each cell refined with per-character reference images
-5. Result: visually consistent keyframes across all shots in a scene
+2. **Reference images per batch** — only the characters appearing in that batch's shots (smart per-grid assignment):
+   - Default mode: previous grid(s) from the same scene act as the layout reference (grids run sequentially due to this chain)
+   - **Source-frame-grid mode** (`--source-frame-grid`): for each batch, extract the midpoint frame of each shot from the original video and compose them into a 2×2 grid. This becomes the layout reference instead of previous AI grids — and since there's no inter-grid dependency, **all grids run concurrently**.
+3. Grid prompts >4000c are auto-compressed by Gemini before generation
+4. Gemini generates a 2×2 grid image for the batch
+5. Grid cropped into 4 cells → each cell refined with per-character reference images (refinement runs concurrently, up to 10 workers)
+6. Result: visually consistent keyframes across all shots in a scene
+
+### I2V Prompt Pipeline (Step 5)
+
+- `@character_XX` tokens replaced with natural-language aliases (e.g. `the man in black zip-up light jacket`) before being sent to the I2V model
+- Dialogue speakers use role labels directly from `analysis.json` (e.g. `华强`, `瓜贩1`, `Jack`, `Rose`)
+- **Off-screen voiceover** (speaker IDs `旁白`, `背景音`, `街边群众`) gets a special "no visible character speaks" instruction so the I2V model doesn't lip-sync them to on-screen characters
+- I2V runs concurrently — up to 17 workers in parallel

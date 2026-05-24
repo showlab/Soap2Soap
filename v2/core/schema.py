@@ -84,6 +84,9 @@ class PipelineState:
     # Dialogue language for i2v prompts
     dialogue_lang: str = "auto"          # "auto" | "zh" | "en"
 
+    # Use source-video midpoint frames as 2×2 reference grid for keyframe generation
+    source_frame_grid: bool = False
+
     characters: List[Character] = field(default_factory=list)
     shots: List[Shot] = field(default_factory=list)
 
