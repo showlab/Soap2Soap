@@ -1,5 +1,7 @@
 # Soap2Soap
 
+[![arXiv](https://img.shields.io/badge/arXiv-2605.17423-b31b1b.svg)](https://arxiv.org/abs/2605.17423)
+
 **Video-to-Video generation powered by Google Gemini + Seed Dance 2.0.** Transform any video into a fully stylized animated version — Pixar, Disney, LEGO, anime, clay, and more — with consistent characters, environments, and cinematic composition preserved across every shot.
 
 ---
@@ -92,7 +94,7 @@ Get your key from [Runware](https://runware.ai/). Used when `--keyframe-model gp
 # Seed Dance 2.0 (default), clay style, Chinese dialogue
 python v2/pipeline.py my_video.mp4 --style clay --real-video --dialogue-lang zh
 
-# With source-frame layout reference (垫图) — preserves original compositions
+# With source-frame layout reference — preserves original compositions
 python v2/pipeline.py my_video.mp4 --style clay --real-video --source-frame-grid
 
 # GPT Image 2 (Runware) for keyframes
@@ -125,7 +127,7 @@ python v2/pipeline.py my_video.mp4 \
 | `--shots` | `10` | Max shots to generate |
 | `--mode` | `consistency` | Keyframe generation mode |
 | `--keyframe-model` | `gemini` | Image model: `gemini` (default) or `gpt-image` (Runware GPT Image 2) |
-| `--source-frame-grid` | off | **垫图**: extract midpoint frame from each source-video shot and compose a 2×2 reference grid to guide keyframe layout. Unlocks concurrent grid generation. |
+| `--source-frame-grid` | off | **Layout reference**: extract the midpoint frame from each source-video shot and compose a 2×2 reference grid to guide keyframe layout. Unlocks concurrent grid generation. |
 | `--real-video` | off | Use real video model (Seed Dance / Veo 3) |
 | `--video-model` | `seeddance` | Video model: `seeddance` or `veo` |
 | `--dialogue-lang` | `auto` | Dialogue language in i2v prompt: `auto`, `zh`, `en` |
@@ -188,16 +190,16 @@ All intermediate results are cached — rerunning with the same input skips comp
 
 Two complete examples with all intermediate files (analysis JSON, character refs, keyframes, video clips, final output) are included:
 
-### 华强买瓜 — Clay Style
+### Huaqiang Watermelon Meme — Clay Style
 
 ```bash
 python v2/pipeline.py example/huaqiang_watermelon/input_720p.mp4 \
   --style clay --shots 100 --mode consistency --yes --real-video \
-  --video-model seeddance --dialogue-lang zh \
+  --video-model seeddance --dialogue-lang zh --source-frame-grid \
   --output-dir example/huaqiang_watermelon
 ```
 
-- 17 shots, 6 characters, all Chinese dialogue preserved
+- 18 shots, 6 characters, original Mandarin dialogue preserved
 - Final video: `example/huaqiang_watermelon/final_output.mp4`
 
 ### Titanic — Pixar Style
@@ -225,11 +227,17 @@ python v2/pipeline.py example/titanic/input_720p.mp4 \
 5. Shots merged and scene IDs normalized across chunks
 6. Analysis cached as `input_720p_analysis.json` for reuse
 
+### Character References (Step 2)
+
+1. For each character extracted in Step 1, Gemini renders a reference image: a face close-up alongside a full-body outfit shot
+2. All characters are then composed into a unified **Design Sheet** — a single image showing every character side-by-side, used as the master reference for cross-shot consistency
+3. Both per-character images and the design sheet are cached under `{output_dir}/` and reused on subsequent runs
+
 ### Prompt Pipeline (Step 3)
 
-- Raw scene descriptions → Gemini rewrites into target style language
+- Raw scene descriptions → Gemini rewrites into target style language for keyframe generation
 - Dialogue preserved separately (not rewritten): `--dialogue-lang zh|en|auto`
-- `@character_XX` tokens replaced with `"Character N from Image M"` at generation time
+- `@character_XX` tokens are kept in t2i prompts (so the keyframe model can map them to the reference images) but replaced with natural-language aliases (e.g. `the man in black zip-up jacket`) in i2v prompts
 
 ### Keyframe Generation (Step 4 — Consistency Mode)
 
@@ -245,6 +253,6 @@ python v2/pipeline.py example/titanic/input_720p.mp4 \
 ### I2V Prompt Pipeline (Step 5)
 
 - `@character_XX` tokens replaced with natural-language aliases (e.g. `the man in black zip-up light jacket`) before being sent to the I2V model
-- Dialogue speakers use role labels directly from `analysis.json` (e.g. `华强`, `瓜贩1`, `Jack`, `Rose`)
-- **Off-screen voiceover** (speaker IDs `旁白`, `背景音`, `街边群众`) gets a special "no visible character speaks" instruction so the I2V model doesn't lip-sync them to on-screen characters
+- Dialogue speakers use role labels directly from `analysis.json` (e.g. `Jack`, `Rose`, `Huaqiang`, `Vendor 1`)
+- **Off-screen voiceover** (speaker IDs like `narrator`, `background-voice`, `crowd`) gets a special "no visible character speaks" instruction so the I2V model doesn't lip-sync them to on-screen characters
 - I2V runs concurrently — up to 17 workers in parallel
