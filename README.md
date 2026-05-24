@@ -6,6 +6,24 @@
 
 ---
 
+## Showcase
+
+Each demo shows the original source video (top-left, picture-in-picture) alongside the generated stylized version.
+
+**Huaqiang Watermelon Meme → Claymation**
+
+<video src="https://github.com/showlab/Soap2Soap/raw/main/assets/huaqiang.mp4" controls width="720"></video>
+
+**Avengers Doctor Strange Scene → LEGO**
+
+<video src="https://github.com/showlab/Soap2Soap/raw/main/assets/avengers.mp4" controls width="720"></video>
+
+**Empresses in the Palace → Family Guy 2D Cartoon**
+
+<video src="https://github.com/showlab/Soap2Soap/raw/main/assets/empresses.mp4" controls width="720"></video>
+
+---
+
 ## How It Works
 
 ```
