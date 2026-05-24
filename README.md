@@ -12,15 +12,15 @@ Each demo shows the original source video (top-left, picture-in-picture) alongsi
 
 **Huaqiang Watermelon Meme → Claymation**
 
-<video src="https://github.com/showlab/Soap2Soap/raw/main/assets/huaqiang.mp4" controls width="720"></video>
+https://github.com/user-attachments/assets/86cc5c89-8ef3-41ca-93b5-725a74fd3453
 
 **Avengers Doctor Strange Scene → LEGO**
 
-<video src="https://github.com/showlab/Soap2Soap/raw/main/assets/avengers.mp4" controls width="720"></video>
+https://github.com/user-attachments/assets/23a8c97e-7f91-497e-b188-ac948146a614
 
 **Empresses in the Palace → Family Guy 2D Cartoon**
 
-<video src="https://github.com/showlab/Soap2Soap/raw/main/assets/empresses.mp4" controls width="720"></video>
+https://github.com/user-attachments/assets/c6496857-42ab-4f38-9039-dd3401f645cc
 
 ---
 
